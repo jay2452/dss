@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'roles/index'
-
-  get 'users/index'
+  # get 'roles/index'
+  #
+  # get 'users/index'
 
   resources :documents
   devise_for :users
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     resources :documents
     resources :users
     resources :roles
+    get 'users_roles/index'
+    resources :document_categories, only: [:index, :create, :destroy]
   end
 
   # scope :admin do
