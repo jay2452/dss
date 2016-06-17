@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'roles/index'
+
   get 'users/index'
 
   resources :documents
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :documents
     resources :users
+    resources :roles
   end
 
   # scope :admin do
