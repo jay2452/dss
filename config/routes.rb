@@ -1,10 +1,34 @@
 Rails.application.routes.draw do
+  get 'users/index'
+
+  resources :documents
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  #  root 'devise/sessions#new'
+  devise_scope :user do
+    unauthenticated do
+      root 'devise/sessions#new'
+    end
+  end
+
+  authenticated :user, lambda {|u| u.has_role? :admin} do
+    root 'admin/documents#index', as: :authenticated_admin
+  end
+
+
+  namespace :admin do
+    resources :documents
+    resources :users
+  end
+
+  # scope :admin do
+  #   resources :documents
+  # end
+
+  get '*path' => redirect('/')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

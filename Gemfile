@@ -49,3 +49,14 @@ end
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
+
+gem 'bootstrap-sass'
+gem 'paperclip'
+gem 'will_paginate'
+gem "font-awesome-rails"
+gem 'rails_admin'
+gem 'chosen-rails'
+gem "compass-rails", github: "Compass/compass-rails", branch: "master"
+gem 'google-webfonts-rails'
+gem 'friendly_id'
+gem 'impressionist'
