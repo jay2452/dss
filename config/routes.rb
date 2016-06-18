@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :documents
     resources :users
     resources :roles
-    get 'users_roles/index'
+    resources :users_roles, only: [:index, :create, :destroy, :new]
     resources :document_categories, only: [:index, :create, :destroy]
   end
 

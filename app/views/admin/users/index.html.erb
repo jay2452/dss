@@ -23,7 +23,8 @@
         <td><%= role %></td>
       <% end %>
 
-      <td><%= link_to "Add role", '#', class: "btn btn-primary btn-sm", :"data-toggle" => "modal", :"data-target" => "#role_modal" %></td>
+      <!-- <td><%= link_to "Add role", '#', class: "btn btn-primary btn-sm", :"data-toggle" => "modal", :"data-target" => "#role_modal" %></td> -->
+      <td><%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm" %></td>
       <td><%= link_to "Delete", admin_user_path(user), method: :delete, class: "btn btn-danger btn-sm" %></td>
     </tr>
 
@@ -60,17 +61,21 @@
   </div>
 </div>
 
-<div id="role_modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<!-- <div id="role_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog"> -->
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <!-- <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add role</h4>
       </div>
       <div class="modal-body">
+        <%= form_for([:admin, @users_role], html: { class: "form" }) do |f| %>
 
+          <%= f.select :role_id, Role.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+          <%= f.submit "create" %>
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -78,4 +83,4 @@
     </div>
 
   </div>
-</div>
+</div> -->

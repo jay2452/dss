@@ -4,6 +4,8 @@ module Admin
     def index
       @users = User.all
       @user = User.new
+
+      @users_role = UsersRole.new
     end
 
     # def new
