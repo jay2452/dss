@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :documents
 
   def delete_role(role_symbol,target=nil)
     UsersRole.delete_role self,role_symbol,target

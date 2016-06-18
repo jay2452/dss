@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>List of users in Role : <%= @role.name.capitalize %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @role.users.each do |user| %>
+          <tr>
+            <td><%= link_to user.email, admin_user_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-3"></div>
+</div>

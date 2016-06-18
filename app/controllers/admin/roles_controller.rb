@@ -6,8 +6,8 @@ module Admin
       @role = Role.new
     end
 
-    def add_role
-
+    def show
+      @role = Role.find(params[:id])
     end
 
     def create

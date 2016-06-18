@@ -1,4 +1,4 @@
-<h2>Users Show page</h2>
+<h2>Users Show page <%= @user.email %> </h2>
 
 <div class="container-fluid">
   <div class="row">
@@ -34,8 +34,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      Roles assigned to <%= @user.email %> <br>
+    <div class="col-md-2">
+      <h4>Roles assigned (<%= link_to "Add", new_admin_users_role_path(user_id: @user.id) %>) </h4>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -53,6 +53,28 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+
+    <div class="col-md-4">
+      <h4>Documents uploaded</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Documents</th><th></th></tr>
+        </thead>
+
+        <tbody>
+          <% @user.documents.each do |document| %>
+            <tr>
+              <td><%= document.name %></td>
+              <td><%= link_to "delete", '#' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+
     </div>
   </div>
 </div>
