@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
+  def delete_role(role_symbol,target=nil)
+    UsersRole.delete_role self,role_symbol,target
+  end
+
 end

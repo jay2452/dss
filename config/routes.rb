@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :documents
     resources :users
+    # get 'users/remove_user_role' => 'users#remove_user_role', as: :delete_user_role
     resources :roles
     resources :users_roles, only: [:index, :create, :destroy, :new]
     resources :document_categories, only: [:index, :create, :destroy]

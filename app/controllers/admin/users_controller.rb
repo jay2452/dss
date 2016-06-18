@@ -12,6 +12,10 @@ module Admin
     #   @user = User.new
     # end
 
+    def show
+        @user = User.find(params[:id])
+    end
+
     def create
       @user = User.new(user_params)
 
@@ -25,7 +29,13 @@ module Admin
 
       redirect_to :back, notice: 'user was successfully removed'
     end
-
+    #
+    # def remove_user_role
+    #   @users_role = UserRole.where("user_id = ? AND role_id = ?", params[:user_id], params[:role_id] ).first
+    #   @users_roles.destroy
+    #
+    #   redirect_to :back
+    # end
 
 
     private

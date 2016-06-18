@@ -6,16 +6,6 @@ module Admin
 
     def new
       @users_role = UsersRole.new
-
-      puts "=================================================="
-        puts params
-      puts "=================================================="
-
-      @u_id = params[:user_id]
-
-      puts "=================================================="
-        puts @u_id
-      puts "=================================================="
     end
 
     def create
@@ -23,6 +13,14 @@ module Admin
       # @users_role.user_id = @u_id
       @users_role.save
       redirect_to :back, notice: "role successfully added to user"
+    end
+
+    def destroy
+      @user = User.find(params[:id])
+
+      @user.delete_role "#{params[:role_name]}"
+
+      redirect_to :back, notice: "role removed"
     end
 
 

@@ -1,0 +1,58 @@
+<h2>Users Show page</h2>
+
+<div class="container-fluid">
+  <div class="row">
+    User information <br>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Email</th>
+          <th>Sign In Count</th>
+          <th>current Sign In at</th>
+          <th>last Sign In at</th>
+          <th>current Sign In IP</th>
+          <th>last Sign In IP</th>
+          <th>created at</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><%= @user.id %></td>
+          <td><%= @user.email %></td>
+          <td><%= @user.sign_in_count %></td>
+          <td><%= @user.current_sign_in_at %></td>
+          <td><%= @user.last_sign_in_at %></td>
+          <td><%= @user.current_sign_in_ip %></td>
+          <td><%= @user.last_sign_in_ip %></td>
+          <td><%= @user.created_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      Roles assigned to <%= @user.email %> <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Roles</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @user.roles.each do |role| %>
+            <tr>
+              <td><%= role.name %></td>
+              <td><%= link_to "remove", admin_users_role_path(role_name: role.name), method: :delete, data: {confirm: "are you sure"} %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
