@@ -10,12 +10,25 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">users</a></li>
-        <li><a href="#">roles</a></li>
-        <li><a href="#">document category</a></li>
+        <li class="active"><a href="<%= root_path %>">Home</a></li>
+        <% if current_user && (current_user.has_role? :admin) %>
+          <li><a href="<%= admin_users_path %>">users</a></li>
+          <li><a href="<%= admin_roles_path %>">roles</a></li>
+          <li><a href="<%= admin_groups_path %>">groups</a></li>
+          <li><a href="<%= admin_users_roles_path %>">User roles</a></li>
+          <li><a href="<%= admin_document_categories_path %>">document category</a></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= search_form_for @q, url: search_documents_path, html: { method: :post} do |f| %>
+            <%= f.search_field :name_cont %>
+            <%= f.submit %>
+          <% end %>
+        </li>
+
+
+
         <% if user_signed_in? %>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
         <% else %>

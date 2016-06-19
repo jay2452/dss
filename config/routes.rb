@@ -1,9 +1,22 @@
 Rails.application.routes.draw do
+
+
+  get 'welcome/index'
+
+  get 'welcome/search'
+
   # get 'roles/index'
   #
   # get 'users/index'
 
-  resources :documents
+  resources :documents do
+    collection do
+      match 'search' => 'welcome#search', via: [:get, :post], as: :search
+    end
+  end
+
+
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -20,18 +33,29 @@ Rails.application.routes.draw do
     root 'admin/documents#index', as: :authenticated_admin
   end
 
+  authenticated :user, lambda {|u| u.has_role? :general} do
+    root 'documents#index', as: :authenticated_general_user
+  end
+
 
   namespace :admin do
     resources :documents
     resources :users do
       collection do
         resources :roles
+        post :add_user_role, as: :add_user_role
+        get :add_sms_group, as: :add_sms_group
       end
     end
+    # post 'users/add_user_role' => 'users#add_user_role', as: :add_user_role
+    resources :groups
+    resources :user_groups
     # get 'users/remove_user_role' => 'users#remove_user_role', as: :delete_user_role
     resources :users_roles, only: [:index, :create, :destroy, :new]
     resources :document_categories, only: [:index, :create, :destroy]
   end
+
+  # get 'admin/users/add_sms_group', to: 'admin/users#add_sms_group', as: :add_sms_group
 
   # scope :admin do
   #   resources :documents

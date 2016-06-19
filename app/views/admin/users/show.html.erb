@@ -3,12 +3,12 @@
 <div class="container-fluid">
   <div class="row">
     User information <br>
-
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Id</th>
           <th>Email</th>
+          <th>Mobile</th>
           <th>Sign In Count</th>
           <th>current Sign In at</th>
           <th>last Sign In at</th>
@@ -22,6 +22,7 @@
         <tr>
           <td><%= @user.id %></td>
           <td><%= @user.email %></td>
+          <td><%= @user.mobile %></td>
           <td><%= @user.sign_in_count %></td>
           <td><%= @user.current_sign_in_at %></td>
           <td><%= @user.last_sign_in_at %></td>
@@ -35,7 +36,7 @@
 
   <div class="row">
     <div class="col-md-2">
-      <h4>Roles assigned (<%= link_to "Add", new_admin_users_role_path(user_id: @user.id) %>) </h4>
+      <h4>Roles assigned (<%= link_to "Add", '#', :"data-toggle" => "modal", :"data-target" => "#roleAdd" %>) </h4>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -56,16 +57,41 @@
     </div>
 
     <div class="col-md-4">
+      <h4>SMS groups associated with (<%= link_to "Add", new_admin_user_group_path %>) </h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>SMS Groups</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.groups.each do |group| %>
+            <tr>
+              <td><%= group.name %></td>
+              <!-- <td><%# link_to "remove", admin_users_role_path(role_name: role.name), method: :delete, data: {confirm: "are you sure"} %></td> -->
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
       <h4>Documents uploaded</h4>
       <table class="table table-striped">
         <thead>
-          <tr><th>Documents</th><th></th></tr>
+          <tr>
+            <th>Documents</th>
+            <th>Approved</th>
+            <th></th>
+          </tr>
         </thead>
 
         <tbody>
           <% @user.documents.each do |document| %>
             <tr>
               <td><%= document.name %></td>
+              <td><%= document.approved %></td>
               <td><%= link_to "delete", '#' %></td>
             </tr>
           <% end %>
@@ -73,8 +99,55 @@
       </table>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-2"> </div>
+  </div>
+</div>
 
+
+<!-- Modal -->
+<div id="roleAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag('/admin/users/add_user_role', method: :post) %>
+          <%= number_field_tag 'user_id', @user.id, hidden: true %>
+          <%= select_tag "role_id", options_from_collection_for_select(@roles, "id", "name") %>
+        <%= submit_tag "add role" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+
+  </div>
+</div>
+
+
+<div id="smsGroupAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag('/admin/users/add_sms_group', method: :get, controller: 'admin/users', action: 'add_sms_group') %>
+          <%= number_field_tag 'user_id', @user.id %>
+          <%= select_tag "group_id", options_from_collection_for_select(@groups, "id", "name") %>
+        <%= submit_tag "add group" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>

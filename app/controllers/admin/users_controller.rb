@@ -4,6 +4,7 @@ module Admin
     def index
       @users = User.all
       @user = User.new
+      @roles = Role.all
 
       @users_role = UsersRole.new
     end
@@ -14,6 +15,8 @@ module Admin
 
     def show
         @user = User.find(params[:id])
+        @roles = Role.all
+        @groups = Group.all
     end
 
     def create
@@ -29,14 +32,27 @@ module Admin
 
       redirect_to :back, notice: 'user was successfully removed'
     end
-    #
-    # def remove_user_role
-    #   @users_role = UserRole.where("user_id = ? AND role_id = ?", params[:user_id], params[:role_id] ).first
-    #   @users_roles.destroy
-    #
-    #   redirect_to :back
-    # end
 
+    def add_user_role
+      @user = User.find(params[:user_id])
+
+      puts "=_____________________________________"
+        puts params
+      puts "==_____________________________________"
+      @user.add_role "#{Role.find(params[:role_id]).name}"
+
+      redirect_to :back
+    end
+    # 
+    # def add_sms_group
+    #   @user = User.find(params[:user_id])
+    #   @groups = Group.all
+    #   puts "====================================="
+    #     puts params
+    #   puts "====================================="
+    #   # UserGroup.create! @user.id,
+    #   # redirect_to :back
+    # end
 
     private
 

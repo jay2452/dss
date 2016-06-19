@@ -1,0 +1,5 @@
+<h2>hello world</h2>
+<%= form_tag('/admin/users/add_user_role', method: :get) %>
+  <%= number_field_tag 'user_id', @user.id %>
+  <%= select_tag "group_id", options_from_collection_for_select(@groups, "id", "name") %>
+<%= submit_tag "add role" %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618103134) do
+ActiveRecord::Schema.define(version: 20160619162918) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -22,9 +22,21 @@ ActiveRecord::Schema.define(version: 20160618103134) do
   create_table "documents", force: :cascade do |t|
     t.string   "name"
     t.integer  "document_category_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "user_id"
+    t.boolean  "approved",             default: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.text     "purpose"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -37,6 +49,13 @@ ActiveRecord::Schema.define(version: 20160618103134) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "user_groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -51,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160618103134) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "mobile"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

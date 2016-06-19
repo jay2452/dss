@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+
+  <div class="col-md-6">
+
+    <p>
+      <strong>Name:</strong>
+      <%= @group.name %>
+    </p>
+
+    <p>
+      <strong>Purpose:</strong>
+      <%= @group.purpose %>
+    </p>
+
+    <%= link_to 'Edit', edit_admin_group_path(@group) %> |
+    <%= link_to 'Back', admin_groups_path %>
+
+  </div>
+
+  <div class="col-md-6">
+    <h4>List of users associated with this group (<%= link_to "Add new user", new_admin_user_group_path %>) </h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @group.users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
