@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   #  root 'devise/sessions#new'
   devise_scope :user do
     get '/login' => 'devise/sessions#new', as: :login
+    delete '/logout' => 'devise/sessions#destroy', as: :logout
     unauthenticated do
       root 'devise/sessions#new'
     end

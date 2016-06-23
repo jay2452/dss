@@ -30,7 +30,7 @@
 
 
         <% if user_signed_in? %>
-          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
         <% else %>
           <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
