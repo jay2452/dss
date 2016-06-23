@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = Document.where("approved = ?", true)
   end
 
   # GET /documents/1
@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_document
-      @document = Document.find(params[:id])
+      @document = Document.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

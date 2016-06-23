@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -27,15 +25,19 @@ Rails.application.routes.draw do
     unauthenticated do
       root 'devise/sessions#new'
     end
-  end
 
-  authenticated :user, lambda {|u| u.has_role? :admin} do
-    root 'admin/documents#index', as: :authenticated_admin
+    authenticated do
+      root 'welcome#index', as: :authenticated_user
+    end
   end
-
-  authenticated :user, lambda {|u| u.has_role? :general} do
-    root 'documents#index', as: :authenticated_general_user
-  end
+  #
+  # authenticated :user, lambda {|u| u.has_role? :admin} do
+  #   root 'admin/documents#index', as: :authenticated_admin
+  # end
+  #
+  # authenticated :user, lambda {|u| u.has_role? :general} do
+  #   root 'documents#index', as: :authenticated_general_user
+  # end
 
 
   namespace :admin do

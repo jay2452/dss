@@ -1,5 +1,6 @@
 module Admin
   class DocumentCategoriesController < ApplicationController
+    before_action :authenticate_user!
     def index
       @document_categories = DocumentCategory.all
       @document_category = DocumentCategory.new

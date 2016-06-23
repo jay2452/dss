@@ -1,6 +1,8 @@
 module Admin
 
   class UsersController < ApplicationController
+    before_action :authenticate_user!
+
     def index
       @users = User.all
       @user = User.new
@@ -14,7 +16,7 @@ module Admin
     # end
 
     def show
-        @user = User.find(params[:id])
+        @user = User.friendly.find(params[:id])
         @roles = Role.all
         @groups = Group.all
     end
@@ -43,7 +45,7 @@ module Admin
 
       redirect_to :back
     end
-    # 
+    #
     # def add_sms_group
     #   @user = User.find(params[:user_id])
     #   @groups = Group.all

@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
-  after_create :add_general_role
+  # after_create :add_general_role
   rolify
+  extend FriendlyId
+  friendly_id :email, use: :slugged
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

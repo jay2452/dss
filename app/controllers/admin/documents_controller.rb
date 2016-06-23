@@ -1,11 +1,14 @@
 module Admin
   class DocumentsController < ApplicationController
     before_action :set_document, only: [:show, :edit, :update, :destroy]
-
+    before_action :authenticate_user!
     # GET /documents
     # GET /documents.json
     def index
       @documents = Document.all
+
+      @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
+      @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)
     end
 
     # GET /documents/1
@@ -65,7 +68,7 @@ module Admin
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_document
-        @document = Document.find(params[:id])
+        @document = Document.friendly.find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.
