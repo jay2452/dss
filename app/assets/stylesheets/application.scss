@@ -16,3 +16,37 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+@import "font-awesome";
+ .navbar-right li {
+   padding-top: 15px;
+   margin-left: 10px;
+ }
+
+ .navbar li a {
+   color: #000 !important;
+ }
+
+ .navbar-nav li a:hover, .navbar-nav li.active a {
+         color: #f4511e !important;
+ }
+ //
+ // .brand-image {
+ //   height: 100px;
+ //   width: 100px;
+ // }
+
+ .logo {
+   margin-left: 20px;
+   &:hover {
+     background-color: rgba(0,0,0,0.0);
+   }
+ }
+
+
+ div.fixed {
+     position: fixed;
+     bottom: 0;
+     right: 0;
+     width: 300px;
+    //  border: 3px solid #73AD21;
+ }

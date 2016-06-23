@@ -14,8 +14,19 @@
   <% elsif alert %>
     <%= alert %>
   <% end %>
-  
+
 <%= yield %>
+
+<div class="fixed pull-right">
+  <a href="https://www.facebook.com/rhinowiresandcables" target="_blank"><i class="fa fa-facebook-official fa-3x" aria-hidden="true">&nbsp;</i></a>
+  <a href="https://twitter.com/Rhinowires" target="_blank"><i class="fa fa-twitter fa-3x" aria-hidden="true">&nbsp;</i></a>
+  <a href="https://plus.google.com/+Guptapower/posts" target="_blank"><i class="fa fa-google-plus-official fa-3x" aria-hidden="true">&nbsp;</i></a>
+  <a href="https://www.linkedin.com/grp/home?gid=8234847" target="_blank"><i class="fa fa-linkedin-square fa-3x" aria-hidden="true">&nbsp;</i></a>
+  <a href="https://www.youtube.com/watch?v=XxM75n4p3u4" target="_blank"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
+</div>
+
+<%= render :partial => "/layouts/footer" %>
+
 
 </body>
 </html>
