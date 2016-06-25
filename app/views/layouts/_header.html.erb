@@ -6,12 +6,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="pull-left logo" href="<%= root_path %>"><%= image_tag "logo.png", alt: "logo", class: "img-responsive brand-image" %></a>
+      <a class="pull-left logo" href="http://www.guptapower.com"><%= image_tag "logo.png", alt: "logo", class: "img-responsive brand-image" %></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<%= root_path %>">Home</a></li>
+
+        <% if !user_signed_in? %>
+            <li><a href="<%= documents_path %>">Documents</a></li>
+        <% end %>
+
         <% if current_user && (current_user.has_role? :admin) %>
+          <li><a href="<%= admin_documents_path %>">Documents</a></li>
           <li><a href="<%= admin_users_path %>">users</a></li>
           <li><a href="<%= admin_roles_path %>">roles</a></li>
           <li><a href="<%= admin_groups_path %>">groups</a></li>
@@ -21,16 +27,21 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <%= search_form_for @q, url: search_documents_path, html: { method: :post, role: "form"} do |f| %>
-            <%= f.search_field :name_cont, placeholder: "document search", class: "form-control" %>
-            <%= f.submit %>
-          <% end %>
+          <div class="row">
+            <div class="input-group">
+              <%= search_form_for @q, url: search_documents_path, html: { method: :post, role: "form"} do |f| %>
+                <div class="form-group col-xs-10">
+                  <%= f.search_field :name_cont, placeholder: "document search", class: "form-control", required: true %>
+                </div>
+                <div class="col-xs-2" style="padding: 0;">
+                  <button type="submit" class="btn btn-default" style: "border: none;" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i>"><span class="glyphicon glyphicon-search" style: "border: none;"></span></button>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </li>
-
-
-
         <% if user_signed_in? %>
-          <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
+          <li><a rel="nofollow" data-method="delete" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a></li>
         <% else %>
           <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -39,4 +50,4 @@
     </div>
   </div>
 </nav>
-  <hr style="border-top: 2px solid green; margin-top:-1.4%;">
+  <hr style="border-top: 3px solid green; margin-top:-1.4%;">

@@ -1,9 +1,37 @@
-<h1>Welcome#search</h1>
-<p>Find me in app/views/welcome/search.html.erb</p>
-
+<% provide :title, "Search Results" %>
 
 <div class="container-fluid">
-  <% @search_documents.each do |doc| %>
-    <%= doc.name %> <br>
-  <% end %>
+  <div class="row">
+    <h2 align="center">Serach Results</h2>
+    <div class="col-md-2">
+      <p>
+        Advanced search <a href="#">click here</a>
+      </p>
+    </div>
+    <div class="col-md-8">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @search_documents.each do |doc| %>
+            <tr>
+              <td><%= doc.name %></td>
+              <td><%= doc.document_category.name %></td>
+              <td><%= link_to "download", doc.file.url, target: '_blank' if doc.file? %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+  </div>
+
 </div>
