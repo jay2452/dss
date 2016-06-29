@@ -60,3 +60,5 @@ gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem 'google-webfonts-rails'
 gem 'friendly_id'
 gem 'impressionist'
+
+gem 'thin'

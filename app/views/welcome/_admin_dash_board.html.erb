@@ -1,23 +1,58 @@
 <div class="container-fluid">
   <h3>Welcome Admin</h3>
-  <div class="row">
-    <div class="flex-container-admin">
-      <div class="flex-item-admin">Documents</div>
-      <div class="flex-item-admin">Users</div>
-      <div class="flex-item-admin">Roles</div>
-      <div class="flex-item-admin">Groups</div>
-      <div class="flex-item-admin">User Roles</div>
-      <div class="flex-item-admin">Document Categories</div>
+
+  <% if current_user && (current_user.has_role? :admin) %>
+
+    <div class="row">
+      <div class="flex-container-admin">
+        <a href="<%= admin_documents_path %>">
+          <div class="flex-item-admin">
+            Documents
+            <br>
+            Total Documents : <%= @documents.all.count %> <br>
+            Approved Documents : <%= @approved_docs.count %> <br>
+            Unapproved Documents : <%= @unApproved_docs.count %>
+          </div>
+        </a>
+
+        <a href="<%= admin_users_path %>">
+          <div class="flex-item-admin">
+            Users
+          </div>
+        </a>
+
+        <a href="<%= admin_roles_path %>">
+          <div class="flex-item-admin">
+            Roles
+          </div>
+        </a>
+
+      </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="flex-container-admin">
+        <a href="<%= admin_groups_path %>">
+          <div class="flex-item-admin">
+            Groups
+          </div>
+        </a>
+
+        <a href="<%= admin_users_roles_path %>">
+          <div class="flex-item-admin">
+            User Roles
+          </div>
+        </a>
+
+        <a href="<%= admin_document_categories_path %>">
+          <div class="flex-item-admin">
+            Document Categories
+          </div>
+        </a>
+
+
+      </div>
+    </div>
+  <% end %>
+
 </div>
-
-
-<% if current_user && (current_user.has_role? :admin) %>
-  <li><a href="<%= admin_documents_path %>">Documents</a></li>
-  <li><a href="<%= admin_users_path %>">users</a></li>
-  <li><a href="<%= admin_roles_path %>">roles</a></li>
-  <li><a href="<%= admin_groups_path %>">groups</a></li>
-  <li><a href="<%= admin_users_roles_path %>">User roles</a></li>
-  <li><a href="<%= admin_document_categories_path %>">document category</a></li>
-<% end %>

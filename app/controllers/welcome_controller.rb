@@ -1,6 +1,8 @@
 class WelcomeController < ApplicationController
   def index
-    @documents = Document.where("approved = ?", true)
+    @documents = Document.all
+    @approved_docs = @documents.where("approved = ?", true)
+    @unApproved_docs = @documents.where("approved = ?", false)
 
     puts "}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}"
       puts @documents
