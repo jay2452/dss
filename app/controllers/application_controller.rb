@@ -13,6 +13,17 @@ class ApplicationController < ActionController::Base
     # @document = @q.result.includes(:documents).page(params[:page])
 
   # or use `to_a.uniq` to remove duplicates (can also be done in the view):
-    @search_documents = @q.result(distinct: true).includes(:user).page(params[:page])
+    @search_documents = @q.result(distinct: true).includes(:user).where("approved = ?", true)
   end
+
+  def check_role?
+
+    if current_user && (current_user.has_role? :admin)
+      puts "#{current_user.email} has role :: Admin"
+    else
+      redirect_to root_path, notice: "you are not authorised !!"
+    end
+
+  end
+
 end

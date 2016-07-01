@@ -1,6 +1,7 @@
 module Admin
   class DocumentCategoriesController < ApplicationController
     before_action :authenticate_user!
+    before_action :check_role?
     def index
       @document_categories = DocumentCategory.all
       @document_category = DocumentCategory.new
@@ -26,6 +27,7 @@ module Admin
     def document_category_params
       params.require(:document_category).permit(:name)
     end
+
   end
 
 end

@@ -2,6 +2,7 @@ module Admin
 
   class RolesController < ApplicationController
     before_action :authenticate_user!
+    before_action :check_role?
     def index
       @roles = Role.all
       @role = Role.new

@@ -2,7 +2,7 @@ module Admin
   class UserGroupsController < ApplicationController
     before_action :set_user_group, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
-
+    before_action :check_role?
     # GET /user_groups
     # GET /user_groups.json
     def index

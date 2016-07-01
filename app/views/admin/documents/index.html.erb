@@ -19,12 +19,11 @@
         <tbody>
           <% @approved_docs.each do |document| %>
             <tr>
-              <td><%= document.name %></td>
+              <td><%= link_to document.name, document %></td>
               <td><%= document.document_category.name %></td>
               <td><%= document.user.email %></td>
               <td><%= link_to "view", document.file.url, target: "_blank" if document.file? %></td>
-              <td><%= link_to 'Show', document %></td>
-              <td><%= link_to 'Edit', edit_document_path(document) %></td>
+              <td><%= link_to 'Edit', edit_admin_document_path(document) %></td>
               <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
@@ -54,7 +53,7 @@
               <td><%= document.document_category.name %></td>
               <td><%= document.user.email %></td>
               <td><%= link_to "view", document.file.url, target: "_blank" if document.file? %></td>
-              <td><%= link_to 'Edit', edit_document_path(document) %></td>
+              <td><%= link_to 'Edit', edit_admin_document_path(document) %></td>
               <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>

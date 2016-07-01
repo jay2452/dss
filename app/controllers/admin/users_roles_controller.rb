@@ -1,6 +1,8 @@
 module Admin
   class UsersRolesController < ApplicationController
     before_action :authenticate_user!
+    before_action :check_role?
+
     def index
       @users_roles = UsersRole.all
     end

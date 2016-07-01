@@ -2,6 +2,7 @@ module Admin
   class DocumentsController < ApplicationController
     before_action :set_document, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :check_role?
     # GET /documents
     # GET /documents.json
     def index

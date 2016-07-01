@@ -14,6 +14,9 @@
   <% elsif alert %>
     <%= alert %>
   <% end %>
+  <% if user_signed_in? %>
+      <h4>Signed in as : <%= current_user.email %></h4>
+  <% end %>
 
 <%= yield %>
 
