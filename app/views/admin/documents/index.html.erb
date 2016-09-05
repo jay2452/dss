@@ -19,7 +19,7 @@
         <tbody>
           <% @approved_docs.each do |document| %>
             <tr>
-              <td><%= link_to document.name, document %></td>
+              <td><%= link_to document.name, admin_document_path(document) %></td>
               <td><%= document.document_category.name %></td>
               <td><%= document.user.email %></td>
               <td><%= link_to "view", document.file.url, target: "_blank" if document.file? %></td>
@@ -49,7 +49,7 @@
         <tbody>
           <% @unApproved_docs.each do |document| %>
             <tr>
-              <td><%= link_to document.name, document %></td>
+              <td><%= link_to document.name, admin_document_path(document) %></td>
               <td><%= document.document_category.name %></td>
               <td><%= document.user.email %></td>
               <td><%= link_to "view", document.file.url, target: "_blank" if document.file? %></td>

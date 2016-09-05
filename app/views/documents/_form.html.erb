@@ -26,6 +26,14 @@
     <%= f.file_field :file %>
   </div>
 
+  <div class="field">
+    Send status to :
+    <%= number_field_tag :number %> <br>
+    or send to a group :
+    <%# select_tag :group_id, Group.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+    <%= select_tag "group", options_from_collection_for_select(Group.all, "id", "name") %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

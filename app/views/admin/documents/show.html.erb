@@ -1,14 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="col-md-4">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @document.name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @document.name %>  <%= link_to " | download", @document.file.url, target: "_blank" if @document.file? %>
+    </p>
+    <p>
+      <strong>Document category:</strong>
+      <%= @document.document_category.name %>
+    </p>
+    <p>
+      <strong>Uploaded by :</strong>
+      <%= @document.user.email %>
+    </p>
+    <p>
+      <strong>Upload time :</strong>
+      <%= @document.created_at %>
+    </p>
+    <%= link_to 'Edit', edit_document_path(@document) %> |
+    <%= link_to 'Back', documents_path %>
 
-<p>
-  <strong>Document category:</strong>
-  <%= @document.document_category_id %>
-</p>
+    <div>
+      Current Status :
+      <% if @document.approved == true %>
+        Aproved
+      <% else %>
+        Unapproved
+      <% end %>
+      <br>
+      <%= link_to "Change", '#' %>
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_document_path(@document) %> |
-<%= link_to 'Back', documents_path %>
+  <div class="col-md-8">
+    <% if @document.file? %>
+      <iframe src="<%= @document.file.url %>" style="height: 85vh; padding: 0%;" class="col-md-12">
+          <p>Your browser does not support iframes.</p>
+      </iframe>
+    <% end %>
+  </div>
+</div>

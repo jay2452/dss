@@ -2,9 +2,30 @@
 <html>
 <head>
   <title><%= yield(:title) %> | Gupta Power - DMS</title>
+  <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="manifest" href="/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+
 </head>
 <body>
   <%= render partial: '/layouts/header' %>
@@ -20,13 +41,13 @@
 
 <%= yield %>
 
-<div class="fixed pull-right">
+<!-- <div class="fixed pull-right">
   <a href="https://www.facebook.com/rhinowiresandcables" target="_blank"><i class="fa fa-facebook-official fa-3x" aria-hidden="true">&nbsp;</i></a>
   <a href="https://twitter.com/Rhinowires" target="_blank"><i class="fa fa-twitter fa-3x" aria-hidden="true">&nbsp;</i></a>
   <a href="https://plus.google.com/+Guptapower/posts" target="_blank"><i class="fa fa-google-plus-official fa-3x" aria-hidden="true">&nbsp;</i></a>
   <a href="https://www.linkedin.com/grp/home?gid=8234847" target="_blank"><i class="fa fa-linkedin-square fa-3x" aria-hidden="true">&nbsp;</i></a>
   <a href="https://www.youtube.com/watch?v=XxM75n4p3u4" target="_blank"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
-</div>
+</div> -->
 
 <%= render :partial => "/layouts/footer" %>
 

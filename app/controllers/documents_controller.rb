@@ -32,6 +32,11 @@ class DocumentsController < ApplicationController
       if @document.save
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
+        # send a sms to the users
+        # pass = ENV['MOSTO_PASS']
+        # puts "--------------------------------\n-#{pass} +++++++++++"
+        send_sms_to params[:number]
+
       else
         format.html { render :new }
         format.json { render json: @document.errors, status: :unprocessable_entity }
@@ -73,4 +78,5 @@ class DocumentsController < ApplicationController
     def document_params
       params.require(:document).permit(:name, :document_category_id, :file, :user_id)
     end
+
 end
