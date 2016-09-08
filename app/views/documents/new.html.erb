@@ -1,8 +1,33 @@
+<% provide :title, "New Document" %>
 <div class="container">
-  <h1>New Document</h1>
 
-  <%= render 'form' %>
+  <div class="col-md-3">
 
-  <%= link_to 'Back', documents_path %>
+  </div>
+
+  <div class="col-md-6">
+
+
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h1>New Document</h1>
+
+          <%= render 'form' %>
+
+          <%= link_to 'Back', documents_path %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="col-md-3">
+
+  </div>
+
 
 </div>

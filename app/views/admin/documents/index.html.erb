@@ -17,7 +17,7 @@
         </thead>
 
         <tbody>
-          <% @approved_docs.each do |document| %>
+          <% @documents.each do |document| %>
             <tr>
               <td><%= link_to document.name, admin_document_path(document) %></td>
               <td><%= document.document_category.name %></td>
@@ -32,7 +32,7 @@
 
 
     </div>
-
+<!--
     <div class="col-md-6">
       <h3>Pending Approvals</h3>
       <table class="table table-striped">
@@ -47,19 +47,19 @@
         </thead>
 
         <tbody>
-          <% @unApproved_docs.each do |document| %>
+          <%# @unApproved_docs.each do |document| %>
             <tr>
-              <td><%= link_to document.name, admin_document_path(document) %></td>
-              <td><%= document.document_category.name %></td>
-              <td><%= document.user.email %></td>
-              <td><%= link_to "view", document.file.url, target: "_blank" if document.file? %></td>
-              <td><%= link_to 'Edit', edit_admin_document_path(document) %></td>
-              <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%# link_to document.name, admin_document_path(document) %></td>
+              <td><%# document.document_category.name %></td>
+              <td><%# document.user.email %></td>
+              <td><%# link_to "view", document.file.url, target: "_blank" if document.file? %></td>
+              <td><%# link_to 'Edit', edit_admin_document_path(document) %></td>
+              <td><%# link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
-          <% end %>
+          <%# end %>
         </tbody>
       </table>
-    </div>
+    </div>-->
   </div>
 
   <div class="row">

@@ -8,8 +8,8 @@ module Admin
     def index
       @documents = Document.all
 
-      @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
-      @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)
+      # @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
+      # @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)
     end
 
     # GET /documents/1

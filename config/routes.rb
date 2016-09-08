@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   #
   # get 'users/index'
 
+  resources :groups
+
+  post 'groups/add_user_to_group'
+
   resources :documents do
     collection do
       match 'search' => 'welcome#search', via: [:get, :post], as: :search

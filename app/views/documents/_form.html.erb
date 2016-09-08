@@ -11,30 +11,38 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control", placeholder: "enter document title", autofocus: true %>
   </div>
-  <div class="field">
-    <%= f.label :document_category_id %><br>
+  <div class="form-group">
+    <%= f.label :document_category_id %> <br>
+    <small>(Select a category for the document for which it belongs to)</small>
     <%# f.number_field :document_category_id %>
-    <%= f.select :document_category_id, DocumentCategory.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+
+    <%= f.select :document_category_id, DocumentCategory.all.collect { |p| [ p.name, p.id ] }, {include_blank: true},{class: "form-control"} %>
+
+
   </div>
 
-  <div class="field">
+  <div class="form-group">
    	<%= f.label :file %><br>
     <%= f.file_field :file %>
   </div>
 
-  <div class="field">
-    Send status to :
-    <%= number_field_tag :number %> <br>
-    or send to a group :
+  <div class="form-group">
+    <!-- Send status to : <small>(enter mobile number)</small> <br>
+    <%# number_field_tag :number %> <br>
+    or <br -->
+     Send to Group :
     <%# select_tag :group_id, Group.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
-    <%= select_tag "group", options_from_collection_for_select(Group.all, "id", "name") %>
+    <%= select_tag "group", options_from_collection_for_select(Group.all, "id", "name"), include_blank: true,class: "form-control" %>
+
+    <!-- or Send to a Specific Person
+    <%# select_tag "user_id", options_from_collection_for_select(User.all, "id", "email"), include_blank: true, class: "form-control" %> -->
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit "Send", class: "btn btn-default" %>
   </div>
 <% end %>

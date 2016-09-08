@@ -1,11 +1,11 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  before_action :authenticate_user!
 
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.where("approved = ?", true)
+    @documents = Document.all.order(created_at: :desc)     # where("approved = ?", true)
   end
 
   # GET /documents/1
@@ -28,14 +28,22 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
     @document.user_id = current_user.id
 
+    doc_group = params["group"]
+    u_id = params["user_id"]
+    #
+    # puts "++++++++++++++++++++++"
+    #   p doc_group
+    # puts "++++++++++++++++++++++"
+
     respond_to do |format|
       if @document.save
+        DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
         # send a sms to the users
         # pass = ENV['MOSTO_PASS']
         # puts "--------------------------------\n-#{pass} +++++++++++"
-        send_sms_to params[:number]
+        # send_sms_to params[:number]
 
       else
         format.html { render :new }

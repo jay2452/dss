@@ -4,6 +4,9 @@
 
   <% if @documents.all.count != 0 %>
     <h1>Documents</h1>
+    <% if current_user #&& (can? :create, @document) %>
+        <%= link_to 'New Document', new_document_path %>
+    <% end %>
 
     <table class="table table-striped">
       <thead>
@@ -42,9 +45,7 @@
 
 
   <br>
-  <% if current_user && (can? :create, @document) %>
-      <%= link_to 'New Document', new_document_path %>
-  <% end %>
+
 
 
 

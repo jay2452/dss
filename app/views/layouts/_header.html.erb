@@ -12,8 +12,9 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="<%= root_path %>">Home</a></li>
 
-        <% if !user_signed_in? || !(current_user.has_role? :admin) %>
-            <li><a href="<%= documents_path %>">Documents</a></li>
+        <% if (current_user) && !(current_user.has_role? :admin) %>
+          <li><a href="<%= documents_path %>">Documents</a></li>
+          <li><a href="<%= groups_path %>">Groups</a></li>
         <% end %>
 
         <% if current_user && (current_user.has_role? :admin) %>
@@ -43,7 +44,6 @@
         <% if user_signed_in? %>
           <li><a rel="nofollow" data-method="delete" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a></li>
         <% else %>
-          <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <% end %>
       </ul>

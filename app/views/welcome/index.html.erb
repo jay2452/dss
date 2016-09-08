@@ -5,9 +5,43 @@
 <% else %>
   <% provide :title, "Welcome" %>
   <%# render template: "documents/index" %>
-    <h2>Recent Documents <small>(both approved and unapproved)</small></h2>
 
-    <table class="table table-striped">
+
+    <div class="container-fluid">
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Groups Associated</div>
+          <div class="panel-body">
+            <% @user_groups.each do |group| %>
+              <%= group.name %> <br>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Recent Documents <!-- <small>(both approved and unapproved)</small> -->
+            <%# documents will be shown according to the groups in which file was uploaded %>
+          </div>
+            <% @recent_docs.each do |doc| %>
+              <div class="panel-body">
+                <%= link_to doc.name, document_path(doc) %> uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago
+                </small> uploaded by: <small><%= doc.user.email %></small> <br>
+              </div>
+            <% end %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+
+      </div>
+    </div>
+
+    <!-- <table class="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
@@ -31,6 +65,6 @@
           </tr>
         <% end %>
       </tbody>
-    </table>
+    </table> -->
 
 <% end %>

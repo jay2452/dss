@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623040808) do
+ActiveRecord::Schema.define(version: 20160907161349) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "document_groups", force: :cascade do |t|
+    t.integer  "document_id"
+    t.integer  "group_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "document_groups", ["document_id"], name: "index_document_groups_on_document_id"
+  add_index "document_groups", ["group_id"], name: "index_document_groups_on_group_id"
 
   create_table "documents", force: :cascade do |t|
     t.string   "name"
