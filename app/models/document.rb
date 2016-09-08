@@ -13,6 +13,6 @@ class Document < ActiveRecord::Base
   validates :user_id, presence: true
 
   has_attached_file :file
-	validates_attachment :file
+	validates_attachment :file, size: { in: 0..100.megabytes }
 	validates_attachment_content_type :file, content_type: %w(application/pdf)
 end

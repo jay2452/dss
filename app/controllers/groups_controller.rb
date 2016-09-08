@@ -18,10 +18,10 @@ class GroupsController < ApplicationController
       g_id = params["group"].to_i
       u_id = params["user"].to_i
 
-      puts "+++++++++++++++++++++++"
-        p g_id
-        p u_id
-      puts "+++++++++++++++++++++++"
+      # puts "+++++++++++++++++++++++"
+      #   p g_id
+      #   p u_id
+      # puts "+++++++++++++++++++++++"
       UserGroup.create! user_id: u_id, group_id: g_id
 
       redirect_to :back, notice: "User Added to group"
