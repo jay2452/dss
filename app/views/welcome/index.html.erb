@@ -8,6 +8,10 @@
 
 
     <div class="container-fluid">
+      <% if current_user #&& (can? :create, @document) %>
+          <%= link_to 'Upload Document', new_document_path %>
+      <% end %>
+
       <div class="col-md-3">
         <div class="panel panel-default">
           <div class="panel-heading">Groups Associated</div>
