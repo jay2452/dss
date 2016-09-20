@@ -1,0 +1,21 @@
+<% provide :title, "Log Book" %>
+
+<div class="container-fluid">
+  <div class="col-md-3">
+
+  </div>
+
+  <div class="col-md-6">
+    <% @logs.each do |log| %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= log.description.html_safe %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-3">
+
+  </div>
+</div>

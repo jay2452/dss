@@ -33,6 +33,7 @@ module Admin
 
       respond_to do |format|
         if @document.save
+          Log.create! description: "#{current_user.email} uploaded #{@document.name} at #{@document.created_at}"
           format.html { redirect_to @document, notice: 'Document was successfully created.' }
           format.json { render :show, status: :created, location: @document }
         else
@@ -47,6 +48,7 @@ module Admin
     def update
       respond_to do |format|
         if @document.update(document_params)
+          Log.create! description: "#{current_user.email} updadted #{@document.name} at #{@document.updated_at}"
           format.html { redirect_to @document, notice: 'Document was successfully updated.' }
           format.json { render :show, status: :ok, location: @document }
         else
@@ -59,6 +61,7 @@ module Admin
     # DELETE /documents/1
     # DELETE /documents/1.json
     def destroy
+      Log.create! description: "#{current_user.email} deleted : #{@document.name} at #{Time.now.utc}"
       @document.destroy
       respond_to do |format|
         format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }

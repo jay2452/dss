@@ -4,7 +4,7 @@
 
   <% if @documents.all.count != 0 %>
     <h1>Documents</h1>
-    <% if current_user #&& (can? :create, @document) %>
+    <% if current_user && (can? :create, Document) %>
         <%= link_to 'New Document', new_document_path %>
     <% end %>
 
@@ -27,8 +27,10 @@
             <td><%= document.user.email %></td>
             <td><%= link_to "view file", document.file.url, target: '_blank' if document.file? %></td>
             <td><%= link_to 'Show', document %></td>
-            <td><%= link_to 'Edit', edit_document_path(document) %></td>
-            <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if document.user == current_user %>
+              <td><%= link_to 'Edit', edit_document_path(document) %></td>
+              <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

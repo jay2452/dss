@@ -13,9 +13,26 @@ class Ability
     #
     if user.has_role? :admin
       can :manage, :all
+    elsif user.has_role? :viewUser
+      can :read, Group
+      can :read, Document
+    elsif user.has_role? :uploadUser
+      can :create, Group
+      can :read, Group
+      can :update, Group
+
+      can :read, Document
+      can :create, Document
+      can :update, Document
+      can :destroy, Document
+
+      can :create, UserGroup
+      can :read, UserGroup
+      can :update, UserGroup
+      can :destroy, UserGroup
     else
       can :create, Group
-      can :read, :all      
+      can :read, :all
     end
     # The first argument to `can` is the action you are giving the user
     # permission to do.

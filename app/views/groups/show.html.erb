@@ -1,3 +1,4 @@
+<% provide :title, @group.name %>
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
 
@@ -6,6 +7,9 @@
     <p>
       <strong>Name:</strong>
       <%= @group.name %>
+      <br>
+      <strong>Created by : </strong>
+      <%= @group.user.email if @group.user != nil %>
     </p>
 
     <p>
@@ -13,14 +17,19 @@
       <%= @group.purpose %>
     </p>
 
-    <%= link_to 'Edit', edit_group_path(@group) %> |
+    <% if (can? :update, Group) && @group.user == current_user %>
+      <%= link_to 'Edit', edit_group_path(@group) %> |
+    <% end %>
+
     <%= link_to 'Back', groups_path %>
 
   </div>
 
   <div class="col-md-6">
-    <h4>List of users associated with this group
-      (<u><span data-toggle="modal" data-target="#myModal">Add User</span></u>) </h4>
+    <h4>List of users associated with this project
+      <% if (can? :create, UserGroup) && @group.user == current_user %>
+        (<u><span data-toggle="modal" data-target="#myModal">Add User</span></u>) </h4>
+      <% end %>
 
     <table class="table table-striped">
       <thead>
@@ -46,35 +55,37 @@
 
 
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<% if can? :create, UserGroup %>
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add User</h4>
-      </div>
-      <div class="modal-body">
-        <div id="add_user_group">
-          <%= form_tag groups_add_user_to_group_path do %>
-            <div class="form-group">
-              Group : <%= number_field_tag "group", @group.id, readonly: true, class: "form-control" %>
-            </div>
-            <div class="form-group">
-                User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
-            </div>
-            <div class="form-group" align="center">
-              <%= submit_tag "Add", class: "btn btn-default btn-lg" %>
-            </div>
-          <% end %>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add User</h4>
+        </div>
+        <div class="modal-body">
+          <div id="add_user_group">
+            <%= form_tag groups_add_user_to_group_path do %>
+              <div class="form-group">
+                Group : <%= number_field_tag "group", @group.id, readonly: true, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                  User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
+              </div>
+              <div class="form-group" align="center">
+                <%= submit_tag "Add", class: "btn btn-default btn-lg" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
 
+    </div>
   </div>
-</div>
+<% end %>

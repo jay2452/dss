@@ -14,16 +14,17 @@
 
         <% if (current_user) && !(current_user.has_role? :admin) %>
           <li><a href="<%= documents_path %>">Documents</a></li>
-          <li><a href="<%= groups_path %>">Groups</a></li>
+          <li><a href="<%= groups_path %>">Projects</a></li>
         <% end %>
 
         <% if current_user && (current_user.has_role? :admin) %>
           <li><a href="<%= admin_documents_path %>">Documents</a></li>
-          <li><a href="<%= admin_users_path %>">users</a></li>
-          <li><a href="<%= admin_roles_path %>">roles</a></li>
-          <li><a href="<%= admin_groups_path %>">groups</a></li>
+          <li><a href="<%= admin_users_path %>">Users</a></li>
+          <li><a href="<%= admin_roles_path %>">Roles</a></li>
+          <li><a href="<%= admin_groups_path %>">Projects</a></li>
           <li><a href="<%= admin_users_roles_path %>">User roles</a></li>
-          <li><a href="<%= admin_document_categories_path %>">document category</a></li>
+          <li><a href="<%= admin_document_categories_path %>">Document category</a></li>
+          <li><a href="/admin/logs/index">Logs</a></li>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">

@@ -25,12 +25,15 @@ module Admin
     def create
       @user = User.new(user_params)
 
-      @user.save
-      redirect_to :back, notice: 'user was successfully created'
+      if @user.save
+        Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}"
+        redirect_to :back, notice: 'user was successfully created'
+      end
     end
 
     def destroy
       @user = User.find(params[:id])
+      Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{@user.email} </b> #{Time.now.utc}"
       @user.destroy
 
       redirect_to :back, notice: 'user was successfully removed'
@@ -43,6 +46,8 @@ module Admin
         puts params
       puts "==_____________________________________"
       @user.add_role "#{Role.find(params[:role_id]).name}"
+
+      Log.create!(description: "<b>#{current_user.email}</b> assigned role <b>#{Role.find(params[:role_id]).name} </b> to <b>#{@user.email} </b>")
 
       redirect_to :back
     end

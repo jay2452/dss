@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /documents
   # GET /documents.json
@@ -30,14 +31,11 @@ class DocumentsController < ApplicationController
 
     doc_group = params["group"]
     u_id = params["user_id"]
-    #
-    # puts "++++++++++++++++++++++"
-    #   p doc_group
-    # puts "++++++++++++++++++++++"
 
     respond_to do |format|
       if @document.save
         DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
+        Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}"
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
         # send a sms to the users
@@ -55,13 +53,16 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
   def update
-    respond_to do |format|
-      if @document.update(document_params)
-        format.html { redirect_to @document, notice: 'Document was successfully updated.' }
-        format.json { render :show, status: :ok, location: @document }
-      else
-        format.html { render :edit }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
+    if @document.user == current_user
+      respond_to do |format|
+        if @document.update(document_params)
+          Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at}"
+          format.html { redirect_to @document, notice: 'Document was successfully updated.' }
+          format.json { render :show, status: :ok, location: @document }
+        else
+          format.html { render :edit }
+          format.json { render json: @document.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -69,10 +70,13 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    @document.destroy
-    respond_to do |format|
-      format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
-      format.json { head :no_content }
+    if @document.user == current_user
+      Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}"
+      @document.destroy
+      respond_to do |format|
+        format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

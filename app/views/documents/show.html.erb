@@ -1,3 +1,5 @@
+<% provide :title, @document.name %>
+
 <div class="container-fluid">
   <div class="col-md-4">
     <p id="notice"><%= notice %></p>
@@ -18,11 +20,21 @@
     </p>
 
     <p>
+      <strong>Projects Associted</strong>
+      <br>
+      <% @document.groups.each do |group| %>
+        <%= group.name %> <br>
+      <% end %>
+    </p>
+
+    <p>
       <strong>Upload time :</strong>
       <%= @document.created_at %>
     </p>
 
-    <%= link_to 'Edit', edit_document_path(@document) %> |
+    <% if @document.user == current_user %>
+      <%= link_to 'Edit', edit_document_path(@document) %> |
+    <% end %>
     <%= link_to 'Back', documents_path %>
 
   </div>

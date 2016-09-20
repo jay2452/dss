@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   get 'messages/index'
 
   get 'welcome/index'
@@ -51,6 +50,7 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
+    get 'logs/index'
     resources :documents
     resources :users do
       collection do

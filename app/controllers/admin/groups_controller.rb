@@ -28,9 +28,11 @@ module Admin
     # POST /groups.json
     def create
       @group = Group.new(group_params)
+      @group.user_id = current_user.id
 
       respond_to do |format|
         if @group.save
+          Log.create! description: "#{current_user.email} created group #{@group.name} at #{@group.created_at}"
           format.html { redirect_to admin_groups_path, notice: 'Group was successfully created.' }
           format.json { render :show, status: :created, location: @group }
         else
@@ -45,6 +47,7 @@ module Admin
     def update
       respond_to do |format|
         if @group.update(group_params)
+          Log.create! description: "#{current_user.email} updated group #{@group.name} at #{@group.updated_at}"
           format.html { redirect_to @group, notice: 'Group was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
         else
@@ -57,6 +60,7 @@ module Admin
     # DELETE /groups/1
     # DELETE /groups/1.json
     def destroy
+      Log.create! description: "#{current_user.email} deleted group #{@group.name} at #{Time.now.utc}"
       @group.destroy
       respond_to do |format|
         format.html { redirect_to admin_groups_url, notice: 'Group was successfully destroyed.' }

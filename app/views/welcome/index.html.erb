@@ -8,36 +8,47 @@
 
 
     <div class="container-fluid">
-      <% if current_user #&& (can? :create, @document) %>
+      <% if current_user && (can? :create, Document) %>
           <%= link_to 'Upload Document', new_document_path %>
       <% end %>
 
       <div class="col-md-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">Groups Associated</div>
-          <div class="panel-body">
-            <% @user_groups.each do |group| %>
-              <%= group.name %> <br>
-            <% end %>
+        <% if @user_groups.empty? %>
+          <div class="jumbotron">
+            <h4 align="center">You are not associated with any project</h4>
           </div>
-        </div>
+        <% else %>
+          <div class="panel panel-default">
+            <div class="panel-heading">Projects Associated</div>
+            <div class="panel-body">
+              <% @user_groups.each do |group| %>
+                <%= group.name %> <br>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <div class="col-md-6">
-
-
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Recent Documents <!-- <small>(both approved and unapproved)</small> -->
-            <%# documents will be shown according to the groups in which file was uploaded %>
+        <% if @recent_docs.empty? %>
+          <div class="jumbotron">
+            <h3 align="center"> No Files</h3>
           </div>
-            <% @recent_docs.each do |doc| %>
+        <% else %>
+          <h4 align="center"> Recent Documents</h4>
+
+          <% @recent_docs.each do |doc| %>
+            <div class="panel panel-default">
               <div class="panel-body">
-                <%= link_to doc.name, document_path(doc) %> uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago
+                <%= link_to doc.name, document_path(doc) %> <br>
+                uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
                 </small> uploaded by: <small><%= doc.user.email %></small> <br>
               </div>
-            <% end %>
-        </div>
+            </div>
+          <% end %>
+        <% end %>
+
+
       </div>
 
       <div class="col-md-3">

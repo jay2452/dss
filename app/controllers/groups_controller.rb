@@ -1,11 +1,11 @@
 class GroupsController < ApplicationController
     before_action :set_group, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
-
+    load_and_authorize_resource
     # GET /groups
     # GET /groups.json
     def index
-      @groups = Group.all
+      @groups = Group.all.order(created_at: :desc)
     end
 
     # GET /groups/1
@@ -18,11 +18,9 @@ class GroupsController < ApplicationController
       g_id = params["group"].to_i
       u_id = params["user"].to_i
 
-      # puts "+++++++++++++++++++++++"
-      #   p g_id
-      #   p u_id
-      # puts "+++++++++++++++++++++++"
-      UserGroup.create! user_id: u_id, group_id: g_id
+      @ug = UserGroup.create! user_id: u_id, group_id: g_id
+      Log.create! description: "<b>#{current_user.email} </b> added user <b>#{User.find(u_id).email} </b> to
+                                                    group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at}"
 
       redirect_to :back, notice: "User Added to group"
     end
@@ -40,9 +38,10 @@ class GroupsController < ApplicationController
     # POST /groups.json
     def create
       @group = Group.new(group_params)
-
+      @group.user_id = current_user.id
       respond_to do |format|
         if @group.save
+          Log.create! description: "<b>#{current_user.email} </b> created group <b>#{@group.name} </b> at #{@group.created_at}"
           format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
           format.json { render :show, status: :created, location: @group }
         else
@@ -57,6 +56,7 @@ class GroupsController < ApplicationController
     def update
       respond_to do |format|
         if @group.update(group_params)
+          Log.create! description: "<b>#{current_user.email} </b> updated group <b>#{@group.name} </b> at #{@group.updated_at}"
           format.html { redirect_to @group, notice: 'Group was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
         else
@@ -69,6 +69,7 @@ class GroupsController < ApplicationController
     # DELETE /groups/1
     # DELETE /groups/1.json
     def destroy
+      Log.create! description: "<b>#{current_user.email} </b> deleted group <b>#{@group.name} </b> at #{Time.now.utc}"
       @group.destroy
       respond_to do |format|
         format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }

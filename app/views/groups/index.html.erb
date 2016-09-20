@@ -1,7 +1,8 @@
+<% provide :title, "Projects List" %>
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
 
-  <h1>Listing Groups</h1>
+  <h1>Listing Projects</h1>
 
   <table class="table table-striped">
     <thead>
@@ -20,8 +21,12 @@
           <td><%= group.purpose %></td>
           <td><%= group.users.count %></td>
           <td><%= link_to 'Show', group_path(group) %></td>
-          <td><%= link_to 'Edit', edit_group_path(group) %></td>
-          <td><%= link_to 'Destroy', group_path(group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if (can? :update, Group) && group.user == current_user %>
+            <td><%= link_to 'Edit', edit_group_path(group) %></td>
+          <% end %>
+          <% if can? :destroy, Group %>
+            <td><%= link_to 'Destroy', group_path(group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -29,6 +34,10 @@
 
   <br>
 
-  <%= link_to 'New Group', new_group_path %>
+  <% if can? :create, Group %>
+    <%= link_to 'New Project', new_group_path %>
+  <% end %>
+
+
 
 </div>

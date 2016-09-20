@@ -34,7 +34,7 @@
     <!-- Send status to : <small>(enter mobile number)</small> <br>
     <%# number_field_tag :number %> <br>
     or <br -->
-     Send to Group :
+     Send to Project :
     <%# select_tag :group_id, Group.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
     <%= select_tag "group", options_from_collection_for_select(Group.all, "id", "name"), include_blank: true,class: "form-control" %>
 

@@ -10,12 +10,6 @@
           <th>Id</th>
           <th>Email</th>
           <th>Mobile</th>
-          <th>Sign In Count</th>
-          <th>current Sign In at</th>
-          <th>last Sign In at</th>
-          <th>current Sign In IP</th>
-          <th>last Sign In IP</th>
-          <th>created at</th>
         </tr>
       </thead>
 
@@ -24,12 +18,6 @@
           <td><%= @user.id %></td>
           <td><%= @user.email %></td>
           <td><%= @user.mobile %></td>
-          <td><%= @user.sign_in_count %></td>
-          <td><%= @user.current_sign_in_at %></td>
-          <td><%= @user.last_sign_in_at %></td>
-          <td><%= @user.current_sign_in_ip %></td>
-          <td><%= @user.last_sign_in_ip %></td>
-          <td><%= @user.created_at %></td>
         </tr>
       </tbody>
     </table>
@@ -82,8 +70,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Documents</th>
-            <th>Approved</th>
+            <th>Document Name</th>
             <th></th>
           </tr>
         </thead>
@@ -92,7 +79,6 @@
           <% @user.documents.each do |document| %>
             <tr>
               <td><%= document.name %></td>
-              <td><%= document.approved %></td>
               <td><%= link_to "delete", '#' %></td>
             </tr>
           <% end %>
