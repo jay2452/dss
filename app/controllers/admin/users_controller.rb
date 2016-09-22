@@ -24,9 +24,15 @@ module Admin
 
     def create
       @user = User.new(user_params)
+      group = Group.find_by_name "All members"
 
       if @user.save
         Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}"
+
+        ug = UserGroup.create! user_id: @user.id, group_id: group.id
+
+        Log.create! description: "<b>#{@user.email} </b> added to project <b>#{group.name} </b> at #{ug.created_at}"
+
         redirect_to :back, notice: 'user was successfully created'
       end
     end

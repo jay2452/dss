@@ -12,3 +12,13 @@ Role.destroy_all
 Role.create! name: "admin"
 Role.create! name: "viewUser"
 Role.create! name: "uploadUser"
+
+
+if !(Group.find_by_name "All members" )
+  group = Group.create! name: "All members", user_id: 0
+
+
+  User.all.each do |user|
+    UserGroup.create! user_id: user.id, group_id: group.id
+  end
+end
