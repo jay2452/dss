@@ -15,7 +15,7 @@ Role.create! name: "uploadUser"
 
 
 if !(Group.find_by_name "All members" )
-  group = Group.create! name: "All members", user_id: 0
+  group = Group.create! name: "All members"
 
 
   User.all.each do |user|
