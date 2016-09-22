@@ -15,6 +15,7 @@ class GroupsController < ApplicationController
     end
 
     def add_user_to_group
+      
       g_id = params["group"].to_i
       u_id = params["user"].to_i
 

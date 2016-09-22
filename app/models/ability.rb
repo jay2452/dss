@@ -20,6 +20,7 @@ class Ability
       can :create, Group
       can :read, Group
       can :update, Group
+      can :add_user_to_group, Group
 
       can :read, Document
       can :create, Document
