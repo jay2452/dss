@@ -17,10 +17,18 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 @import "font-awesome";
+
+body{
+  background-color: #F8F9F9;
+}
+
  .navbar-right li {
    padding-top: 15px;
    margin-left: 10px;
  }
+.navbar {
+  background-color: #EAECEE;
+}
 
  .navbar li a {
    color: #000 !important;
