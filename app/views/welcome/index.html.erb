@@ -2,7 +2,12 @@
     <%# goto admin adsh board %>
     <% provide :title, "Welcome - Admin" %>
   <%= render :partial => "admin_dash_board" %>
-<% else %>
+
+<% elsif current_user.has_role? :uploadUser %>
+
+  <%= render template: "documents/index" %>
+
+<% elsif current_user.has_role? :viewUser %>
   <% provide :title, "Welcome" %>
   <%# render template: "documents/index" %>
 
@@ -13,11 +18,12 @@
       <% end %>
 
       <div class="col-md-3">
-        <% if @user_groups.empty? %>
+        <!-- <% if @user_groups.empty? %>
           <div class="jumbotron">
             <h4 align="center">You are not associated with any project</h4>
           </div>
         <% else %>
+        <br><br>
           <div class="panel panel-default">
             <div class="panel-heading">Projects Associated</div>
             <div class="panel-body">
@@ -26,7 +32,7 @@
               <% end %>
             </div>
           </div>
-        <% end %>
+        <% end %> -->
       </div>
 
       <div class="col-md-6">
@@ -39,10 +45,26 @@
 
           <% @recent_docs.each do |doc| %>
             <div class="panel panel-default">
-              <div class="panel-body">
-                <%= link_to doc.name, document_path(doc) %> <br>
-                uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
-                </small> uploaded by: <small><%= doc.user.email %></small> <br>
+              <div class="panel-body" id="status-<%= doc_status(doc.document, current_user)  %>">
+                <div class="col-sm-11">
+                  <%= link_to doc.document.name, document_path(doc.document) %> <br>
+                  uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
+                  </small> uploaded by: <small><%= doc.document.user.email %></small> <br>
+                  <small>
+                    Project Name :
+                    <%= doc.group.name %> <br>
+                  </small>
+                </div>
+
+                <div class="col-sm-1">
+                  <h6 align="right">
+                    <% if (doc_status(doc.document, current_user) != 0) %>
+                      seen
+                    <% else %>
+                      unread
+                    <% end %>
+                  </h6>
+                </div>
               </div>
             </div>
           <% end %>
@@ -55,6 +77,10 @@
 
       </div>
     </div>
+
+    <!-- <script>
+      // $('#status-0').css('background-color', '#DFF0D8');
+    </script> -->
 
     <!-- <table class="table table-striped">
       <thead>
@@ -71,7 +97,7 @@
         <% @documents.each do |document| %>
           <tr>
             <td><%= document.name %></td>
-            <td><%= document.document_category.name %></td>
+            <td><%# document.document_category.name %></td>
             <td><%= document.user.email %></td>
             <td><%= link_to "view file", document.file.url, target: '_blank' if document.file? %></td>
             <td><%= link_to 'Show', document %></td>

@@ -2,52 +2,60 @@
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
 
-  <% if @documents.all.count != 0 %>
-    <h1>Documents</h1>
+  <div class="container">
+
     <% if current_user && (can? :create, Document) %>
         <%= link_to 'New Document', new_document_path %>
     <% end %>
+    <h3>Uploaded Documents</h3>
+    <% if @documents.all.count != 0 %>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>category</th>
-          <th>uploaded by</th>
-          <th>download</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @documents.each do |document| %>
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= document.name %></td>
-            <td><%= document.document_category.name %></td>
-            <td><%= document.user.email %></td>
-            <td><%= link_to "view file", document.file.url, target: '_blank' if document.file? %></td>
-            <td><%= link_to 'Show', document %></td>
-            <% if document.user == current_user %>
-              <td><%= link_to 'Edit', edit_document_path(document) %></td>
-              <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+            <th>Project Name</th>
+            <th>Document Name</th>
+            <!-- <th>category</th> -->
+            <th>uploaded by</th>
+
+            <th colspan="3"></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
 
-  <% else %>
+        <tbody>
+          <% @documents.each do |document| %>
+            <tr>
+              <td><%= document.group.name if document.group %></td>
+              <td><%= document.name %></td>
+              <!-- <td><%# document.document_category.name %></td> -->
+              <td><%= document.user.email %></td>
 
-    <div class="jumbotron">
-      <h3 align="center"><b>No Documents</b></h3>
-    </div>
+              <td><%= link_to 'Show', document %></td>
+              <% if document.user == current_user %>
+                <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
+                <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+              <td>
+                <% if check_status?(document) #checkk if the document is already sent %>
+                    <%= link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
+                <% else %>
+                    <%= link_to "Send", send_doc_document_path(document), class: "btn btn-success btn-sm" %>
+                <% end %>
 
-  <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
+    <% else %>
 
+      <div class="jumbotron">
+        <h3 align="center"><b>No Documents</b></h3>
+      </div>
 
-  <br>
-
+    <% end %>
+  </div>
 
 
 

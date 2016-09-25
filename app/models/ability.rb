@@ -22,6 +22,9 @@ class Ability
       can :update, Group
       can :add_user_to_group, Group
 
+      can :add_doc_to_group, Document
+      can :send_doc, Document
+
       can :read, Document
       can :create, Document
       can :update, Document

@@ -14,8 +14,14 @@ Role.create! name: "viewUser"
 Role.create! name: "uploadUser"
 
 
-if !(Group.find_by_name "All members" )
-  group = Group.create! name: "All members"
+User.destroy_all
+a = User.create! email: "admin@admin.com", password: "123456789"
+a.add_role :admin
+
+
+
+if !(Group.find_by_name "Project-1" )
+  group = Group.create! name: "Project-1"
 
 
   User.all.each do |user|

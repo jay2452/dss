@@ -1,17 +1,40 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc]
   before_action :authenticate_user!
   load_and_authorize_resource
 
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all.order(created_at: :desc)     # where("approved = ?", true)
+    @documents = Document.all.order(group_id: :desc)     # where("approved = ?", true)
+    @doc_groups = DocumentGroup.all.order(created_at: :desc)
+  end
+
+  # def add_doc_to_group
+  #   doc = params["document"].to_i
+  #   group = params["group"].to_i
+  #
+  #   dg = DocumentGroup.create! document_id: doc, group_id: group
+  #   Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project #{dg.group.name} at #{dg.created_at}"
+  #
+  #   redirect_to :back, notice: "Successfully sent"
+  # end
+
+  def send_doc
+    dg = DocumentGroup.create! document_id: @document.id, group_id: @document.group.id
+    Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project #{dg.group.name} at #{dg.created_at}"
+    redirect_to :back, notice: "Successfully sent"
   end
 
   # GET /documents/1
   # GET /documents/1.json
   def show
+    # current_user
+    # => status 1 means the document is read
+    uds = UserDocumentStatus.new user_id: current_user.id, document_id: @document.id, status: 1
+    if uds.save
+      Log.create! description: "<b>#{current_user.email} </b> opened the document <b>#{@document.name} </b> at #{uds.created_at}"
+    end
   end
 
   # GET /documents/new
@@ -29,12 +52,12 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
     @document.user_id = current_user.id
 
-    doc_group = params["group"]
-    u_id = params["user_id"]
+    # doc_group = params["group"]
+    # u_id = params["user_id"]
 
     respond_to do |format|
       if @document.save
-        DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
+        # DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
         Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}"
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
@@ -88,7 +111,7 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:name, :document_category_id, :file, :user_id)
+      params.require(:document).permit(:name, :group_id, :file, :user_id)
     end
 
 end

@@ -24,7 +24,7 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      group = Group.find_by_name "All members"
+      group = Group.first
 
       if @user.save
         Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}"

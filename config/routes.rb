@@ -17,8 +17,14 @@ Rails.application.routes.draw do
   resources :documents do
     collection do
       match 'search' => 'welcome#search', via: [:get, :post], as: :search
+      get 'add_doc_to_group'
+    end
+    member do
+      get 'send_doc'
     end
   end
+
+
 
   devise_for :users
 
@@ -44,7 +50,7 @@ Rails.application.routes.draw do
   #   root 'admin/documents#index', as: :authenticated_admin
   # end
   #
-  # authenticated :user, lambda {|u| u.has_role? :general} do
+  # authenticated :user, lambda {|u| u.has_role? :uploadUser} do
   #   root 'documents#index', as: :authenticated_general_user
   # end
 

@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
     end
 
     def add_user_to_group
-      
+
       g_id = params["group"].to_i
       u_id = params["user"].to_i
 
@@ -81,7 +81,7 @@ class GroupsController < ApplicationController
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_group
-        @group = Group.find(params[:id])
+        @group = Group.friendly.find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.

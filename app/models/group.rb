@@ -1,5 +1,8 @@
 class Group < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   has_many :document_groups
   has_many :documents, through: :document_groups
 
