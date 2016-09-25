@@ -1,46 +1,49 @@
 <% provide :title, "Search Results" %>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <h2 align="center">Search Results for : <small><%= params["q"]["name_cont"] %></small></h2>
-
+    <!-- <h2 align="center">Search Results for : <small><%= params["q"]["name_cont"] %></small></h2> -->
     <div class="col-md-2">
-      <p>
-        <!-- Advanced search <a href="#">click here</a> -->
-      </p>
     </div>
     <div class="col-md-8">
       <% if @search_documents.all.count != 0 %>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Download</th>
-            </tr>
-          </thead>
+        <section class="search-results">
+          <header>
+            <h3>Search Results</h3>
+          </header>
 
-          <tbody>
+          <ol class="list-group">
             <% @search_documents.each do |doc| %>
-              <tr>
-                <td><%= link_to doc.name, document_path(doc) %></td>
-                <td><%= doc.document_category.name %></td>
-                <td><%= link_to "download", doc.file.url, target: '_blank' if doc.file? %></td>
-              </tr>
+              <li class="list-group-item clearfix">
+                <h4 class="pull-right">
+                  <small class="text-uppercase">
+                    <% if doc.file.present? %>
+                    <a href="<%= doc.file.url %>" target="_blank" class="btn btn-info btn-sm">
+                      <span class="glyphicon glyphicon-download-alt"></span> Download
+                    </a>
+                    <% end %>
+                  </small>
+                </h4>
+                <h3 class="h4">
+                  <%= link_to doc.name, document_path(doc) %> <br>
+                  <small>
+                    <%= time_ago_in_words doc.created_at %> <br>
+                    Uploaded By : <%= doc.user.email %> <br>
+                    Project : <%= doc.group.name %>
+                  </small>
+                </h3>
+              </li>
             <% end %>
-          </tbody>
-        </table>
-
+          </ol>
+        </section>
       <% else %>
           <div class="jumbotron">
             <h3 align="center">Not found</h3>
           </div>
       <% end %>
-
     </div>
     <div class="col-md-2">
 
     </div>
   </div>
-
 </div>

@@ -6,7 +6,7 @@ module Admin
     # GET /documents
     # GET /documents.json
     def index
-      @documents = Document.all
+      @documents = Document.all.order(group_id: :desc, created_at: :desc)
 
       # @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
       # @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)

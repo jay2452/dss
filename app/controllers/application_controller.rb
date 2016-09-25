@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     # @document = @q.result.includes(:documents).page(params[:page])
 
   # or use `to_a.uniq` to remove duplicates (can also be done in the view):
-    @search_documents = @q.result(distinct: true).includes(:user)#.where("approved = ?", true)
+    @search_documents = @q.result(distinct: true).includes(:user).order(created_at: :desc)#.where("approved = ?", true)
   end
 
   def check_role?

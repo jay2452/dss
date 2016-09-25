@@ -1,36 +1,27 @@
 <div class="container-fluid">
+  <p id="notice"><%= notice %></p>
   <div class="col-md-4">
-    <p id="notice"><%= notice %></p>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>
+          <strong>Name:</strong>
+          <%= @document.name %>  <%= link_to " | download", @document.file.url, target: "_blank" if @document.file? %>
+        </p>
 
-    <p>
-      <strong>Name:</strong>
-      <%= @document.name %>  <%= link_to " | download", @document.file.url, target: "_blank" if @document.file? %>
-    </p>
-    <p>
-      <strong>Document category:</strong>
-      <%= @document.document_category.name %>
-    </p>
-    <p>
-      <strong>Uploaded by :</strong>
-      <%= @document.user.email %>
-    </p>
-    <p>
-      <strong>Upload time :</strong>
-      <%= @document.created_at %>
-    </p>
-    <%= link_to 'Edit', edit_document_path(@document) %> |
-    <%= link_to 'Back', documents_path %>
+        <p>
+          <strong>Uploaded by :</strong>
+          <%= @document.user.email %>
+        </p>
+        <p>
+          <strong>Upload time :</strong>
+          <%= time_ago_in_words @document.created_at %> ago
+        </p>
+        <%= link_to 'Edit', edit_document_path(@document), class: "btn btn-warning btn-sm" %>
+        <%= link_to 'Back', :back, class: "btn btn-primary btn-sm" %>
 
-    <!-- <div>
-      Current Status :
-      <%# if @document.approved == true %>
-        Aproved
-      <%# else %>
-        Unapproved
-      <%# end %>
-      <br>
-      <%# link_to "Change", '#' %>
-    </div> -->
+      </div>
+    </div>
+
   </div>
 
   <div class="col-md-8">

@@ -6,29 +6,15 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
-
             <p>
               <strong>Name:</strong>
-              <%= @document.name %>  <%= link_to " | download", @document.file.url, target: "_blank" if @document.file? %>
+              <%= @document.name %>
             </p>
-
-            <!-- <p>
-              <strong>Document category:</strong>
-              <%# @document.group.name %>
-            </p> -->
 
             <p>
               <strong>Uploaded by :</strong>
               <%= @document.user.email %>
             </p>
-        <!--
-            <p>
-              <strong>Projects Associted</strong>
-              <br>
-              <%# @document.groups.each do |group| %>
-                <%#= group.name %> <br>
-              <%# end %>
-            </p> -->
 
             <p>
               <strong>Upload time :</strong>
@@ -39,7 +25,16 @@
               <%= link_to 'Edit', edit_document_path(@document) %> |
             <% end %>
 
-            <%= link_to 'Back', root_path, class: "btn btn-primary btn-sm" %>
+
+            <a href="<%= root_path %>" class="btn btn-primary btn-sm">
+              <span class="glyphicon glyphicon-backward"></span> Back
+            </a>
+
+            <% if @document.file? %>
+              <a href="<%= @document.file.url %>" target="_blank" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-download-alt"></span> Download
+              </a>
+            <% end %>
 
       </div>
     </div>
