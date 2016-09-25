@@ -6,13 +6,11 @@
   </div>
 
   <div class="col-md-6">
-    <% @logs.each do |log| %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <%= log.description.html_safe %>
-        </div>
-      </div>
-    <% end %>
+    <div id="logs">
+      <%= render @logs %>
+    </div>
+
+    <%= will_paginate @logs %>
   </div>
 
   <div class="col-md-3">

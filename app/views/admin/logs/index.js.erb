@@ -1,0 +1,2 @@
+$('#logs').append('<%= escape_javascript render(@logs) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@logs) %>');

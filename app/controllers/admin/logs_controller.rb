@@ -6,7 +6,7 @@ module Admin
     load_and_authorize_resource
 
     def index
-      @logs = Log.all.order(created_at: :desc)
+      @logs = Log.paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
     end
   end
 

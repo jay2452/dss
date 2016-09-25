@@ -15,3 +15,16 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url = $('.pagination .next_page').attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+        $('.pagination').html('<div align="center"><img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." /> </div>')
+        return $.getScript(url);
+      }
+    });
+    return $(window).scroll();
+  }
+});
