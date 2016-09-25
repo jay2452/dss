@@ -11,11 +11,13 @@
     <div class="panel-group">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h1>New Document</h1>
+          <h3 align="center">New Document Upload</h3>
 
           <%= render 'form' %>
 
-          <%# link_to 'Back', documents_path %>
+          <div align="center">
+            <%= link_to 'Back', :back, class: "btn btn-primary btn-sm" %>
+          </div>
         </div>
       </div>
     </div>
