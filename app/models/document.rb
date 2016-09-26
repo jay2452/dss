@@ -2,6 +2,8 @@ class Document < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  has_many :user_document_statuses, dependent: :destroy
+
   has_many :document_groups, dependent: :destroy
   has_one :group, through: :document_groups
 
