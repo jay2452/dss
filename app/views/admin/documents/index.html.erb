@@ -3,7 +3,9 @@
   <p id="notice"><%= notice %></p>
 
     <div class="col-md-3">
-      <%= link_to 'New Document', new_document_path, class: "btn btn-success btn-sm" %>
+      <a href="<%= new_document_path %>" class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-cloud-upload"></span> Upload Document
+      </a>
     </div>
     <div class="col-md-6">
       <section>

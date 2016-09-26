@@ -2,7 +2,8 @@ module Admin
 
   class RolesController < ApplicationController
     before_action :authenticate_user!
-    before_action :check_role?
+    # before_action :check_role?
+    load_and_authorize_resource
     def index
       @roles = Role.all
       @role = Role.new

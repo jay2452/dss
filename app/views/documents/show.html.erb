@@ -21,16 +21,17 @@
               <%= time_ago_in_words @document.created_at %> ago
             </p>
 
-            <% if @document.user == current_user %>
-              <%= link_to 'Edit', edit_document_path(@document) %> |
-            <% end %>
+            <!-- <% if @document.user == current_user %>
+              <%# link_to 'Edit', edit_document_path(@document) %> |
+            <% end %> -->
 
 
             <a href="<%= root_path %>" class="btn btn-primary btn-sm">
               <span class="glyphicon glyphicon-backward"></span> Back
             </a>
 
-            <% if @document.file? %>
+
+            <% if @document.file? && (current_user.has_role? :viewUser) %>
               <a href="<%= @document.file.url %>" target="_blank" class="btn btn-info btn-sm">
                 <span class="glyphicon glyphicon-download-alt"></span> Download
               </a>

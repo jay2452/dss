@@ -1,4 +1,4 @@
-<% if current_user.has_role? :admin %>
+<% if (current_user.has_role? :admin) || (current_user.has_role? :superAdmin) %>
     <%# goto admin adsh board %>
     <% provide :title, "Welcome - Admin" %>
   <%= render :partial => "admin_dash_board" %>
@@ -59,9 +59,9 @@
                 <div class="col-sm-1">
                   <h6 align="right">
                     <% if (doc_status(doc.document, current_user) != 0) %>
-                      seen
+                      Viewed
                     <% else %>
-                      unread
+                      Not Viewed
                     <% end %>
                   </h6>
                 </div>

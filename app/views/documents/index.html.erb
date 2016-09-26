@@ -5,7 +5,9 @@
   <div class="container">
 
     <% if current_user && (can? :create, Document) %>
-        <%= link_to 'New Document', new_document_path, class: "btn btn-success btn-sm" %>
+        <a href="<%= new_document_path %>" class="btn btn-success btn-sm">
+          <span class="glyphicon glyphicon-cloud-upload"></span> Upload Document
+        </a>
     <% end %>
     <h3>Uploaded Documents</h3>
     <% if @documents.all.count != 0 %>
@@ -30,16 +32,22 @@
               <!-- <td><%# document.document_category.name %></td> -->
               <td><%= document.user.email %></td>
 
-              <td><%= link_to 'Show', document, class: "bn btn-info btn-sm" %></td>
+              <td><%= link_to 'Show', document, class: "btn btn-info btn-sm" %></td>
               <% if document.user == current_user %>
                 <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
-                <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+                <td><%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
               <% end %>
               <td>
                 <% if check_status?(document) #checkk if the document is already sent %>
-                    <%= link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
+                    <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
+                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-default btn-sm">
+                      <span class="glyphicon glyphicon-send"></span> Sent
+                    </a>
+
                 <% else %>
-                    <%= link_to "Send", send_doc_document_path(document), class: "btn btn-success btn-sm" %>
+                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-success btn-sm">
+                      <span class="glyphicon glyphicon-send"></span> Send
+                    </a>
                 <% end %>
 
               </td>

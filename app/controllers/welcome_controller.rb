@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_user!
   def index
+    @groups = Group.limit(4).order(created_at: :desc)
     @documents = Document.all.order(created_at: :desc)
     @doc_groups = DocumentGroup.all.order(created_at: :desc)
     # @approved_docs = @documents.where("approved = ?", true)

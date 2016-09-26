@@ -1,0 +1,102 @@
+<h3>Welcome Super Admin</h3>
+<div class="col-md-4">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">Users</span>
+      <a href="/admin/users" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      Total Users :  <%= User.count %> <hr>
+      Recent Users Added <br>
+      <% User.limit(4).order(created_at: :desc).each do |user| %>
+        <%= user.email %> <br>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">Documents</span>
+      <a href="/admin/documents" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      <header>
+        Total Documents : <%= Document.count %> <hr>
+        Recent Documents
+      </header>
+
+        <% @documents.limit(4).each do |doc| %>
+          <%= doc.name %> <br>
+        <% end %>
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">Projects</span>
+      <a href="/admin/groups" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      Total Projects : <%= Group.count %> <hr>
+
+        Recent Projects <br>
+
+        <% @groups.each do |project| %>
+          <%= project.name %> <br>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">Logs</span>
+      <a href="/admin/logs/index" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      <section>
+        <header>
+          Recent Logs <hr>
+        </header>
+        <small>
+          <% Log.limit(4).order(created_at: :desc).each do |log| %>
+            <%= log.description.html_safe %> <br>
+          <% end %>
+        </small>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">Roles</span>
+      <a href="<%= admin_roles_path %>" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      Total Roles : <%= Role.count %> <hr>
+      Roles <br>
+      <% Role.all.each do |role| %>
+        <%= role.name %> <br>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="text-uppercase">User Role</span>
+      <a href="/admin/users_roles" class="pull-right" class="btn btn-info btn-sm">Show</a>
+    </div>
+    <div class="panel-body">
+      Total Role Assigned : <%= UsersRole.count %> <hr>
+      Recent Assigned : <br>
+      <% UsersRole.limit(4).order(user_id: :desc).each do |u_role| %>
+        <%= u_role.user.email %> - <%= u_role.role.name %> <br>
+      <% end %>
+    </div>
+  </div>
+</div>
