@@ -1,8 +1,8 @@
 module Admin
   class UsersRolesController < ApplicationController
     before_action :authenticate_user!
-    # before_action :check_role?
-    load_and_authorize_resource
+    before_action :check_role?
+    # load_and_authorize_resource
 
     def index
       @users_roles = UsersRole.all
@@ -15,8 +15,10 @@ module Admin
     def create
       @users_role = UsersRole.new(users_roles_params)
       # @users_role.user_id = @u_id
+
+
       @users_role.save
-      redirect_to :back, notice: "role successfully added to user"
+      redirect_to :back, notice: "Role successfully added to user"
     end
 
     def destroy

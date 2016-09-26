@@ -11,7 +11,9 @@ class Ability
     #     can :read, :all
     #   end
     #
-    if (user.has_role? :admin) || (user.has_role? :superAdmin)
+    if (user.has_role? :admin)
+      can :manage, :all
+    elsif (user.has_role? :superAdmin)
       can :manage, :all
     elsif user.has_role? :viewUser
       can :read, Group
