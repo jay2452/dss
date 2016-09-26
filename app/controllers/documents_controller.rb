@@ -94,11 +94,11 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    if @document.user == current_user
+    if (@document.user == current_user)
       Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}"
       @document.destroy
       respond_to do |format|
-        format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
+        format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }
         format.json { head :no_content }
       end
     end

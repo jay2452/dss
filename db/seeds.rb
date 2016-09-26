@@ -12,11 +12,15 @@ Role.destroy_all
 Role.create! name: "admin"
 Role.create! name: "viewUser"
 Role.create! name: "uploadUser"
+Role.create! name: "superAdmin"
 
 
 User.destroy_all
 a = User.create! email: "admin@admin.com", password: "123456789"
 a.add_role :admin
+
+b = User.create! email: "superadmin@admin.com", password: "123456789"
+b.add_role :superAdmin
 
 
 
