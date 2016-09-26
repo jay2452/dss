@@ -12,8 +12,18 @@ class ApplicationController < ActionController::Base
     @q = Document.search(params[:q])
     # @document = @q.result.includes(:documents).page(params[:page])
 
+
+
   # or use `to_a.uniq` to remove duplicates (can also be done in the view):
     @search_documents = @q.result(distinct: true).includes(:user).order(created_at: :desc)#.where("approved = ?", true)
+    docs_searched_ids = []
+    @search_documents.each do |doc|
+      docs_searched_ids << doc.id
+    end
+
+    # => that search should output the results of documents of the groups in the the user has been assigned
+    # => check the document-id from the document groups and take the intersection of both and give the result
+
   end
 
   def check_role?

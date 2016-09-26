@@ -21,7 +21,6 @@
           <li><a href="<%= admin_roles_path %>">Roles</a></li>
           <li><a href="<%= admin_groups_path %>">Projects</a></li>
           <li><a href="<%= admin_users_roles_path %>">User roles</a></li>
-          <li><a href="<%= admin_document_categories_path %>">Document category</a></li>
         <% end %>
         <% if current_user && (current_user.has_role? :admin) %>
           <li><a href="/admin/logs/index">Logs</a></li>

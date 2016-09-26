@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :user_groups, dependent: :destroy
   has_many :groups, through: :user_groups
 
-  has_many :user_document_statuses
+  has_many :user_document_statuses, dependent: :destroy
 
 #   Since remove_role method will also remove the role from Role table so use a custom function .
   def delete_role(role_symbol,target=nil) # => this function will only remove role of that particular user not the role data from Roles table .

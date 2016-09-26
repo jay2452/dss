@@ -15,6 +15,7 @@ module Admin
     # GET /groups/1.json
     def show
       @users = User.all
+      @documents = @group.documents.order(created_at: :desc)
     end
 
     # GET /groups/new

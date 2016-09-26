@@ -1,25 +1,38 @@
-<h2>Roles List</h2>
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#roleModal">New</button>
+<% provide :title, "Roles" %>
+<div class="container">
+  <div class="col-md-2">
+    <button type="button" class="btn btn-success btn-sm text-uppercase" data-toggle="modal" data-target="#roleModal">Add Role</button>
+  </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-    </tr>
-  </thead>
+  <div class="col-md-8">
 
-  <tbody>
-    <% @roles.each do |role| %>
-    <tr>
-      <td><%= role.id %></td>
-      <td><%= link_to role.name, admin_role_path(role) %></td>
-      <td><%= link_to "delete", admin_role_path(role), method: :delete, data: { confirm: 'Are you sure?' }%></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    <section class="roles-list">
+      <header>
+        <h3>Roles</h3>
+      </header>
 
+      <ol class="list-group">
+        <% @roles.each do |role| %>
+          <li class="list-group-item clearfix">
+            <h4 class="pull-right">
+              <small class="text-uppercase">
+                <%= link_to "delete", admin_role_path(role), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+              </small>
+            </h4>
+
+            <h3 class="h4">
+              <%= link_to role.name, admin_role_path(role) %>
+            </h3>
+          </li>
+        <% end %>
+      </ol>
+    </section>
+  </div>
+
+  <div class="col-md-2">
+
+  </div>
+</div>
 
 <div id="roleModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

@@ -60,7 +60,11 @@ Rails.application.routes.draw do
     resources :documents
     resources :users do
       collection do
-        resources :roles
+        resources :roles do
+          member do
+            get :del_role
+          end
+        end
         post :add_user_role, as: :add_user_role
         get :add_sms_group, as: :add_sms_group
       end

@@ -5,7 +5,7 @@ module Admin
     # load_and_authorize_resource
 
     def index
-      @users_roles = UsersRole.all
+      @users_roles = UsersRole.all.order(role_id: :desc)
     end
 
     def new
@@ -16,9 +16,12 @@ module Admin
       @users_role = UsersRole.new(users_roles_params)
       # @users_role.user_id = @u_id
 
+      if @users_role.save
+        redirect_to :back, notice: "Role successfully added to user"
+      else
+        redirect_to :back, notice: "Role cannot be added"
+      end
 
-      @users_role.save
-      redirect_to :back, notice: "Role successfully added to user"
     end
 
     def destroy
@@ -26,7 +29,7 @@ module Admin
 
       @user.delete_role "#{params[:role_name]}"
 
-      redirect_to :back, notice: "role removed"
+      redirect_to :back, notice: "Role Removed"
     end
 
 

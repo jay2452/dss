@@ -1,34 +1,46 @@
+<% provide :title, "Projects - Admin" %>
+
 <div class="container-fluid">
-  <p id="notice"><%= notice %></p>
+  <!-- <p id="notice"><%= notice %></p> -->
 
-  <h1>Projects</h1>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Project Name</th>
-        <th>Purpose</th>
-        <th>User count</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <div class="col-md-2">
+    <%= link_to 'Add Project', new_admin_group_path, class: "btn btn-success btn-sm text-uppercase" %>
+  </div>
 
-    <tbody>
-      <% @groups.each do |group| %>
-        <tr>
-          <td><%= group.name %></td>
-          <td><%= group.purpose %></td>
-          <td><%= group.users.count %></td>
-          <td><%= link_to 'Show', admin_group_path(group) %></td>
-          <td><%= link_to 'Edit', edit_admin_group_path(group) %></td>
-          <td><%= link_to 'Destroy', admin_group_path(group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="col-md-8">
+    <section class="all-projects">
+      <header>
+        <h3>Projects List</h3>
+      </header>
 
-  <br>
+      <ol class="list-group">
+        <% @groups.each do |group| %>
+          <li class="list-group-item clearfix">
+            <h4 class="pull-right">
+              <small class="text-uppercase">
+                <%= link_to 'Show', admin_group_path(group), class: "btn btn-info btn-sm" %>
+                <%= link_to 'Edit', edit_admin_group_path(group), class: "btn btn-warning btn-sm" %>
+                <%= link_to 'Delete', admin_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+              </small>
+            </h4>
+            <h3 class="h4">
+              <%= group.name %> <br>
+              <small>
+                Description : <%= group.purpose %> <br>
+                Users : <%= group.users.count %>
+              </small>
+            </h3>
+          </li>
+        <% end %>
+      </ol>
+    </section>
+  </div>
 
-  <%= link_to 'New Project', new_admin_group_path %>
+  <div class="col-md-2">
+
+  </div>
+
+
 
 </div>

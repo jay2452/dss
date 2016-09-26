@@ -11,6 +11,18 @@ module Admin
 
     def show
       @role = Role.find(params[:id])
+      @users = @role.users
+    end
+
+    def del_role
+
+      user = User.find(params["u_id"].to_i)
+      role = Role.find(params[:id])
+      user.delete_role role.name
+
+      Log.create! description: "<b>#{current_user.email} </b> removed <b>#{user.email} </b> from role <b>#{role.name} </b> at #{Time.now.utc}"
+
+      redirect_to :back, notice: "User Removed from that role"
     end
 
     def create
