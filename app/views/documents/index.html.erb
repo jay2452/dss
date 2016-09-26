@@ -35,7 +35,7 @@
               <td><%= link_to 'Show', document, class: "btn btn-info btn-sm" %></td>
               <% if document.user == current_user %>
                 <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
-                <td><%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+                <td><%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
               <% end %>
               <td>
                 <% if check_status?(document) #checkk if the document is already sent %>

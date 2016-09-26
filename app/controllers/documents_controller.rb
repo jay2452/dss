@@ -2,6 +2,7 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc]
   before_action :authenticate_user!
   load_and_authorize_resource
+  # before_action :check_role?
 
   # GET /documents
   # GET /documents.json

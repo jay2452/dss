@@ -18,7 +18,7 @@
             <li class="list-group-item clearfix">
               <h4 class="pull-right">
                 <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
-                <small class="text-uppercase"><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
+                <small class="text-uppercase"><%= link_to 'Destroy', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
               </h4>
 
               <h3 class="h4">
