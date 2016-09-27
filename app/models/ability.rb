@@ -18,6 +18,7 @@ class Ability
     elsif user.has_role? :viewUser
       can :read, Group
       can :read, Document
+      can :download_doc, Document
     elsif user.has_role? :uploadUser
       can :create, Group
       can :read, Group
@@ -38,6 +39,7 @@ class Ability
       can :destroy, UserGroup
     else
       can :create, Group
+      # can :download_doc, Document
       can :read, :all
     end
     # The first argument to `can` is the action you are giving the user

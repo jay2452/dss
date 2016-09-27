@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc, :download_doc]
   before_action :authenticate_user!
   load_and_authorize_resource
   # before_action :check_role?
@@ -25,6 +25,10 @@ class DocumentsController < ApplicationController
     dg = DocumentGroup.create! document_id: @document.id, group_id: @document.group.id
     Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project #{dg.group.name} at #{dg.created_at}"
     redirect_to :back, notice: "Successfully sent"
+  end
+
+  def download_doc
+    send_file @document.file.path, filename: "#{@document.name}.pdf", type: 'pdf'
   end
 
   # GET /documents/1

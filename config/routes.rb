@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     member do
       get 'send_doc'
+      get 'download_doc'
     end
   end
 
