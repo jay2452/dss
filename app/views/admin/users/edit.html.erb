@@ -1,0 +1,45 @@
+<%= provide :title, "Edit - #{@user.email}" %>
+
+<div class="container">
+
+  <div class="col-md-3">
+
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="h2">Edit Details</h3>
+        <%= form_for([:admin, @user]) do |f| %>
+          <div class="form-group">
+            <%= label_tag :email, nil, class: "sr-only" %>
+            <%= label_tag :email %>
+            <%= f.text_field :email, value: @user.email, class: "form-control", placeholder: "Enter Email" %>
+          </div>
+<!--
+          <div class="form-group">
+            <%= label_tag :mobile, nil, class: "sr-only" %>
+            <%= label_tag :mobile %>
+            <%= f.number_field :mobile, value: @user.mobile, class: "form-control", placeholder: "Enter Phone Number" %>
+          </div> -->
+
+          <div class="form-group">
+            <%= label_tag :password, nil, class: "sr-only" %>
+            <%= label_tag :password %>
+            <%= f.password_field :password, class: "form-control", placeholder: "Enter Password" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit "update user", class: "btn btn-primary btn-sm text-uppercase" %>
+            <%= link_to "Back", :back, class: "btn btn-info btn-sm text-uppercase" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+
+  </div>
+
+</div>

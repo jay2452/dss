@@ -24,11 +24,11 @@ b.add_role :superAdmin
 
 
 
-if !(Group.find_by_name "Project-1" )
-  group = Group.create! name: "Project-1"
-
-
-  User.all.each do |user|
-    UserGroup.create! user_id: user.id, group_id: group.id
-  end
-end
+# if !(Group.find_by_name "Project-1" )
+#   group = Group.create! name: "Project-1"
+#
+#
+#   User.all.each do |user|
+#     UserGroup.create! user_id: user.id, group_id: group.id
+#   end
+# end

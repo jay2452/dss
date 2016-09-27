@@ -1,47 +1,65 @@
-<% provide :title, "Users List" %>
-<h3>List of all users</h3>
+<div class="container-fluid">
+  <% provide :title, "Users List" %>
+  <h3>List of all users</h3>
 
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">New User</button>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-success btn-sm text-uppercase" data-toggle="modal" data-target="#myModal">Add User</button>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Email</th>
-      <th colspan="3">Roles</th>
-    </tr>
-  </thead>
+  <% if !@users.empty? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Projects</th>
+          <!-- <th colspan="3">Roles</th> -->
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>          
+          <td><%= link_to user.email, admin_user_path(user) %></td>
 
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= link_to user.email, admin_user_path(user) %></td>
+          <!-- <% fetch_roles(user.id).each do |role| %> <%# to fetch the roles of each user and it is defined in the usershelper.rb %>
+            <td><%= role %></td>
+          <% end %> -->
+          <td>
+            <% user.groups.each do |group| %>
+                <%= group.name %> &nbsp;
+            <% end %>
+          </td>
 
-      <% fetch_roles(user.id).each do |role| %> <%# to fetch the roles of each user and it is defined in the usershelper.rb %>
-        <td><%= role %></td>
-      <% end %>
+          <!-- <td><%= link_to "Add role", '#', class: "btn btn-primary btn-sm", :"data-toggle" => "modal", :"data-target" => "#role_modal" %></td> -->
 
-      <!-- <td><%= link_to "Add role", '#', class: "btn btn-primary btn-sm", :"data-toggle" => "modal", :"data-target" => "#role_modal" %></td> -->
-      <% if current_user.has_role? :superAdmin %>
-          <td><%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm" %></td>
-          <td><%= link_to "Delete", admin_user_path(user), method: :delete, class: "btn btn-danger btn-sm" %></td>
-      <% end %>
+          <td>
+            <%= link_to "change password", edit_admin_user_path(user), class: "btn btn-warning btn-sm text-uppercase" %>
+          </td>
+          <% if current_user.has_role? :superAdmin %>
+              <td><%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %></td>
+
+          <% end %>
+          <td><%= link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %></td>
+
+        </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
+      <div class="container">
+        <div class="Jumbotron">
+          <h2 class="h3">No Users</h2>
+        </div>
+      </div>
+
+  <% end %>
 
 
-    </tr>
-
-    <% end %>
-  </tbody>
-</table>
+</div>
 
 
 
-
-
-<!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -49,43 +67,40 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">New User</h4>
+        <h4 class="modal-title h3">Add User</h4>
       </div>
       <div class="modal-body">
-        <%= form_for([:admin, @user], html: { class: "form" }) do |f| %>
-          Email: <%= f.text_field :email %>
-          Password : <%= f.password_field :password %>
-          <%= f.submit "create" %>
-        <% end %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_for([:admin, @user], html: { class: "form" }) do |f| %>
+              <div class="form-group">
+                <%= label_tag "Email" %>
+                <%= f.text_field :email, class: "form-control", autofocus: true, placeholder: "Email (abc@example.com)" %>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag "Password" %>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag "Role" %>
+                <%= select_tag :role_id, options_from_collection_for_select(@roles, "id", "name"), class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.submit "add user", class: "btn btn-primary btn-sm text-uppercase" %>
+                <button type="button" class="btn btn-default btn-sm text-uppercase" data-dismiss="modal">Close</button>
+              </div>
+
+            <% end %>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      <!-- <div class="modal-footer">
+
+      </div> -->
     </div>
 
   </div>
 </div>
-
-<!-- <div id="role_modal" class="modal fade" role="dialog">
-  <div class="modal-dialog"> -->
-
-    <!-- Modal content-->
-    <!-- <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add role</h4>
-      </div>
-      <div class="modal-body">
-        <%= form_for([:admin, @users_role], html: { class: "form" }) do |f| %>
-
-          <%= f.select :role_id, Role.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
-          <%= f.submit "create" %>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div> -->

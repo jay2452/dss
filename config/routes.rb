@@ -59,7 +59,12 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'logs/index'
     resources :documents
+    # match ''  post :password_update, as: :password_update
+
     resources :users do
+      member do
+        match :password_update, to: 'users#password_update', as: :password_update, via: :post
+      end
       collection do
         resources :roles do
           member do
@@ -71,7 +76,11 @@ Rails.application.routes.draw do
       end
     end
     # post 'users/add_user_role' => 'users#add_user_role', as: :add_user_role
-    resources :groups
+    resources :groups do
+      member do
+        get :remove_user
+      end
+    end
     resources :user_groups
     # get 'users/remove_user_role' => 'users#remove_user_role', as: :delete_user_role
     resources :users_roles, only: [:index, :create, :destroy, :new]

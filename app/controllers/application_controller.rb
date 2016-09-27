@@ -9,10 +9,8 @@ class ApplicationController < ActionController::Base
   private
 
   def doc_search
-    @q = Document.search(params[:q])
+    @q = Document.search(params[:q])# || Document.all.order(created_at: :desc)
     # @document = @q.result.includes(:documents).page(params[:page])
-
-
 
   # or use `to_a.uniq` to remove duplicates (can also be done in the view):
     @search_documents = @q.result(distinct: true).includes(:user).order(created_at: :desc)#.where("approved = ?", true)

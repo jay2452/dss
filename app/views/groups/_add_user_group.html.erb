@@ -10,22 +10,24 @@
           <h4 class="modal-title">Add User</h4>
         </div>
         <div class="modal-body">
-          <div id="add_user_group">
-            <%= form_tag groups_add_user_to_group_path do %>
-              <div class="form-group">
-                Group : <%= number_field_tag "group", @group.id, readonly: true, class: "form-control" %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div id="add_user_group">
+                <%= form_tag groups_add_user_to_group_path do %>
+                  <div class="form-group">
+                    Group : <%= number_field_tag "group", @group.id, readonly: true, class: "form-control" %>
+                  </div>
+                  <div class="form-group">
+                      User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
+                  </div>
+                  <div class="form-group" align="center">
+                    <%= submit_tag "Add user", class: "btn btn-default btn-sm text-uppercase" %>
+                    <button type="button" class="btn btn-default btn-sm text-uppercase" data-dismiss="modal">Close</button>
+                  </div>
+                <% end %>
               </div>
-              <div class="form-group">
-                  User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
-              </div>
-              <div class="form-group" align="center">
-                <%= submit_tag "Add", class: "btn btn-default btn-lg" %>
-              </div>
-            <% end %>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
 

@@ -15,8 +15,8 @@
         </div>
         <div class="panel-body">
           Total Users :  <%= User.count %> <hr>
-          Recent Users Added <br>
-          <% User.limit(4).order(created_at: :desc).each do |user| %>
+          <!-- Users<br> -->
+          <% @users.each do |user| %>
             <%= user.email %> <br>
           <% end %>
         </div>

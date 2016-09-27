@@ -2,6 +2,8 @@
 <h2> <%= @user.email %> </h2>
 
 <div class="container-fluid">
+
+  <!-- <button type="button" class="btn btn-warning btn-sm text-uppercase" data-toggle="modal" data-target="#change-password">Change Password</button> -->
   <div class="row">
     User information <br>
     <table class="table table-striped">
@@ -21,6 +23,7 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 
   <div class="row">
@@ -66,24 +69,28 @@
     </div>
 
     <div class="col-md-4">
-      <h4>Documents uploaded</h4>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Document Name</th>
-            <th></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @user.documents.each do |document| %>
+      <% if !(@user.has_role? :viewUser) %>
+        <h4>Documents uploaded</h4>
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><%= document.name %></td>
-              <td><%= link_to "delete", '#' %></td>
+              <th>Document Name</th>
+              <!-- <th></th> -->
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @user.documents.each do |document| %>
+              <tr>
+                <td><%= document.name %></td>
+                <!-- <td><%#link_to "delete", '#' %></td> -->
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+
     </div>
 
     <div class="col-md-2"> </div>

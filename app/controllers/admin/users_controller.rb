@@ -25,16 +25,30 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      group = Group.first
-
+      role = Role.find(params[:role_id])
+      # group = Group.first
       if @user.save
+        @user.add_role role.name
         Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}"
+        Log.create! description: "<b>#{current_user.email} </b> added user <b>#{@user.email} </b> to role <b>#{role.name} </b> at #{@user.created_at}"
 
-        ug = UserGroup.create! user_id: @user.id, group_id: group.id
+        # ug = UserGroup.create! user_id: @user.id, group_id: group.id
 
-        Log.create! description: "<b>#{@user.email} </b> added to project <b>#{group.name} </b> at #{ug.created_at}"
+        # Log.create! description: "<b>#{@user.email} </b> added to project <b>#{group.name} </b> at #{ug.created_at}"
 
-        redirect_to :back, notice: 'user was successfully created'
+        redirect_to :back, notice: 'User successfully added'
+      end
+    end
+
+    def edit
+      @user = User.friendly.find(params[:id])
+    end
+
+    def update
+      @user = User.friendly.find(params[:id])
+      if @user.update(user_params)
+        Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at}"
+        redirect_to admin_users_path, notice: "Password Changed successfully"
       end
     end
 
@@ -78,7 +92,7 @@ module Admin
     private
 
       def user_params
-        params.require(:user).permit(:email, :password)
+        params.require(:user).permit(:email, :password, :mobile)
       end
   end
 
