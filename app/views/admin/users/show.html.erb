@@ -38,7 +38,7 @@
           <% @user.roles.each do |role| %>
             <tr>
               <td><%= role.name %></td>
-              <td><%# link_to "remove", admin_users_role_path(role_name: role.name), method: :delete, data: {confirm: "are you sure"} %></td>
+              <!-- <td><%# link_to "remove", admin_users_role_path(role_name: role.name), method: :delete, data: {confirm: "are you sure"} %></td> -->
             </tr>
           <% end %>
         </tbody>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="col-md-4">
-      <h4>Projects associated with (<%= link_to "Add", new_admin_user_group_path %>) </h4>
+      <h4>Projects associated with <!-- (<%# link_to "Add", new_admin_user_group_path %>) --></h4>
       <table class="table table-striped">
         <thead>
           <tr>
