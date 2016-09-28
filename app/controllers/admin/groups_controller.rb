@@ -61,7 +61,7 @@ module Admin
       respond_to do |format|
         if @group.update(group_params)
           Log.create! description: "<b>#{current_user.email} </b> updated group <b>#{@group.name} </b> at #{@group.updated_at}"
-          format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+          format.html { redirect_to admin_groups_path, notice: 'Group was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
         else
           format.html { render :edit }
