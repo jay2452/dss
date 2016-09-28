@@ -1,17 +1,11 @@
-# config valid only for current version of Capistrano
-lock '3.6.0'
-
-
-
 # Change these
-server '139.59.14.91', port: 22 , roles: [:web, :app, :db], primary: true
+# server '139.59.14.91', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:jay2452/dss.git'
-set :application,     'GPIL'
+set :application,     'dss'
 set :user,            'kumar'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-set :rbenv_ruby, '2.3.1'
 
 # Don't change these unless you know what you're doing
 set :pty,             true

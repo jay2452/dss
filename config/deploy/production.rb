@@ -1,9 +1,3 @@
-set :stage, :production
-
-# Replace 127.0.0.1 with your server's IP address!
-server '139.59.8.228', user: 'jayant', roles: %w{web app db}
-
-
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -13,7 +7,9 @@ server '139.59.8.228', user: 'jayant', roles: %w{web app db}
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+set :stage, :production
+server '139.59.14.91', user: 'kumar', roles: %w{web app db}
+set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
 
 # role-based syntax
 # ==================
