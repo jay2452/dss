@@ -41,12 +41,19 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'sqlite3'
+  gem 'thin'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano',         require: false
+  gem 'capistrano-rbenv',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :production do
   gem 'mysql2'
+  gem 'puma'
 end
 
 
@@ -66,7 +73,7 @@ gem 'friendly_id'
 gem 'impressionist'
 # gem 'bootstrap-will_paginate'
 
-gem 'thin'
+
 
 # gem 'capistrano', '~> 3.1.0'
 # gem 'capistrano-bundler', '~> 1.1.2'
