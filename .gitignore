@@ -18,6 +18,3 @@
 
 
 /public/system/documents
-/Capfile
-/config/deploy/*
-/config/deploy.rb
