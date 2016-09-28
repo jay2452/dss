@@ -1,13 +1,13 @@
 <% provide :title, "Documents" %>
 <div class="container-fluid">
-  <p id="notice"><%= notice %></p>
+  <!-- <p id="notice"><%= notice %></p> -->
 
-    <div class="col-md-3">
+    <div class="col-md-2">
       <a href="<%= new_document_path %>" class="btn btn-success btn-sm">
         <span class="glyphicon glyphicon-cloud-upload"></span> Upload Document
       </a>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <section>
         <header>
           <h3>Documents</h3>
@@ -18,7 +18,7 @@
             <li class="list-group-item clearfix">
               <h4 class="pull-right">
                 <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
-                <small class="text-uppercase"><%= link_to 'Destroy', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
+                <small class="text-uppercase"><%= link_to 'Delete', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
               </h4>
 
               <h3 class="h4">
@@ -36,7 +36,7 @@
       </section>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
 

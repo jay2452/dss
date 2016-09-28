@@ -1,6 +1,16 @@
 <% if (current_user.has_role? :admin) || (current_user.has_role? :superAdmin) %>
     <%# goto admin adsh board %>
     <% provide :title, "Welcome - Admin" %>
+
+  <!-- <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Section 1</a></li>
+      </ul>
+    </div>
+
+  </nav> -->
+
   <%= render :partial => "admin_dash_board" %>
 
 <% elsif current_user.has_role? :uploadUser %>
