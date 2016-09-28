@@ -1,4 +1,4 @@
-<%= form_for(@document) do |f| %>
+<%= form_for([:admin, @document]) do |f| %>
   <% if @document.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
@@ -11,15 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Document Name" %>
   </div>
-  <div class="field">
-    <%= f.label :document_category_id %><br>
-    <%= f.select :document_category_id, DocumentCategory.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  <div class="form-group">
+    <%= f.label :project_id %> <br>
+    <small>(Select a project for the document for which it belongs to)</small>
+    <%# f.number_field :document_category_id %>
+
+    <%= f.select :group_id, Group.all.collect { |p| [ p.name, p.id ] }, {include_blank: true},{class: "form-control"} %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <div class="pull-right">
+      <% if @document.file? %>
+        <%= link_to @document.file_file_name, @document.file.url, target: "_blank" %>
+      <% end %>
+      <small>Please upload only pdf, jpg, jpeg, png and gif format files</small>
+    </div>
+
+   	<%= f.label :file %><br>
+    <%= f.file_field :file %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Upload", class: "btn btn-success btn-sm text-uppercase" %>
   </div>
 <% end %>

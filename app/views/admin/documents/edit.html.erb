@@ -1,6 +1,24 @@
-<h1>Editing Document</h1>
+<% provide :title, "Edit - #{@document.name} | Admin" %>
+<div class="container">
+  <div class="col-md-3">
 
-<%= render 'form' %>
+  </div>
 
-<%= link_to 'Show', @document %> |
-<%= link_to 'Back', admin_documents_path %>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1 class="h3">Edit Document</h1>
+
+        <%= render 'form' %>
+
+        <%= link_to 'Show', admin_document_path(@document) %> |
+        <%= link_to 'Back', admin_documents_path %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+
+  </div>
+</div>
