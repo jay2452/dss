@@ -45,8 +45,8 @@ module Admin
 
       respond_to do |format|
         if @group.save
-          Log.create! description: "<b>#{current_user.email} </b> created group <b>#{@group.name} </b> at #{@group.created_at}"
-          format.html { redirect_to admin_groups_path, notice: 'Group was successfully created.' }
+          Log.create! description: "<b>#{current_user.email} </b> created project <b>#{@group.name} </b> at #{@group.created_at}"
+          format.html { redirect_to admin_groups_path, notice: 'Project was successfully created.' }
           format.json { render :show, status: :created, location: @group }
         else
           format.html { render :new }
@@ -60,8 +60,8 @@ module Admin
     def update
       respond_to do |format|
         if @group.update(group_params)
-          Log.create! description: "<b>#{current_user.email} </b> updated group <b>#{@group.name} </b> at #{@group.updated_at}"
-          format.html { redirect_to admin_groups_path, notice: 'Group was successfully updated.' }
+          Log.create! description: "<b>#{current_user.email} </b> updated project <b>#{@group.name} </b> at #{@group.updated_at}"
+          format.html { redirect_to admin_groups_path, notice: 'Project was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
         else
           format.html { render :edit }
@@ -76,7 +76,7 @@ module Admin
       Log.create! description: "<b>#{current_user.email} </b> deleted group <b>#{@group.name} </b> at #{Time.now.utc}"
       @group.destroy
       respond_to do |format|
-        format.html { redirect_to admin_groups_url, notice: 'Group was successfully destroyed.' }
+        format.html { redirect_to admin_groups_url, notice: 'Project was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
