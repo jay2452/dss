@@ -11,8 +11,9 @@
 
         <%= render 'form' %>
 
-        <%= link_to 'Show', admin_document_path(@document) %> |
-        <%= link_to 'Back', admin_documents_path %>
+        <%# link_to 'Show', admin_document_path(@document), class: "btn btn-info btn-sm text-uppercase" %>
+        
+        <%= link_to 'Back', admin_documents_path, class: "btn btn-primary btn-sm text-uppercase"  %>
 
       </div>
     </div>

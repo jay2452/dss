@@ -64,7 +64,7 @@ class DocumentsController < ApplicationController
       if @document.save
         # DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
         Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}"
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        format.html { redirect_to @document, notice: 'Document successfully uploaded.' }
         format.json { render :show, status: :created, location: @document }
         # send a sms to the users
         # pass = ENV['MOSTO_PASS']
@@ -85,7 +85,7 @@ class DocumentsController < ApplicationController
       respond_to do |format|
         if @document.update(document_params)
           Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at}"
-          format.html { redirect_to @document, notice: 'Document was successfully updated.' }
+          format.html { redirect_to @document, notice: 'Document successfully updated.' }
           format.json { render :show, status: :ok, location: @document }
         else
           format.html { render :edit }
@@ -102,7 +102,7 @@ class DocumentsController < ApplicationController
       Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}"
       @document.destroy
       respond_to do |format|
-        format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }
+        format.html { redirect_to :back, notice: 'Document successfully destroyed.' }
         format.json { head :no_content }
       end
     end
