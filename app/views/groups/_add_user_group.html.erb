@@ -21,7 +21,7 @@
                       User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
                   </div>
                   <div class="form-group" align="center">
-                    <%= submit_tag "Add user", class: "btn btn-default btn-sm text-uppercase" %>
+                    <%= submit_tag "Add user", class: "btn btn-success btn-sm text-uppercase" %>
                     <button type="button" class="btn btn-default btn-sm text-uppercase" data-dismiss="modal">Close</button>
                   </div>
                 <% end %>
