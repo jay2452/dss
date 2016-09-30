@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
 
     def add_user_to_group
 
-      g_id = params["group"].to_i
+      g_id = Group.find_by_name(params["group"]).id
       u_id = params["user"].to_i
 
       @ug = UserGroup.create! user_id: u_id, group_id: g_id

@@ -15,7 +15,7 @@
               <div id="add_user_group">
                 <%= form_tag groups_add_user_to_group_path do %>
                   <div class="form-group">
-                    Group : <%= number_field_tag "group", @group.id, readonly: true, class: "form-control" %>
+                    Group : <%= text_field_tag "group", @group.name, readonly: true, class: "form-control" %>
                   </div>
                   <div class="form-group">
                       User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>

@@ -14,7 +14,8 @@ module Admin
     # GET /groups/1
     # GET /groups/1.json
     def show
-      @users = User.all - @group.users
+      users = User.with_role(:admin).all + User.with_role(:superAdmin).all
+      @users = User.all - @group.users - users
       @documents = @group.documents.order(created_at: :desc)
     end
 

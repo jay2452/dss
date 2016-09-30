@@ -6,9 +6,9 @@ module Admin
     # load_and_authorize_resource
 
     def index
-      @users = User.all
+      @users = User.all - User.with_role(:admin) - User.with_role(:superAdmin)
       @user = User.new
-      @roles = Role.all
+      @roles = Role.all - Role.where("name = ?", "admin") - Role.where("name = ?", "superAdmin")
 
       @users_role = UsersRole.new
     end
