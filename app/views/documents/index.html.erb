@@ -9,6 +9,9 @@
           <span class="glyphicon glyphicon-cloud-upload"></span> Upload Document
         </a>
     <% end %>
+    <div class="pull-right">
+      <h4 class="h5">Note: after sending the document, it cannot be deleted .</h4>
+    </div>
     <h3>Uploaded Documents</h3>
     <% if @documents.all.count != 0 %>
 
@@ -33,7 +36,7 @@
               <td><%= document.user.email %></td>
 
               <td><%= link_to 'Show', document, class: "btn btn-info btn-sm" %></td>
-              <% if document.user == current_user %>
+              <% if (document.user == current_user) && (document.document_groups.empty?) %>
                 <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
                 <td><%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
               <% end %>
