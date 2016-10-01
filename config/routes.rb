@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :groups do
       member do
         get :remove_user
+        get :disable_group
       end
     end
     resources :user_groups

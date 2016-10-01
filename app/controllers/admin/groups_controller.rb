@@ -1,6 +1,6 @@
 module Admin
   class GroupsController < ApplicationController
-    before_action :set_group, only: [:show, :edit, :update, :destroy, :remove_user]
+    before_action :set_group, only: [:show, :edit, :update, :destroy, :remove_user, :disable_group]
     before_action :authenticate_user!
     # before_action :check_role?
     load_and_authorize_resource
@@ -35,7 +35,13 @@ module Admin
       ug.destroy
       Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{user.email} </b> from project <b>#{group.name} </b> at #{Time.now.utc}"
       redirect_to :back, notice: 'User successfully removed from project'
+    end
 
+    def disable_group
+      # @group.disabled = true
+      @group.update(disabled: true)
+      Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at}"
+      redirect_to :back, notice: "Project successfully disabled"
     end
 
     # POST /groups
