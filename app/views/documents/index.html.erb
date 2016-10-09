@@ -5,12 +5,12 @@
   <div class="container">
 
     <% if current_user && (can? :create, Document) %>
-        <a href="<%= new_document_path %>" class="btn btn-success btn-sm">
+        <a href="<%= new_document_path %>" class="btn btn-success btn-sm text-uppercase">
           <span class="glyphicon glyphicon-cloud-upload"></span> Upload Document
         </a>
     <% end %>
     <div class="pull-right">
-      <h4 class="h5">Note: after sending the document, it cannot be deleted .</h4>
+      <small><h4 class="h5">Note: after sending the document, it cannot be deleted .</h4></small>
     </div>
     <h3>Uploaded Documents</h3>
     <% if @documents.all.count != 0 %>
@@ -35,20 +35,20 @@
               <!-- <td><%# document.document_category.name %></td> -->
               <td><%= document.user.email %></td>
 
-              <td><%= link_to 'Show', document, class: "btn btn-info btn-sm" %></td>
+              <td><%= link_to 'Show', document, class: "btn btn-info btn-sm text-uppercase" %></td>
               <% if (document.user == current_user) && (document.document_groups.empty?) %>
                 <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
-                <td><%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+                <td><%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm text-uppercase" %></td>
               <% end %>
               <td>
                 <% if check_status?(document) #checkk if the document is already sent %>
                     <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
-                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-default btn-sm">
+                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-default btn-sm text-uppercase">
                       <span class="glyphicon glyphicon-send"></span> Sent
                     </a>
 
                 <% else %>
-                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-success btn-sm">
+                    <a href="<%= send_doc_document_path(document) %>" class="btn btn-success btn-sm text-uppercase">
                       <span class="glyphicon glyphicon-send"></span> Send
                     </a>
                 <% end %>
@@ -62,7 +62,7 @@
     <% else %>
 
       <div class="jumbotron">
-        <h3 align="center"><b>No Documents</b></h3>
+        <h3 align="center text-uppercase"><b>No Documents</b></h3>
       </div>
 
     <% end %>
