@@ -28,7 +28,18 @@ class DocumentsController < ApplicationController
   end
 
   def download_doc
-    send_file @document.file.path, filename: "#{@document.name}.pdf", type: 'pdf'
+    case @document.file_content_type
+      when 'application/pdf'
+        send_file @document.file.path, filename: "#{@document.name}.pdf", type: 'pdf'
+      when 'image/jpeg'
+        send_file @document.file.path, filename: "#{@document.name}.jpeg", type: 'jpeg'
+      when 'image/jpg'
+        send_file @document.file.path, filename: "#{@document.name}.jpg", type: 'jpg'
+      when 'image/gif'
+        send_file @document.file.path, filename: "#{@document.name}.gif", type: 'gif'
+      when 'image/png'
+        send_file @document.file.path, filename: "#{@document.name}.png", type: 'png'
+    end
   end
 
   # GET /documents/1

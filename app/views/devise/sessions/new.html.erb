@@ -29,7 +29,7 @@
           <% end -%>
 
           <div class="actions form-group" align="center">
-            <%= f.submit "Log in", class: "btn btn-success" %>
+            <%= f.button "Log in", class: "btn btn-success text-uppercase", data: { disable_with: "<i class = 'fa fa-spinner fa-spin'></i> logging in.." } %>
           </div>
         <% end %>
 

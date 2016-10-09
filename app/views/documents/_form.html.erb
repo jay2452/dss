@@ -1,7 +1,7 @@
-<%= form_for(@document) do |f| %>
+<%= form_for(@document, html: { id: 'create_document' }) do |f| %>
   <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+    <div id="error_explanation" style="color: red;">
+      <h2 class="h4"><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
 
       <ul>
       <% @document.errors.full_messages.each do |message| %>
@@ -21,8 +21,6 @@
     <%# f.number_field :document_category_id %>
 
     <%= f.select :group_id, Group.all.collect { |p| [ p.name, p.id ] }, {include_blank: true},{class: "form-control"} %>
-
-
   </div>
 
   <div class="form-group">
@@ -53,6 +51,10 @@
 
 
   <div class="form-group" align="center">
-    <%= f.submit "Upload", class: "btn btn-success btn-sm text-uppercase" %>
+    <%= f.button "Upload", class: "btn btn-success btn-sm text-uppercase", data: { disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Uploading" } %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  validateDocument('create_document');
+</script>

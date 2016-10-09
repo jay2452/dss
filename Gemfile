@@ -50,6 +50,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
   gem "airbrussh", '~> 1.1.0', require: false
+  gem 'brakeman', :require => false
 end
 
 group :production do
