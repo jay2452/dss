@@ -72,15 +72,31 @@
       <div class="modal-body">
         <div class="panel panel-default">
           <div class="panel-body">
-            <%= form_for([:admin, @user], html: { class: "form" }) do |f| %>
+            <%= form_for([:admin, @user], html: { class: "form", id: 'create_user' }) do |f| %>
+
+              <div class="form-group">
+                <%= label_tag "Username" %>
+                <%= f.text_field :username, class: "form-control", autofocus: true, placeholder: "Enter a user name" %>
+              </div>
+
               <div class="form-group">
                 <%= label_tag "Email" %>
-                <%= f.text_field :email, class: "form-control", autofocus: true, placeholder: "Email (abc@example.com)" %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Email (abc@example.com)" %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Password" %>
                 <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag "Mobile" %>
+                <%= f.text_field :mobile, class: "form-control", placeholder: "9876543210", maxlength: "10" %>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag "Designation" %>
+                <%= f.text_field :designation, class: "form-control", placeholder: "Enter Designation" %>
               </div>
 
               <div class="form-group">
@@ -104,3 +120,7 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  validateUser('create_user');
+</script>

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930222546) do
+ActiveRecord::Schema.define(version: 20161018133122) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -24,10 +23,9 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.integer  "group_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["document_id"], name: "index_document_groups_on_document_id"
+    t.index ["group_id"], name: "index_document_groups_on_group_id"
   end
-
-  add_index "document_groups", ["document_id"], name: "index_document_groups_on_document_id"
-  add_index "document_groups", ["group_id"], name: "index_document_groups_on_group_id"
 
   create_table "documents", force: :cascade do |t|
     t.string   "name"
@@ -42,10 +40,9 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.datetime "file_updated_at"
     t.string   "slug"
     t.integer  "group_id"
+    t.index ["group_id"], name: "index_documents_on_group_id"
+    t.index ["slug"], name: "index_documents_on_slug"
   end
-
-  add_index "documents", ["group_id"], name: "index_documents_on_group_id"
-  add_index "documents", ["slug"], name: "index_documents_on_slug"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -53,12 +50,11 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -68,10 +64,9 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.integer  "user_id"
     t.string   "slug"
     t.boolean  "disabled",   default: false
+    t.index ["slug"], name: "index_groups_on_slug", unique: true
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
-
-  add_index "groups", ["slug"], name: "index_groups_on_slug", unique: true
-  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
 
   create_table "logs", force: :cascade do |t|
     t.text     "description"
@@ -85,10 +80,9 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
   end
-
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
 
   create_table "user_document_statuses", force: :cascade do |t|
     t.integer  "user_id"
@@ -96,11 +90,10 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.integer  "status",      default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["document_id"], name: "index_user_document_statuses_on_document_id"
+    t.index ["user_id", "document_id"], name: "index_user_document_statuses_on_user_id_and_document_id", unique: true
+    t.index ["user_id"], name: "index_user_document_statuses_on_user_id"
   end
-
-  add_index "user_document_statuses", ["document_id"], name: "index_user_document_statuses_on_document_id"
-  add_index "user_document_statuses", ["user_id", "document_id"], name: "index_user_document_statuses_on_user_id_and_document_id", unique: true
-  add_index "user_document_statuses", ["user_id"], name: "index_user_document_statuses_on_user_id"
 
   create_table "user_groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -122,19 +115,20 @@ ActiveRecord::Schema.define(version: 20160930222546) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "mobile"
     t.string   "slug"
+    t.bigint   "mobile"
+    t.string   "designation"
+    t.string   "username"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug"
+    t.index ["username"], name: "index_users_on_username"
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["slug"], name: "index_users_on_slug"
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
   end
-
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
 
 end

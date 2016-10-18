@@ -8,7 +8,7 @@
   <%= csrf_meta_tags %>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-
+<!--
   <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
@@ -26,7 +26,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
-
+ -->
 
 </head>
 <body>
@@ -46,7 +46,7 @@
   <% end %>
 
   <% if user_signed_in? %>
-      <h4>Signed in as : <%= current_user.email %></h4>
+      <h4 class="h5">Signed in as : <%= current_user.email %></h4>
   <% end %>
 
 <%= yield %>

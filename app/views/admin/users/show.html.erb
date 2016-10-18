@@ -5,21 +5,23 @@
 
   <!-- <button type="button" class="btn btn-warning btn-sm text-uppercase" data-toggle="modal" data-target="#change-password">Change Password</button> -->
   <div class="row">
-    User information <br>
+    <!-- User information <br> -->
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Id</th>
+          <th>Username</th>
           <th>Email</th>
           <th>Mobile</th>
+          <th>Designation</th>
         </tr>
       </thead>
 
       <tbody>
         <tr>
-          <td><%= @user.id %></td>
+          <td><%= @user.username %></td>
           <td><%= @user.email %></td>
           <td><%= @user.mobile %></td>
+          <td><%= @user.designation %></td>
         </tr>
       </tbody>
     </table>

@@ -36,6 +36,10 @@ module Admin
 
         # Log.create! description: "<b>#{@user.email} </b> added to project <b>#{group.name} </b> at #{ug.created_at}"
 
+        # => code to send email or notify the user/member
+
+        
+
         redirect_to :back, notice: 'User successfully added'
       end
     end
@@ -92,7 +96,7 @@ module Admin
     private
 
       def user_params
-        params.require(:user).permit(:email, :password, :mobile)
+        params.require(:user).permit(:email, :password, :mobile, :designation, :username)
       end
   end
 

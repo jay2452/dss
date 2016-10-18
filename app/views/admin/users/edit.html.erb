@@ -11,6 +11,18 @@
       <div class="panel-body">
         <h3 class="h2">Edit Details</h3>
         <%= form_for([:admin, @user]) do |f| %>
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+              <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
           <div class="form-group">
             <%= label_tag :email, nil, class: "sr-only" %>
             <%= label_tag :email %>
@@ -43,3 +55,7 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+
+</script>

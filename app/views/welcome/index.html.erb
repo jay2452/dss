@@ -19,33 +19,18 @@
 
 <% elsif current_user.has_role? :viewUser %>
   <% provide :title, "Welcome" %>
-  <%# render template: "documents/index" %>
 
 
     <div class="container-fluid">
-      <% if current_user && (can? :create, Document) %>
-          <%= link_to 'Upload Document', new_document_path %>
-      <% end %>
+      <!-- <%# if current_user && (can? :create, Document) %>
+          <%# link_to 'Upload Document', new_document_path %>
+      <%# end %> -->
 
-      <div class="col-md-3">
-        <!-- <% if @user_groups.empty? %>
-          <div class="jumbotron">
-            <h4 align="center">You are not associated with any project</h4>
-          </div>
-        <% else %>
-        <br><br>
-          <div class="panel panel-default">
-            <div class="panel-heading">Projects Associated</div>
-            <div class="panel-body">
-              <% @user_groups.each do |group| %>
-                <%= group.name %> <br>
-              <% end %>
-            </div>
-          </div>
-        <% end %> -->
+      <div class="col-md-2">
+
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-8">
         <% if @recent_docs.empty? %>
           <div class="jumbotron">
             <h3 align="center"> No Files</h3>
@@ -57,9 +42,9 @@
             <div class="panel panel-default">
               <div class="panel-body" id="status-<%= doc_status(doc.document, current_user)  %>">
                 <div class="col-sm-11">
-                  <%= link_to doc.document.name, document_path(doc.document) %> <br>
-                  uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
-                  </small> uploaded by: <small><%= doc.document.user.email %></small> <br>
+                  <h3 class="h4"><%= link_to doc.document.name, document_path(doc.document) %> </h3>
+                  Uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
+                  </small> Uploaded by: <small><%= doc.document.user.email %></small> <br>
                   <small>
                     Project Name :
                     <%= doc.group.name %> <br>
@@ -83,7 +68,7 @@
 
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-2">
 
       </div>
     </div>

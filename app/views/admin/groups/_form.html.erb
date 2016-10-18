@@ -1,4 +1,4 @@
-<%= form_for([:admin, @group]) do |f| %>
+<%= form_for([:admin, @group], html: { id: 'create_project' }) do |f| %>
   <% if @group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name, placeholder: "Project Name", class: "form-control" %>
+    <%= f.text_field :name, placeholder: "Project Name", class: "form-control", autofocus: true %>
   </div>
   <div class="form-group">
     <%= f.label :purpose %><br>
@@ -23,3 +23,8 @@
     <%= f.submit "Save Project" , class: "btn btn-success btn-sm text-uppercase" %>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  validateProject('create_project')
+</script>
