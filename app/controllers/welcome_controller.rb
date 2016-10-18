@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
 
     if !@user_groups.empty?
       @user_groups.each do |group|
-        group.documents.each do |doc| # => it is fetching records from DocumentGroup table
+        group.documents.where("documents.deleted = ?", false).each do |doc| # => it is fetching records from DocumentGroup table
           arr << doc.id
         end
       end
@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
     # end
 
     # arr.uniq!
-
+    # => recent docs only for the viewuser purpose to veiw the files uploaded recently in his project/group
     @recent_docs = DocumentGroup.where("document_id IN (?)", arr).order(created_at: :desc)
 
 

@@ -58,7 +58,16 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'logs/index'
-    resources :documents
+    resources :documents do
+      member do
+        get 'remove_document'
+        get 'restore_document'
+      end
+      collection do
+        get :recycle_bin
+      end
+    end
+    # get 'documents/remove_document'
     # match ''  post :password_update, as: :password_update
 
     resources :users do

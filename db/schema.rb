@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018133122) do
+ActiveRecord::Schema.define(version: 20161018215438) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20161018133122) do
     t.datetime "file_updated_at"
     t.string   "slug"
     t.integer  "group_id"
+    t.boolean  "deleted",              default: false
     t.index ["group_id"], name: "index_documents_on_group_id"
     t.index ["slug"], name: "index_documents_on_slug"
   end

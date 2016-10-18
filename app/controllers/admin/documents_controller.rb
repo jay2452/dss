@@ -1,13 +1,13 @@
 module Admin
   class DocumentsController < ApplicationController
-    before_action :set_document, only: [:show, :edit, :update, :destroy]
+    before_action :set_document, only: [:show, :edit, :update, :destroy, :remove_document, :restore_document]
     before_action :authenticate_user!
     # before_action :check_role?
     load_and_authorize_resource
     # GET /documents
     # GET /documents.json
     def index
-      @documents = Document.all.order(group_id: :desc, created_at: :desc)
+      @documents = Document.where("deleted = ?", false).order(group_id: :desc, created_at: :desc)
       # @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
       # @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)
     end
@@ -68,6 +68,29 @@ module Admin
         format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }
         format.json { head :no_content }
       end
+    end
+
+    def remove_document
+      @document.deleted = true
+      @document.save!
+
+      Log.create! description: "<b>#{current_user.email} </b> removed document <b> #{@document.name} </b> at #{@document.updated_at}"
+
+      redirect_to :back, notice: "Document moved to recycle bin successfully !!"
+    end
+
+    def recycle_bin
+      @documents = Document.where("deleted = ?", true).order(updated_at: :desc)
+    end
+
+    def restore_document
+      # => to restore the document from recycle bin back to documents page
+      @document.deleted = false
+      @document.save!
+      Log.create! description: "<b>#{current_user.email} </b> restored document <b> #{@document.name} </b> at #{@document.updated_at}"
+
+      redirect_to :back, notice: "Document restored from recycle bin successfully !!"
+
     end
 
     private
