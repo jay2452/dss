@@ -11,7 +11,8 @@
         <tr>
           <th>Email</th>
           <th>Projects</th>
-          <!-- <th colspan="3">Roles</th> -->
+          <th>Role</th>
+          <th colspan="3"></th>
         </tr>
       </thead>
 
@@ -19,15 +20,14 @@
         <% @users.each do |user| %>
         <tr>
           <td><%= link_to user.email, admin_user_path(user) %></td>
-
-          <!-- <% fetch_roles(user.id).each do |role| %> <%# to fetch the roles of each user and it is defined in the usershelper.rb %>
-            <td><%= role %></td>
-          <% end %> -->
           <td>
             <% user.groups.each do |group| %>
                 <%= group.name %> &nbsp;
             <% end %>
           </td>
+          <% fetch_roles(user.id).each do |role| %> <%# to fetch the roles of each user and it is defined in the usershelper.rb %>
+            <td><%= role %></td>
+          <% end %>
 
           <!-- <td><%= link_to "Add role", '#', class: "btn btn-primary btn-sm", :"data-toggle" => "modal", :"data-target" => "#role_modal" %></td> -->
 
@@ -75,8 +75,8 @@
             <%= form_for([:admin, @user], html: { class: "form", id: 'create_user' }) do |f| %>
 
               <div class="form-group">
-                <%= label_tag "Username" %>
-                <%= f.text_field :username, class: "form-control", autofocus: true, placeholder: "Enter a user name" %>
+                <%= label_tag "Name" %>
+                <%= f.text_field :username, class: "form-control", autofocus: true, placeholder: "Enter the user name" %>
               </div>
 
               <div class="form-group">
@@ -91,7 +91,7 @@
 
               <div class="form-group">
                 <%= label_tag "Mobile" %>
-                <%= f.text_field :mobile, class: "form-control", placeholder: "9876543210", maxlength: "10" %>
+                <%= f.text_field :mobile, class: "form-control", placeholder: "Eg. 9876543210 and should be of 10 digits", maxlength: "10" %>
               </div>
 
               <div class="form-group">

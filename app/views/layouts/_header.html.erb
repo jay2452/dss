@@ -11,9 +11,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<%= root_path %>">Home</a></li>
-        <% if user_signed_in? %>
-          <li><%= link_to "Change Password", edit_user_registration_path %></li>
-        <% end %>
+        <!-- <%# if user_signed_in? %>
+          <li><%# link_to "Change Password", edit_user_registration_path %></li>
+        <%# end %> -->
 
         <% if current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superAdmin)) %>
           <li><a href="<%= admin_documents_path %>">Documents</a></li>
