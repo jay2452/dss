@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-body" id="status-<%= doc_status(document_group.document, current_user)  %>">
+    <div class="col-sm-11">
+      <h3 class="h4"><%= link_to document_group.document.name, document_path(document_group.document) %> </h3>
+      Uploaded : <small><%= time_ago_in_words(document_group.created_at) %> ago <br>
+      </small> Uploaded by: <small><%= document_group.document.user.email %></small> <br>
+      <small>
+        Project Name :
+        <%= document_group.group.name %> <br>
+      </small>
+    </div>
+
+    <div class="col-sm-1">
+      <h6 align="right">
+        <% if (doc_status(document_group.document, current_user) != 0) %>
+          Viewed
+        <% else %>
+          Not Viewed
+        <% end %>
+      </h6>
+    </div>
+  </div>
+</div>

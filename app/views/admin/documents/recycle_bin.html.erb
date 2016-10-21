@@ -1,24 +1,36 @@
 <% provide :title, "Recycle Bin" %>
 
-<div class="container">
-  <div class="col-md-3">
-
-  </div>
-
-  <div class="col-md-6">
+<div class="container-fluid">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
     <% if @documents.empty? %>
       <div class="jumbotron">
         <h3 class="h2" align="center"> Trash Empty !!</h3>
       </div>
     <% else %>
-      <h3 class="h4" align="center">Deleted Documents</h3>
-      <% @documents.each do |document| %>
-        <%= document.name %>  <%= link_to "Restore", restore_document_admin_document_path(document) %>  <br>
-      <% end %>
+      <section>
+        <header>
+          <h3 class="h4">Deleted Documents</h3>
+        </header>
+        <ol class="list-group">
+          <% @documents.each do |document| %>
+            <li class="list-group-item clearfix">
+              <h4 class="pull-right">
+                <small class="text-uppercase"><%= link_to 'Restore', restore_document_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
+              </h4>
+              <h3 class="h4">
+                <%= link_to document.name, admin_document_path(document) %> <br>
+                <small>
+                  <%= time_ago_in_words document.created_at %> ago<br>
+                  Uploaded By : <%= document.user.email %> <br>
+                  Project Name : <%= document.group.name %>
+                </small>
+              </h3>
+            </li>
+          <% end %>
+        </ol>
+      </section>
     <% end %>
   </div>
-
-  <div class="col-md-3">
-
-  </div>
+  <div class="col-md-2"></div>
 </div>

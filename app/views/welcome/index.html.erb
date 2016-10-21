@@ -19,59 +19,25 @@
 
 <% elsif current_user.has_role? :viewUser %>
   <% provide :title, "Welcome" %>
-
-
     <div class="container-fluid">
-      <!-- <%# if current_user && (can? :create, Document) %>
-          <%# link_to 'Upload Document', new_document_path %>
-      <%# end %> -->
-
-      <div class="col-md-2">
-
-      </div>
-
+      <div class="col-md-2"></div>
       <div class="col-md-8">
         <% if @recent_docs.empty? %>
           <div class="jumbotron">
-            <h3 align="center"> No Files</h3>
+            <h3 align="center"> No Documents</h3>
           </div>
         <% else %>
           <h4 align="center"> Recent Documents</h4>
+          <div class="recent-docs">
+            <%= render @recent_docs %>
+          </div>
+          <%= will_paginate @recent_docs %>
 
-          <% @recent_docs.each do |doc| %>
-            <div class="panel panel-default">
-              <div class="panel-body" id="status-<%= doc_status(doc.document, current_user)  %>">
-                <div class="col-sm-11">
-                  <h3 class="h4"><%= link_to doc.document.name, document_path(doc.document) %> </h3>
-                  Uploaded : <small><%= time_ago_in_words(doc.created_at) %> ago <br>
-                  </small> Uploaded by: <small><%= doc.document.user.email %></small> <br>
-                  <small>
-                    Project Name :
-                    <%= doc.group.name %> <br>
-                  </small>
-                </div>
-
-                <div class="col-sm-1">
-                  <h6 align="right">
-                    <% if (doc_status(doc.document, current_user) != 0) %>
-                      Viewed
-                    <% else %>
-                      Not Viewed
-                    <% end %>
-                  </h6>
-                </div>
-              </div>
-            </div>
-          <% end %>
         <% end %>
 
 
       </div>
 
-      <div class="col-md-2">
-
-      </div>
+      <div class="col-md-2"></div>
     </div>
-
-
 <% end %>
