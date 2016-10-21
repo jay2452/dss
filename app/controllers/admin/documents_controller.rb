@@ -7,9 +7,7 @@ module Admin
     # GET /documents
     # GET /documents.json
     def index
-      @documents = Document.where("deleted = ?", false).order(created_at: :desc)
-      # @approved_docs = Document.where('approved = ?', true).order(created_at: :desc)
-      # @unApproved_docs = Document.where('approved = ?', false).order(created_at: :desc)
+      @documents = Document.where("deleted = ?", false).paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
     end
 
     # GET /documents/1

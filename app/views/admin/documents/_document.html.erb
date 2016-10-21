@@ -1,0 +1,19 @@
+<li class="list-group-item clearfix">
+  <h4 class="pull-right">
+    <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
+    <% if current_user.has_role? :superAdmin %>
+      <small class="text-uppercase"><%= link_to 'Permanently Delete', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
+    <% end %>
+
+    <small class="text-uppercase"><%= link_to 'Remove', remove_document_admin_document_path(document), data: { confirm: 'Are you sure?, this will move the file to recycle bin' }, class: "btn btn-danger btn-sm" %></small>
+  </h4>
+
+  <h3 class="h4">
+    <%= link_to document.name, admin_document_path(document) %> <br>
+    <small>
+      <%= time_ago_in_words document.created_at %> ago<br>
+      Uploaded By : <%= document.user.email %> <br>
+      Project Name : <%= document.group.name %>
+    </small>
+  </h3>
+</li>

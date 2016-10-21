@@ -1,6 +1,5 @@
 <% provide :title, "Documents" %>
 <div class="container-fluid">
-  <!-- <p id="notice"><%= notice %></p> -->
 
     <div class="col-md-2">
       <a href="<%= new_admin_document_path %>" class="btn btn-success btn-sm text-uppercase">
@@ -8,40 +7,20 @@
       </a>
     </div>
     <div class="col-md-8">
-      <section>
-        <header>
-          <h3>Documents</h3>
-        </header>
+      <div id="documents">
+        <section>
+          <header>
+            <h3>Documents</h3>
+          </header>
 
-        <ol class="list-group">
-          <% @documents.each do |document| %>
-            <li class="list-group-item clearfix">
-              <h4 class="pull-right">
-                <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
-                <% if current_user.has_role? :superAdmin %>
-                  <small class="text-uppercase"><%= link_to 'Permanently Delete', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
-                <% end %>
-
-                <small class="text-uppercase"><%= link_to 'Remove', remove_document_admin_document_path(document), data: { confirm: 'Are you sure?, this will move the file to recycle bin' }, class: "btn btn-danger btn-sm" %></small>
-              </h4>
-
-              <h3 class="h4">
-                <%= link_to document.name, admin_document_path(document) %> <br>
-                <small>
-                  <%= time_ago_in_words document.created_at %> ago<br>
-                  Uploaded By : <%= document.user.email %> <br>
-                  Project Name : <%= document.group.name %>
-                </small>
-              </h3>
-            </li>
-            <%# link_to "view", document.file.url, target: "_blank" if document.file? %>
-          <% end %>
-        </ol>
-      </section>
+          <ol class="list-group">
+            <%= render @documents %>
+          </ol>
+        </section>
+      </div>
+      <%= will_paginate @documents %>
     </div>
 
-    <div class="col-md-2">
-
-    </div>
+    <div class="col-md-2"></div>
 
 </div>
