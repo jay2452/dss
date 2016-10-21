@@ -9,33 +9,18 @@
   </div>
 
   <div class="col-md-8">
-    <section class="all-projects">
-      <header>
-        <h3>Projects List</h3>
-      </header>
+    <div id="groups">
+      <section class="all-projects">
+        <header>
+          <h3>Projects List</h3>
+        </header>
 
-      <ol class="list-group">
-        <% @groups.each do |group| %>
-          <li class="list-group-item clearfix">
-            <h4 class="pull-right">
-              <small class="text-uppercase">
-                <%= link_to 'Show', admin_group_path(group), class: "btn btn-info btn-sm" %>
-                <%= link_to 'Edit', edit_admin_group_path(group), class: "btn btn-warning btn-sm" %>
-                <%= link_to 'Delete', admin_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
-                <%# link_to 'Disable', disable_group_admin_group_path(group), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
-              </small>
-            </h4>
-            <h3 class="h4">
-              <%= group.name %> <br>
-              <small>
-                Description : <%= group.purpose %> <br>
-                Users : <%= group.users.count %>
-              </small>
-            </h3>
-          </li>
-        <% end %>
-      </ol>
-    </section>
+        <ol class="list-group">
+          <%= render @groups %>
+        </ol>
+      </section>
+    </div>
+    <%= will_paginate @groups %>
   </div>
 
   <div class="col-md-2">
