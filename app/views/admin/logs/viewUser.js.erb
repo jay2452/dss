@@ -1,0 +1,2 @@
+$('#viewUser-Logs').append('<%= escape_javascript render(@viewUserLogs) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@viewUserLogs) %>');

@@ -1,0 +1,2 @@
+$('#uploadUser-Logs').append('<%= escape_javascript render(@uploadUserLogs) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@uploadUserLogs) %>');

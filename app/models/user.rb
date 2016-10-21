@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   has_many :user_document_statuses, dependent: :destroy
 
+  validates :mobile, length: { maximum: 10 }, uniqueness: true
+
 #   Since remove_role method will also remove the role from Role table so use a custom function .
   def delete_role(role_symbol,target=nil) # => this function will only remove role of that particular user not the role data from Roles table .
     UsersRole.delete_role self,role_symbol,target
@@ -29,5 +31,18 @@ class User < ActiveRecord::Base
     #     self.add_role "general"
     #   end
     # end
+    def soft_delete
+      update_attribute(:deleted_at, Time.current)
+    end
+
+    # ensure user account is active
+    def active_for_authentication?
+      super && !deleted_at
+    end
+
+    # provide a custom message for a deleted account
+    def inactive_message
+      !deleted_at ? super : :deleted_account
+    end
 
 end

@@ -58,6 +58,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'logs/index'
+    get 'logs/viewUser'
+    get 'logs/uploadUser'
+    get 'logs/adminUser'
     resources :documents do
       member do
         get 'remove_document'
@@ -67,11 +70,10 @@ Rails.application.routes.draw do
         get :recycle_bin
       end
     end
-    # get 'documents/remove_document'
-    # match ''  post :password_update, as: :password_update
 
     resources :users do
       member do
+        get :disable_user
         match :password_update, to: 'users#password_update', as: :password_update, via: :post
       end
       collection do
@@ -84,7 +86,6 @@ Rails.application.routes.draw do
         get :add_sms_group, as: :add_sms_group
       end
     end
-    # post 'users/add_user_role' => 'users#add_user_role', as: :add_user_role
     resources :groups do
       member do
         get :remove_user

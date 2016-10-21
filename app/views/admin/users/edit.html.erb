@@ -28,12 +28,12 @@
             <%= label_tag :email %>
             <%= f.text_field :email, value: @user.email, class: "form-control", placeholder: "Enter Email" %>
           </div>
-<!--
+
           <div class="form-group">
             <%= label_tag :mobile, nil, class: "sr-only" %>
             <%= label_tag :mobile %>
-            <%= f.number_field :mobile, value: @user.mobile, class: "form-control", placeholder: "Enter Phone Number" %>
-          </div> -->
+            <%= f.text_field :mobile, value: @user.mobile, class: "form-control", placeholder: "Enter Phone Number", :maxlength => "10" %>
+          </div>
 
           <div class="form-group">
             <%= label_tag :password, nil, class: "sr-only" %>

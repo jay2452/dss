@@ -1,25 +1,24 @@
-<% provide :title, "Log Book" %>
+<% provide :title, "Admin - Log Book" %>
 <div class="container-fluid">
   <ul class="nav nav-tabs nav-justified text-uppercase">
-    <li class="active"><a href="/admin/logs/index">All Logs</a></li>
+    <li><a href="/admin/logs/index">All Logs</a></li>
     <li><a href="/admin/logs/viewUser">view User logs</a></li>
     <li><a href="/admin/logs/uploadUser">upload user logs</a></li>
-    <li><a href="/admin/logs/adminUser">admin logs</a></li>
+    <li class="active"><a href="/admin/logs/adminUser">admin logs</a></li>
   </ul>
 </div>
-
 <div class="container-fluid">
   <br>
-  <div class="col-md-1"></div>
+  <div class="col-md-1"> </div>
   <div class="col-md-10">
-    <div id="logs">
-      <section class="log">
+    <div id="admin-Logs">
+      <section>
         <ol class="list-group">
-          <%= render @logs %>
+          <%= render @adminLogs %>
         </ol>
       </section>
     </div>
-    <%= will_paginate @logs %>
+    <%= will_paginate @adminLogs %>
   </div>
   <div class="col-md-1"></div>
 </div>

@@ -22,9 +22,9 @@ class GroupsController < ApplicationController
 
       @ug = UserGroup.create! user_id: u_id, group_id: g_id
       Log.create! description: "<b>#{current_user.email} </b> added user <b>#{User.find(u_id).email} </b> to
-                                                    group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at}"
+                        group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at}", role_id: current_user.roles.ids.first
 
-      redirect_to :back, notice: "User Added to group"
+      redirect_to :back, notice: "User Added to project"
     end
 
     # GET /groups/new
@@ -43,7 +43,8 @@ class GroupsController < ApplicationController
       @group.user_id = current_user.id
       respond_to do |format|
         if @group.save
-          Log.create! description: "<b>#{current_user.email} </b> created group <b>#{@group.name} </b> at #{@group.created_at}"
+          Log.create! description: "<b>#{current_user.email} </b> created group <b>#{@group.name} </b>
+                                          at #{@group.created_at}", role_id: current_user.roles.ids.first
           format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
           format.json { render :show, status: :created, location: @group }
         else
@@ -58,7 +59,8 @@ class GroupsController < ApplicationController
     def update
       respond_to do |format|
         if @group.update(group_params)
-          Log.create! description: "<b>#{current_user.email} </b> updated group <b>#{@group.name} </b> at #{@group.updated_at}"
+          Log.create! description: "<b>#{current_user.email} </b> updated group <b>#{@group.name} </b>
+                                      at #{@group.updated_at}", role_id: current_user.roles.ids.first
           format.html { redirect_to @group, notice: 'Group was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
         else
@@ -71,7 +73,8 @@ class GroupsController < ApplicationController
     # DELETE /groups/1
     # DELETE /groups/1.json
     def destroy
-      Log.create! description: "<b>#{current_user.email} </b> deleted group <b>#{@group.name} </b> at #{Time.now.utc}"
+      Log.create! description: "<b>#{current_user.email} </b> deleted group <b>#{@group.name} </b>
+                                    at #{Time.zone.now}", role_id: current_user.roles.ids.first
       @group.destroy
       respond_to do |format|
         format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }

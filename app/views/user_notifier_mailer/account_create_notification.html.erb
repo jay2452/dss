@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="well">
+    <h2 class="h3">Account Created</h2>
+    <p>
+      You are registered on on GPIL Document Management System <br>
+      Login  <a href="#">here</a> <br>
+      Your account details are : <br>
+      Email : <%= @user.email %> <br>
+      Password : <%= @pass %> <br>
+      With the permission as :
+      <% @user.roles.each do |role|  %>
+        <%= role.name %> &nbsp;
+      <% end %>
+      <br>
+      Contact No : <%= @user.mobile %> <br>
+      Designation : <%= @user.designation %>
+    </p>
+  </div>
+</div>

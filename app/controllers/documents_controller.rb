@@ -11,20 +11,20 @@ class DocumentsController < ApplicationController
     @doc_groups = DocumentGroup.all.order(created_at: :desc)
   end
 
-  # def add_doc_to_group
-  #   doc = params["document"].to_i
-  #   group = params["group"].to_i
-  #
-  #   dg = DocumentGroup.create! document_id: doc, group_id: group
-  #   Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project #{dg.group.name} at #{dg.created_at}"
-  #
-  #   redirect_to :back, notice: "Successfully sent"
-  # end
-
   def send_doc
-    dg = DocumentGroup.create! document_id: @document.id, group_id: @document.group.id
-    Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project #{dg.group.name} at #{dg.created_at}"
-    redirect_to :back, notice: "Successfully sent"
+    dg = DocumentGroup.new(document_id: @document.id, group_id: @document.group.id)
+    if dg.save
+      Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project
+                            #{dg.group.name} at #{dg.created_at}", role_id: current_user.roles.ids.first
+
+      # => send mail to all the users in the project
+      # puts "++++++++++++++++++++++++++"
+      #   p DocumentsNotifierMailer.new_doc_notification(@document, Group.find(@document.group_id).users.pluck(:email))
+      # puts "++++++++++++++++++++++++++"
+      redirect_to :back, notice: "Successfully sent"
+    else
+      redirect_to :back, alert: "Not Sent"
+    end
   end
 
   def download_doc
@@ -49,7 +49,8 @@ class DocumentsController < ApplicationController
     # => status 1 means the document is read
     uds = UserDocumentStatus.new user_id: current_user.id, document_id: @document.id, status: 1
     if uds.save
-      Log.create! description: "<b>#{current_user.email} </b> opened the document <b>#{@document.name} </b> at #{uds.created_at}"
+      Log.create! description: "<b>#{current_user.email} </b> opened the document <b>#{@document.name} </b> at #{uds.created_at}",
+                      role_id: current_user.roles.ids.first
     end
   end
 
@@ -74,7 +75,9 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       if @document.save
         # DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
-        Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}"
+        Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}",
+                                      role_id: current_user.roles.ids.first
+        # DocumentsNotifierMailer.new_doc_notification(@document).deliver
         format.html { redirect_to @document, notice: 'Document successfully uploaded.' }
         format.json { render :show, status: :created, location: @document }
         # send a sms to the users
@@ -95,7 +98,8 @@ class DocumentsController < ApplicationController
     if @document.user == current_user
       respond_to do |format|
         if @document.update(document_params)
-          Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at}"
+          Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at}",
+                              role_id: current_user.roles.ids.first
           format.html { redirect_to @document, notice: 'Document successfully updated.' }
           format.json { render :show, status: :ok, location: @document }
         else
@@ -110,7 +114,8 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1.json
   def destroy
     if (@document.user == current_user)
-      Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}"
+      Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}",
+                                role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Document successfully destroyed.' }

@@ -19,7 +19,8 @@
           <li><a href="<%= admin_documents_path %>">Documents</a></li>
           <li><a href="<%= admin_users_path %>">Users</a></li>
           <li><a href="<%= admin_groups_path %>">Projects</a></li>
-          <li><a href="/admin/logs/index">Logs</a></li>
+          <li><a href="/admin/logs/index" data-turbolinks="false">Logs</a></li>
+          <li><a href="<%= recycle_bin_admin_documents_path %>" data-turbolinks="false">Recycle Bin</a></li>
         <% end %>
 
         <% if current_user && (current_user.has_role? :superAdmin) %>

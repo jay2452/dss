@@ -4,6 +4,8 @@ class Role < ActiveRecord::Base
   belongs_to :resource,
              :polymorphic => true
 
+  has_many :logs
+
   validates :resource_type,
             :inclusion => { :in => Rolify.resource_types },
             :allow_nil => true

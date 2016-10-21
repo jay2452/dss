@@ -1,0 +1,25 @@
+<% provide :title, "Upload User - Log Book" %>
+<div class="container-fluid">
+  <ul class="nav nav-tabs nav-justified">
+    <li><a href="/admin/logs/index" class="text-uppercase">All Logs</a></li>
+    <li><a href="/admin/logs/viewUser" class="text-uppercase">view User logs</a></li>
+    <li class="active"><a href="/admin/logs/uploadUser" class="text-uppercase">upload user logs</a></li>
+    <li><a href="/admin/logs/adminUser" class="text-uppercase">admin logs</a></li>
+  </ul>
+</div>
+<div class="container-fluid">
+  <br>
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div id="uploadUser-Logs">
+      <section>
+        <ol class="list-group">
+          <%= render @uploadUserLogs %>
+        </ol>
+      </section>
+    </div>
+    <%= will_paginate @uploadUserLogs %>
+    <!--#, class: "pagination-uploadUser-logs"  -->
+  </div>
+  <div class="col-md-1"></div>
+</div>

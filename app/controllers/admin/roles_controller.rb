@@ -20,7 +20,7 @@ module Admin
       role = Role.find(params[:id])
       user.delete_role role.name
 
-      Log.create! description: "<b>#{current_user.email} </b> removed <b>#{user.email} </b> from role <b>#{role.name} </b> at #{Time.now.utc}"
+      Log.create! description: "<b>#{current_user.email} </b> removed <b>#{user.email} </b> from role <b>#{role.name} </b> at #{Time.now.utc}", role_id: current_user.roles.ids.first
 
       redirect_to :back, notice: "User Removed from that role"
     end
@@ -29,7 +29,7 @@ module Admin
       @role = Role.new(role_params)
 
       if @role.save
-        Log.create! description: "<b>#{current_user.email} </b> created role : <b>#{@role.name} </b> at #{@role.created_at}"
+        Log.create! description: "<b>#{current_user.email} </b> created role : <b>#{@role.name} </b> at #{@role.created_at}", role_id: current_user.roles.ids.first
         redirect_to :back, notice: 'Role was successfully created.'
       end
 
@@ -37,7 +37,7 @@ module Admin
 
     def destroy
       @role = Role.find(params[:id])
-      Log.create! description: "<b>#{current_user.email} </b> deleted role : <b>#{@role.name} </b> at #{Time.now.utc}"
+      Log.create! description: "<b>#{current_user.email} </b> deleted role : <b>#{@role.name} </b> at #{Time.now.utc}", role_id: current_user.roles.ids.first
       @role.destroy
 
       redirect_to :back, notice: 'Role was successfully destroyed.'

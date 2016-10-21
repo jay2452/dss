@@ -26,19 +26,20 @@ module Admin
     def create
       @user = User.new(user_params)
       role = Role.find(params[:role_id])
-      # group = Group.first
+
       if @user.save
         @user.add_role role.name
-        Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}"
-        Log.create! description: "<b>#{current_user.email} </b> added user <b>#{@user.email} </b> to role <b>#{role.name} </b> at #{@user.created_at}"
+        Log.create! description: "<b>#{current_user.email} </b> created user <b>#{@user.email} </b> at #{@user.created_at}", role_id: current_user.roles.ids.first
+        Log.create! description: "<b>#{current_user.email} </b> added user <b>#{@user.email} </b> to role <b>#{role.name} </b> at #{@user.created_at}", role_id: current_user.roles.ids.first
 
         # ug = UserGroup.create! user_id: @user.id, group_id: group.id
 
         # Log.create! description: "<b>#{@user.email} </b> added to project <b>#{group.name} </b> at #{ug.created_at}"
 
         # => code to send email or notify the user/member
+        pwd = params[:user][:password]
+        # UserNotifierMailer.account_create_notification(@user, pwd).deliver
 
-        
 
         redirect_to :back, notice: 'User successfully added'
       end
@@ -51,47 +52,37 @@ module Admin
     def update
       @user = User.friendly.find(params[:id])
       if @user.update(user_params)
-        Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at}"
+        Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at}", role_id: current_user.roles.ids.first
+
+        pwd = params[:user][:password]
+        # UserNotifierMailer.account_update_notification(@user, pwd).deliver # => send updated mail for account updation
+
         redirect_to admin_users_path, notice: "Password Changed successfully"
       end
     end
 
+    def disable_user
+      @user = User.friendly.find(params[:id])
+      @user.soft_delete
+      Log.create! description: "<b>#{current_user.email} </b> disabled user <b>#{@user.email}  at #{@user.updated_at}", role_id: current_user.roles.ids.first
+      redirect_to :back, notice: "User removed from the system"
+    end
+
     def destroy
-
-      puts ")))))))))))))))))++++++++++++++++++++++++++++++++++++"
-        @user = User.friendly.find(params[:id])
-        p @user
-      puts ")))))))))))))))))++++++++++++++++++++++++++++++++++++"
-
-
-      Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{@user.email} </b> #{Time.now.utc}"
+      @user = User.friendly.find(params[:id])
+      Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{@user.email} </b> #{Time.zone.now}", role_id: current_user.roles.ids.first
       @user.destroy
 
       redirect_to :back, notice: 'user was successfully removed'
     end
 
+
     def add_user_role
       @user = User.find(params[:user_id])
-
-      puts "=_____________________________________"
-        puts params
-      puts "==_____________________________________"
       @user.add_role "#{Role.find(params[:role_id]).name}"
-
-      Log.create!(description: "<b>#{current_user.email}</b> assigned role <b>#{Role.find(params[:role_id]).name} </b> to <b>#{@user.email} </b>")
-
+      Log.create!(description: "<b>#{current_user.email}</b> assigned role <b>#{Role.find(params[:role_id]).name} </b> to <b>#{@user.email} </b>", role_id: current_user.roles.ids.first)
       redirect_to :back
     end
-    #
-    # def add_sms_group
-    #   @user = User.find(params[:user_id])
-    #   @groups = Group.all
-    #   puts "====================================="
-    #     puts params
-    #   puts "====================================="
-    #   # UserGroup.create! @user.id,
-    #   # redirect_to :back
-    # end
 
     private
 
