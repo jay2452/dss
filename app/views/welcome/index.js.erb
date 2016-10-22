@@ -1,5 +1,0 @@
-$('#recent-docs').append('<%= escape_javascript render(@recent_docs) %>');
-<%# if @recent_docs.next_page %>
-  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@recent_docs) %>');
-  // $('.pagination').hide();
-<%# end %>

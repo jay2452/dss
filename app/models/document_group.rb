@@ -4,4 +4,5 @@ class DocumentGroup < ActiveRecord::Base
 
   validates :document_id, presence: true
   validates :group_id, presence: true
+  validates :user_id, presence: true
 end

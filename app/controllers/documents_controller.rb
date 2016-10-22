@@ -12,7 +12,7 @@ class DocumentsController < ApplicationController
   end
 
   def send_doc
-    dg = DocumentGroup.new(document_id: @document.id, group_id: @document.group.id)
+    dg = DocumentGroup.new(document_id: @document.id, group_id: @document.group.id, user_id: current_user.id)
     if dg.save
       Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project
                             #{dg.group.name} at #{dg.created_at}", role_id: current_user.roles.ids.first
@@ -28,7 +28,7 @@ class DocumentsController < ApplicationController
   end
 
   def show_doc
-    
+
   end
 
   def download_doc

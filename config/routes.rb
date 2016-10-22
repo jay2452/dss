@@ -1,15 +1,8 @@
 Rails.application.routes.draw do
 
   get 'messages/index'
-
   get 'welcome/index'
-
   get 'welcome/search'
-
-  # get 'roles/index'
-  #
-  # get 'users/index'
-
   resources :groups
 
   post 'groups/add_user_to_group'
@@ -26,11 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-
-
   devise_for :users
-
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -43,19 +32,22 @@ Rails.application.routes.draw do
       root 'devise/sessions#new'
     end
 
-    authenticated do
-      root 'welcome#index', as: :authenticated_user
+    authenticated :user, lambda {|u| u.has_role? :viewUser} do
+      resources :document_groups, only: [:index]
+      root 'document_groups#index', as: :authenticated_viewUser
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs'
+    end
+
+    authenticated :user, lambda {|u| u.has_role? :admin} do
+      root 'welcome#index', as: :authenticated_admin
+    end
+
+    authenticated :user, lambda {|u| u.has_role? :uploadUser} do
+      root 'welcome#index', as: :authenticated_uploadUser
     end
   end
   #
-  # authenticated :user, lambda {|u| u.has_role? :admin} do
-  #   root 'admin/documents#index', as: :authenticated_admin
-  # end
-  #
-  # authenticated :user, lambda {|u| u.has_role? :uploadUser} do
-  #   root 'documents#index', as: :authenticated_general_user
-  # end
+
   namespace :admin do
     get 'logs/index'
     get 'logs/viewUser'

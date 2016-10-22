@@ -17,26 +17,4 @@
 
   <%= render template: "documents/index" %>
 
-<% elsif current_user.has_role? :viewUser %>
-  <% provide :title, "Welcome" %>
-    <div class="container-fluid">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <% if @recent_docs.empty? %>
-          <div class="jumbotron">
-            <h3 align="center"> No Documents</h3>
-          </div>
-        <% else %>
-          <h4 align="center"> Recent Documents</h4>
-          <div class="recent-docs">
-            <%= render @recent_docs %>
-          </div>
-          <%= will_paginate @recent_docs %>
-        <% end %>
-
-
-      </div>
-
-      <div class="col-md-2"></div>
-    </div>
 <% end %>

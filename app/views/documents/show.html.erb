@@ -31,13 +31,11 @@
             <% end %> -->
 
 
-            <a href="<%= root_path %>" class="btn btn-info btn-sm text-uppercase">
+            <a href="<%= root_path %>" class="btn btn-info btn-sm text-uppercase" data-turbolinks="false">
               <span class="glyphicon glyphicon-backward"></span> Back
             </a>
-
-
             <% if @document.file? && (current_user.has_role? :viewUser) %>
-              <!-- <a href="<%= download_doc_document_path(@document) %>" target="_blank" class="btn btn-success btn-sm">
+              <!-- <a href="<%# download_doc_document_path(@document) %>" target="_blank" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-download-alt"></span> Download
               </a> -->
               <% if @document.file_content_type == 'application/pdf' %>

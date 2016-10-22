@@ -1,0 +1,6 @@
+$('#recent-docs').append('<%= escape_javascript render(@document_groups) %>');
+<% if @document_groups.next_page %>
+  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@document_groups) %>');
+<% else %>
+    $('#gif-loader').hide();
+<% end %>

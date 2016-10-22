@@ -1,0 +1,19 @@
+<% provide :title, "Welcome" %>
+<div class="container-fluid">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <% if @document_groups.empty? %>
+      <div class="jumbotron">
+        <h3 align="center"> No Documents</h3>
+      </div>
+    <% else %>
+      <h4 align="center"> Recent Documents</h4>
+      <div id="recent-docs">
+        <%= render @document_groups %>
+      </div>
+      <%= will_paginate @document_groups %>
+    <% end %>
+  </div>
+
+  <div class="col-md-2"></div>
+</div>

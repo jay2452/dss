@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020192556) do
+ActiveRecord::Schema.define(version: 20161022043620) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 20161020192556) do
     t.integer  "group_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
     t.index ["document_id"], name: "index_document_groups_on_document_id"
     t.index ["group_id"], name: "index_document_groups_on_group_id"
+    t.index ["user_id"], name: "index_document_groups_on_user_id"
   end
 
   create_table "documents", force: :cascade do |t|
