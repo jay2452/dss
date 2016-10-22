@@ -1,0 +1,11 @@
+<% provide :title, @document.name %>
+<div class="container">
+  <div class="row">
+      <a href="#" onclick="window.print();">Print</a>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <%= image_tag @document.file.url %>
+  </div>
+
+</div>

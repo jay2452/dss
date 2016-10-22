@@ -37,12 +37,20 @@
 
 
             <% if @document.file? && (current_user.has_role? :viewUser) %>
-              <a href="<%= download_doc_document_path(@document) %>" target="_blank" class="btn btn-success btn-sm">
+              <!-- <a href="<%= download_doc_document_path(@document) %>" target="_blank" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-download-alt"></span> Download
-              </a>
+              </a> -->
+              <% if @document.file_content_type == 'application/pdf' %>
+                <a href="<%= pdfjs.reduced_path(file: @document.file.url) %>" target="_blank" class="btn btn-success btn-sm text-uppercase">
+                  <!-- <span class="glyphicon glyphicon-download-alt"></span> View -->View
+                </a>
+              <% elsif (@document.file_content_type == 'image/jpg') || (@document.file_content_type == 'image/png') || @document.file_content_type == 'image/jpeg'  %>
+                <a href="<%= show_doc_document_path(@document) %>" target="_blank" class="btn btn-success btn-sm text-uppercase">
+                  <!-- <span class="glyphicon glyphicon-download-alt"></span> View -->View
+                </a>
+              <% end %>
 
-              <%# link_to "Print", '#', class: "btn btn-primary",
-            onclick: 'window.print();return false;' %>
+
 
             <% end %>
 

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     member do
       get 'send_doc'
       get 'download_doc'
+      get 'show_doc'
     end
   end
 
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
 
     authenticated do
       root 'welcome#index', as: :authenticated_user
+      mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs'
     end
   end
   #
@@ -54,8 +56,6 @@ Rails.application.routes.draw do
   # authenticated :user, lambda {|u| u.has_role? :uploadUser} do
   #   root 'documents#index', as: :authenticated_general_user
   # end
-
-
   namespace :admin do
     get 'logs/index'
     get 'logs/viewUser'

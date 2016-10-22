@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc, :download_doc]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :send_doc, :download_doc, :show_doc]
   before_action :authenticate_user!
   load_and_authorize_resource
   # before_action :check_role?
@@ -25,6 +25,10 @@ class DocumentsController < ApplicationController
     else
       redirect_to :back, alert: "Not Sent"
     end
+  end
+
+  def show_doc
+    
   end
 
   def download_doc

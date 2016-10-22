@@ -1,2 +1,7 @@
 $('#admin-Logs').append('<%= escape_javascript render(@adminLogs) %>');
-$('.pagination').replaceWith('<%= escape_javascript will_paginate(@adminLogs) %>');
+<% if @adminLogs.next_page %>
+  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@adminLogs) %>');
+  // $('.pagination').hide();
+<% else %>
+  $('#gif-loader').hide();
+<% end %>

@@ -1,2 +1,7 @@
 $('#viewUser-Logs').append('<%= escape_javascript render(@viewUserLogs) %>');
-$('.pagination').replaceWith('<%= escape_javascript will_paginate(@viewUserLogs) %>');
+<% if @viewUserLogs.next_page %>
+  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@viewUserLogs) %>');
+  // $('.pagination').hide();
+<% else %>
+  $('#gif-loader').hide();
+<% end %>

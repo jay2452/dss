@@ -19,6 +19,7 @@ class Ability
       can :read, Group
       can :read, Document
       can :download_doc, Document
+      can :show_doc, Document
     elsif user.has_role? :uploadUser
       can :create, Group
       can :read, Group
