@@ -15,7 +15,7 @@ class DocumentGroupsController < ApplicationController
     end
     # arr.uniq!
     # => recent docs only for the viewuser purpose to veiw the files uploaded recently in his project/group
-    @document_groups = DocumentGroup.where("document_id IN (?)", arr).paginate(:page => params[:page], :per_page => 5).order(created_at: :desc)
+    @document_groups = DocumentGroup.where("document_id IN (?)", arr).paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
   end
 
 end
