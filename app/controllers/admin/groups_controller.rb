@@ -15,7 +15,7 @@ module Admin
     # GET /groups/1.json
     def show
       users = User.with_role(:admin).all + User.with_role(:superAdmin).all
-      @users = User.all - @group.users - users
+      @users = User.all - @group.users - users - User.find_by_sql("select * from users where deleted_at IS NOT NULL")
       @documents = @group.documents.order(created_at: :desc)
     end
 
