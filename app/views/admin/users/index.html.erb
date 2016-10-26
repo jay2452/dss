@@ -43,7 +43,8 @@
             <td><%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %></td>
           <% else %>
             <td>
-              <span class="btn btn-info btn-sm text-uppercase" disabled>disabled</span>
+              <!-- <span class="" disabled>disabled</span> -->
+              <%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %>
             </td>
           <% end %>
 

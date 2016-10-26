@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
     dg = DocumentGroup.new(document_id: @document.id, group_id: @document.group.id, user_id: current_user.id)
     if dg.save
       Log.create! description: "<b>#{current_user.email} </b> sent document <b>#{dg.document.name} </b> to project
-                            #{dg.group.name} at #{dg.created_at}", role_id: current_user.roles.ids.first
+                            #{dg.group.name} at #{dg.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
       # => send mail to all the users in the project
       # puts "++++++++++++++++++++++++++"
@@ -53,7 +53,7 @@ class DocumentsController < ApplicationController
     # => status 1 means the document is read
     uds = UserDocumentStatus.new user_id: current_user.id, document_id: @document.id, status: 1
     if uds.save
-      Log.create! description: "<b>#{current_user.email} </b> opened the document <b>#{@document.name} </b> at #{uds.created_at}",
+      Log.create! description: "<b>#{current_user.email} </b> opened the document <b>#{@document.name} </b> at #{uds.created_at.strftime '%d-%m-%Y %H:%M:%S'}",
                       role_id: current_user.roles.ids.first
     end
   end
@@ -79,7 +79,7 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       if @document.save
         # DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
-        Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at}",
+        Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                       role_id: current_user.roles.ids.first
         # DocumentsNotifierMailer.new_doc_notification(@document).deliver
         format.html { redirect_to @document, notice: 'Document successfully uploaded.' }
@@ -102,7 +102,7 @@ class DocumentsController < ApplicationController
     if @document.user == current_user
       respond_to do |format|
         if @document.update(document_params)
-          Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at}",
+          Log.create! description: "<b>#{current_user.email} </b> updated <b>#{@document.name} </b> at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                               role_id: current_user.roles.ids.first
           format.html { redirect_to @document, notice: 'Document successfully updated.' }
           format.json { render :show, status: :ok, location: @document }
@@ -118,7 +118,7 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1.json
   def destroy
     if (@document.user == current_user)
-      Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.now.utc}",
+      Log.create! description: "<b>#{current_user.email} </b> deleted document <b>#{@document.name} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}",
                                 role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|

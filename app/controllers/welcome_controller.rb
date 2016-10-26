@@ -6,8 +6,6 @@ class WelcomeController < ApplicationController
     @groups = Group.limit(4).order(created_at: :desc)
     @documents = Document.all.order(created_at: :desc)
     @doc_groups = DocumentGroup.all.order(created_at: :desc)
-    # @approved_docs = @documents.where("approved = ?", true)
-    # @unApproved_docs = @documents.where("approved = ?", false)
   end
 
   def search

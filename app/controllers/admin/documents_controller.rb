@@ -32,7 +32,7 @@ module Admin
 
       respond_to do |format|
         if @document.save
-          Log.create! description: "#{current_user.email} uploaded #{@document.name} at #{@document.created_at}", role_id: current_user.roles.ids.first
+          Log.create! description: "#{current_user.email} uploaded #{@document.name} at #{@document.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
           # group = Group.find(params[:document][:group_id])
           # DocumentsNotifierMailer.new_doc_notification(@document).deliver
@@ -51,7 +51,7 @@ module Admin
     def update
       respond_to do |format|
         if @document.update(document_params)
-          Log.create! description: "#{current_user.email} updated #{@document.name} at #{@document.updated_at}", role_id: current_user.roles.ids.first
+          Log.create! description: "#{current_user.email} updated #{@document.name} at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
           format.html { redirect_to admin_document_path(@document), notice: 'Document was successfully updated.' }
           format.json { render :show, status: :ok, location: @document }
         else
@@ -64,7 +64,7 @@ module Admin
     # DELETE /documents/1
     # DELETE /documents/1.json
     def destroy
-      Log.create! description: "#{current_user.email} deleted : #{@document.name} at #{Time.zone.now}", role_id: current_user.roles.ids.first
+      Log.create! description: "#{current_user.email} deleted : #{@document.name} at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }
@@ -77,7 +77,7 @@ module Admin
       @document.deleted = true
       @document.save!
 
-      Log.create! description: "<b>#{current_user.email} </b> removed document <b> #{@document.name} </b> at #{@document.updated_at}", role_id: current_user.roles.ids.first
+      Log.create! description: "<b>#{current_user.email} </b> removed document <b> #{@document.name} </b> at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
       redirect_to :back, notice: "Document moved to recycle bin successfully !!"
     end
@@ -90,7 +90,7 @@ module Admin
       # => to restore the document from recycle bin back to documents page
       @document.deleted = false
       @document.save!
-      Log.create! description: "<b>#{current_user.email} </b> restored document <b> #{@document.name} </b> at #{@document.updated_at}", role_id: current_user.roles.ids.first
+      Log.create! description: "<b>#{current_user.email} </b> restored document <b> #{@document.name} </b> at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
       redirect_to :back, notice: "Document restored from recycle bin successfully !!"
 

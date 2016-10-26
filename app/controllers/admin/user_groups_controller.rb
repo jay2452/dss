@@ -32,7 +32,7 @@ module Admin
       respond_to do |format|
         if @user_group.save
           Log.create! description: "<b>#{current_user.email} </b> added user <b>#{@user_group.user.email} </b> to project <b>#{@user_group.group} </b> at
-                                                                    #{@user_group.created_at}", role_id: current_user.roles.ids.first
+                                                                    #{@user_group.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
           format.html { redirect_to admin_user_groups_path, notice: 'User group was successfully created.' }
           format.json { render :show, status: :created, location: @user_group }
         else
@@ -48,7 +48,7 @@ module Admin
       respond_to do |format|
         if @user_group.update(user_group_params)
           Log.create! description: "<b>#{current_user.email} </b> update user <b>#{@user_group.user.email} </b> to project <b>#{@user_group.group} </b> at
-                                                                    #{@user_group.updated_at}", role_id: current_user.roles.ids.first
+                                                                    #{@user_group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
           format.html { redirect_to @user_group, notice: 'User group was successfully updated.' }
           format.json { render :show, status: :ok, location: @user_group }
         else
@@ -62,7 +62,7 @@ module Admin
     # DELETE /user_groups/1.json
     def destroy
       Log.create! description: "<b>#{current_user.email} </b> deleted user <b>#{@user_group.user.email} </b> from project <b>#{@user_group.group} </b> at
-                                                                #{Time.zone.now}", role_id: current_user.roles.ids.first
+                                                                #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @user_group.destroy
       respond_to do |format|
         format.html { redirect_to admin_user_groups_url, notice: 'User group was successfully destroyed.' }

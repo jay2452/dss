@@ -36,13 +36,13 @@ module Admin
       group = @group
       ug.destroy
       Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{user.email} </b> from project
-                                  <b>#{group.name} </b> at #{Time.zone.utc}", role_id: current_user.roles.ids.first
+                                  <b>#{group.name} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       redirect_to :back, notice: 'User successfully removed from project'
     end
 
     def disable_group
       @group.update(disabled: true)
-      Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at}",
+      Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                           role_id: current_user.roles.ids.first
       redirect_to :back, notice: "Project successfully disabled"
     end
@@ -55,7 +55,7 @@ module Admin
 
       respond_to do |format|
         if @group.save
-          Log.create! description: "<b>#{current_user.email} </b> created project <b>#{@group.name} </b> at #{@group.created_at}",
+          Log.create! description: "<b>#{current_user.email} </b> created project <b>#{@group.name} </b> at #{@group.created_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                     role_id: current_user.roles.ids.first
           format.html { redirect_to admin_groups_path, notice: 'Project was successfully created.' }
           format.json { render :show, status: :created, location: @group }
@@ -71,7 +71,7 @@ module Admin
     def update
       respond_to do |format|
         if @group.update(group_params)
-          Log.create! description: "<b>#{current_user.email} </b> updated project <b>#{@group.name} </b> at #{@group.updated_at}",
+          Log.create! description: "<b>#{current_user.email} </b> updated project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                   role_id: current_user.roles.ids.first
           format.html { redirect_to admin_groups_path, notice: 'Project was successfully updated.' }
           format.json { render :show, status: :ok, location: @group }
@@ -85,7 +85,7 @@ module Admin
     # DELETE /groups/1
     # DELETE /groups/1.json
     def destroy
-      Log.create! description: "<b>#{current_user.email} </b> deleted group <b>#{@group.name} </b> at #{Time.now.utc}",
+      Log.create! description: "<b>#{current_user.email} </b> deleted project <b>#{@group.name} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}",
                               role_id: current_user.roles.ids.first
       @group.destroy
       respond_to do |format|

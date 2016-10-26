@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :users do
       member do
         get :disable_user
+        get :enable_user
         match :password_update, to: 'users#password_update', as: :password_update, via: :post
       end
       collection do
