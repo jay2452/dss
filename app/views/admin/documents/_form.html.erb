@@ -20,7 +20,7 @@
     <small>(Select a project for the document for which it belongs to)</small>
     <%# f.number_field :document_category_id %>
 
-    <%= f.select :group_id, Group.all.collect { |p| [ p.name, p.id ] }, {include_blank: true},{class: "form-control"} %>
+    <%= f.select :group_id, @groups.collect { |p| [ p.name, p.id ] }, {include_blank: true},{class: "form-control"} %>
   </div>
 
   <div class="form-group">

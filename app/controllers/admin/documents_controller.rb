@@ -18,10 +18,12 @@ module Admin
     # GET /documents/new
     def new
       @document = Document.new
+      @groups = Group.where("disabled = ?", false).all
     end
 
     # GET /documents/1/edit
     def edit
+      @groups = Group.where("disabled = ?", false).all
     end
 
     # POST /documents

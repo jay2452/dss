@@ -1,6 +1,6 @@
 module Admin
   class GroupsController < ApplicationController
-    before_action :set_group, only: [:show, :edit, :update, :destroy, :remove_user, :disable_group]
+    before_action :set_group, only: [:show, :edit, :update, :destroy, :remove_user, :disable_group, :enable_group]
     before_action :authenticate_user!
     # before_action :check_role?
     load_and_authorize_resource
@@ -45,6 +45,17 @@ module Admin
       Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                           role_id: current_user.roles.ids.first
       redirect_to :back, notice: "Project successfully disabled"
+    end
+
+    def enable_group
+      @group.disabled = false
+      if @group.save
+        Log.create! description: "<b>#{current_user.email} </b> enabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
+                                            role_id: current_user.roles.ids.first
+        redirect_to :back, notice: "Project successfully enabled !"
+      else
+        redirect_to :back, alert: "Error, could not be enabled !"
+      end
     end
 
     # POST /groups
