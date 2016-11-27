@@ -5,8 +5,8 @@ class DocumentsNotifierMailer < ApplicationMailer
   #
   #   en.documents_notifier_mailer.new_doc_notification.subject
   #
-  def new_doc_notification doc, users
+  def new_doc_notification doc, user
     @document = doc
-    mail to: users, subject: "New Document uploaded"
+    mail to: user, subject: "New Document uploaded"
   end
 end

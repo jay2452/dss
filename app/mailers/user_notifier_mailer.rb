@@ -19,4 +19,16 @@ class UserNotifierMailer < ApplicationMailer
     mail to: @user.email, subject: "Password changed"
   end
 
+
+  def added_to_project user, project
+    @user = user
+    @project = project
+    mail to: @user.email, subject: "You have been added to project #{project.name}"
+  end
+
+  def removed_from_project user, project
+    @user = user
+    @project = project
+  end
+
 end

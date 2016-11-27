@@ -43,8 +43,8 @@ Rails.application.configure do
     :authentication => :plain,
     :address => "smtp.mailgun.org",
     :port => 587,
-    :domain => "sandboxc209f38118dd416baf3cb79a3f86d90f.mailgun.org",
-    :user_name => "postmaster@sandboxc209f38118dd416baf3cb79a3f86d90f.mailgun.org",
-    :password => "0f71ecd45710a5bdf82dedff1c391c3f"
+    :domain => "gpileportal.co.in",
+    :user_name => ENV['MAILGUN_USER_NAME_GPIL'],
+    :password => ENV['MAILGUN_EMAIL_GPIL_PASSWORD']
   }
 end

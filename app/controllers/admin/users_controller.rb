@@ -38,7 +38,7 @@ module Admin
 
         # => code to send email or notify the user/member
         pwd = params[:user][:password]
-        # UserNotifierMailer.account_create_notification(@user, pwd).deliver
+        UserNotifierMailer.account_create_notification(@user, pwd).deliver
 
 
         redirect_to :back, notice: 'User successfully added'
@@ -55,7 +55,7 @@ module Admin
         Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
         pwd = params[:user][:password]
-        # UserNotifierMailer.account_update_notification(@user, pwd).deliver # => send updated mail for account updation
+        UserNotifierMailer.account_update_notification(@user, pwd).deliver # => send updated mail for account updation
 
         redirect_to admin_users_path, notice: "Password Changed successfully"
       end

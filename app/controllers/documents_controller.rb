@@ -18,9 +18,10 @@ class DocumentsController < ApplicationController
                             #{dg.group.name} at #{dg.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
       # => send mail to all the users in the project
-      # puts "++++++++++++++++++++++++++"
-      #   p DocumentsNotifierMailer.new_doc_notification(@document, Group.find(@document.group_id).users.pluck(:email))
-      # puts "++++++++++++++++++++++++++"
+      Group.find(@document.group_id).users.pluck(:email).each do |user|
+        DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
+      end
+      
       redirect_to :back, notice: "Successfully sent"
     else
       redirect_to :back, alert: "Not Sent"
