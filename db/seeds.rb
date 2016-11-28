@@ -16,10 +16,10 @@ Role.create! name: "superAdmin"
 
 
 User.destroy_all
-a = User.create! email: "admin@admin.com", password: "123456789"
+a = User.create! email: "admin@admin.com", password: "123456789", mobile: "9040434782"
 a.add_role :admin
 
-b = User.create! email: "superadmin@admin.com", password: "123456789"
+b = User.create! email: "superadmin@admin.com", password: "123456789", mobile: "7809424573"
 b.add_role :superAdmin
 
 

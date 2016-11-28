@@ -25,4 +25,4 @@ production:
   pool: 5
   database: gpil_production
   username: root
-  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
+  password: mysql@123$
