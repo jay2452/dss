@@ -61,6 +61,10 @@ module Admin
         pwd = params[:user][:password]
         UserNotifierMailer.account_update_notification(@user, pwd).deliver # => send updated mail for account updation
 
+        if @user.mobile
+          send_sms(@user.mobile, "User account is updated on GPIL e-portal, please check your email for further info.")
+        end
+
         redirect_to admin_users_path, notice: "Password Changed successfully"
       end
     end
