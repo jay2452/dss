@@ -40,6 +40,10 @@ module Admin
         pwd = params[:user][:password]
         UserNotifierMailer.account_create_notification(@user, pwd).deliver
 
+        # => code to send sms to the created user
+        if @user.mobile
+          send_sms(@user.mobile, "User account created on GPIL e-portal, please check your email for further info.")
+        end
 
         redirect_to :back, notice: 'User successfully added'
       end
