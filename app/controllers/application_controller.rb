@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :doc_search
+  require 'rest-client'
   require "mosto.rb"
+
 
   private
 
@@ -34,13 +36,9 @@ class ApplicationController < ActionController::Base
 
   end
 
-  def send_sms_to receiver
-    api = MOSTO.new("dev9999", "Demo@123")
-      response = api.send(receiver, "DEVLPR",
-              "file uploaded : #{@document.name}, see it here : http://localhost:3000#{@document.file.url}")
-      puts "==========================="
-      puts response
-      puts "-==========================="
+  def send_sms(mob, message_to_send)
+    url = "http://sms.gpileportal.co.in/submitsms.jsp?user=#{ENV['DOVE_SMS_GPIL_USER']}&key=#{ENV['DOVE_SMS_GPIL_KEY']}&mobile=+91#{mob}&message=#{message_to_send}&senderid=EPGPIL&accusage=1"
+    RestClient.get(url)
   end
 
 end

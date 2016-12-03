@@ -20,8 +20,14 @@ class DocumentsController < ApplicationController
       # => send mail to all the users in the project
       Group.find(@document.group_id).users.pluck(:email).each do |user|
         DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
+        if User.find_by_email(user).mobile
+          send_sms(User.find_by_email(user).mobile, "New Document - #{@document.name} -received in project folder - #{@document.group.name}")
+        end
+
       end
-      
+
+
+
       redirect_to :back, notice: "Successfully sent"
     else
       redirect_to :back, alert: "Not Sent"
