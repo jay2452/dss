@@ -40,10 +40,12 @@ Rails.application.routes.draw do
 
     authenticated :user, lambda {|u| u.has_role? :admin} do
       root 'welcome#index', as: :authenticated_admin
+      mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_admin'
     end
 
     authenticated :user, lambda {|u| u.has_role? :uploadUser} do
       root 'welcome#index', as: :authenticated_uploadUser
+      mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_uploaduser'
     end
   end
   #
