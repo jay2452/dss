@@ -60,10 +60,14 @@
 
   <div class="col-md-8">
     <% if @document.file? && (@document.file.content_type == 'application/pdf') %>
-      <div oncontextmenu="return false">
-        <iframe id="your_iframe_id" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
+      <div>
+        <embed oncontextmenu="return false" type="application/pdf" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12">
+<!--
+        <iframe id="fraDisabled" src="<%# @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
             <p>Your browser does not support iframes.</p>
-        </iframe>
+
+        </iframe> -->
+
       </div>
 
     <% else %>
@@ -72,7 +76,3 @@
 
   </div>
 </div>
-
-<script type="text/javascript">
-  window.frames["your_iframe_id"].document.oncontextmenu = function(){ return false; };
-</script>

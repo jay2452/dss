@@ -32,9 +32,10 @@
   <div class="col-md-8">
     <% if @document.file? && (@document.file.content_type == 'application/pdf') %>
     <div oncontextmenu="return false">
-      <iframe id="your_iframe_id" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
+      <!-- <iframe id="your_iframe_id" src="<%# @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
           <p>Your browser does not support iframes.</p>
-      </iframe>
+      </iframe> -->
+      <embed oncontextmenu="return false" type="application/pdf" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12">
     </div>
     <% else %>
       <%= image_tag @document.file.url, height: "85vh", class: "img-thumbnail" %>
