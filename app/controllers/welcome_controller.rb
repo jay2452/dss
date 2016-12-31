@@ -10,4 +10,8 @@ class WelcomeController < ApplicationController
 
   def search
   end
+
+  def upgrade
+
+  end
 end

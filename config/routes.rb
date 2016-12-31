@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'messages/index'
   get 'welcome/index'
   get 'welcome/search'
+  get 'welcome/upgrade'
   resources :groups
 
   post 'groups/add_user_to_group'
