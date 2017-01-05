@@ -91,7 +91,10 @@ Rails.application.routes.draw do
     end
     resources :user_groups
     # get 'users/remove_user_role' => 'users#remove_user_role', as: :delete_user_role
-    resources :users_roles, only: [:index, :create, :destroy, :new]
+    resources :users_roles, only: [:index, :create, :destroy, :new] do
+      # post :change_role
+    end
+
     resources :document_categories, only: [:index, :create, :destroy]
   end
 

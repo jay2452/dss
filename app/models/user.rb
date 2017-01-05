@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :user_document_statuses, dependent: :destroy
 
-  validates :mobile, length: { maximum: 10 }
+  validates :mobile, length: { is: 10 }
 
 #   Since remove_role method will also remove the role from Role table so use a custom function .
   def delete_role(role_symbol,target=nil) # => this function will only remove role of that particular user not the role data from Roles table .

@@ -10,14 +10,21 @@ module Admin
 
     def new
       @users_role = UsersRole.new
+      @roles = Role.where.not("name = ? OR name = ?", "admin", "superAdmin")
     end
 
     def create
+       u_id = params[:users_role][:user_id].to_i
+       user = User.find u_id
+
+      user.roles.each do |role|
+        user.delete_role role.name
+      end
+
       @users_role = UsersRole.new(users_roles_params)
-      # @users_role.user_id = @u_id
 
       if @users_role.save
-        redirect_to :back, notice: "Role successfully added to user"
+        redirect_to admin_users_path, notice: "Role changed !!"
       else
         redirect_to :back, notice: "Role cannot be added"
       end

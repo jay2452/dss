@@ -1,8 +1,29 @@
+<% provide :title, "Change Role"%>
+<div class="container">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <b>Email : </b>
+        <h3 class="h4">  <%= User.find(params[:user_id]).email %></h3>
+        <b>Current Role  :</b>
+        <h3 class="h4">  <%= User.find(params[:user_id]).roles.first.name %></h3>
+        <%= form_for([:admin, @users_role], html: { class: "form" }) do |f| %>
 
+          <%= f.number_field :user_id, value: params[:user_id], hidden: true %>
+          <div class="form-group">
+            <label>Select Role:</label>  <br>
+            <%= f.select :role_id, @roles.all.collect { |p| [ p.name, p.id ] },{include_blank: false} ,{class: "form-control"}  %> <br>
+          </div>
 
-<%= form_for([:admin, @users_role], html: { class: "form" }) do |f| %>
-  <%# @users_role.user_id = params[:user_id] %>
-  <%= f.number_field :user_id, value: params[:user_id], hidden: true %>
-  <%= f.select :role_id, Role.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
-  <%= f.submit "create" %>
-<% end %>
+          <div class="form-group">
+            <%= f.submit "Change", class: "btn btn-primary btn-sm text-uppercase" %> <%= link_to "Back", :back, class: "btn btn-default btn-sm text-uppercase" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3"></div>
+</div>
