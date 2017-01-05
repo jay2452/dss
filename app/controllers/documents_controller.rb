@@ -18,16 +18,20 @@ class DocumentsController < ApplicationController
                             #{dg.group.name} at #{dg.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
       # => send mail to all the users in the project
+
       Group.find(@document.group_id).users.pluck(:email).each do |user|
-        DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
-        if User.find_by_email(user).mobile
-          send_sms(User.find_by_email(user).mobile, "New Document - #{@document.name} -received in project folder - #{@document.group.name}")
+        # => check if the user is disabled or not
+        if User.find_by_email(user).deleted_at?
+          # => donot send email
+          puts "User is disabled"
+        else
+          DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
+          if User.find_by_email(user).mobile
+            # => send sms to user mobile numbers
+            send_sms(User.find_by_email(user).mobile, "New Document - #{@document.name} -received in project folder - #{@document.group.name}")
+          end
         end
-
       end
-
-
-
       redirect_to :back, notice: "Successfully sent"
     else
       redirect_to :back, alert: "Not Sent"
