@@ -27,7 +27,7 @@ module Admin
       if @users_role.role.name == "uploadUser" # => then remove user from all projects
         user_groups = UserGroup.where("user_id = ? AND group_id IN (?)", user.id, user.groups.ids)
         user_groups.each do |ug|
-          Log.create! description: "<b>#{current_user.email} </b> deleted user <b>#{user.email} </b> from project <b>#{user.group} </b> at
+          Log.create! description: "<b>#{current_user.email} </b> deleted user <b>#{user.email} </b> from project <b>#{ug.group.name} </b> at
                                                                     #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
           ug.destroy
         end
