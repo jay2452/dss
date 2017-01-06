@@ -64,7 +64,6 @@ module Admin
         if @user.mobile
           send_sms(@user.mobile, "User account is updated on GPIL e-portal, please check your email for further info.")
         end
-
         redirect_to admin_users_path, notice: "Password Changed successfully"
       end
     end
@@ -91,7 +90,6 @@ module Admin
       @user = User.friendly.find(params[:id])
       Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{@user.email} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @user.destroy
-
       redirect_to :back, notice: 'user was successfully removed'
     end
 
