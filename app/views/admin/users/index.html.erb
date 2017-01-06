@@ -31,10 +31,10 @@
 
           <%# if the user is disabled , the change password and change role should also be disabled %>
           <% if user.deleted_at %>
-            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase disabled" %></td>
+            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase disabled" %></td>
             <td><%= link_to "change password", edit_admin_user_path(user), class: "btn btn-warning btn-sm text-uppercase disabled" %></td>
           <% else %>
-            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %></td>
+            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase" %></td>
             <td><%= link_to "change password", edit_admin_user_path(user), class: "btn btn-warning btn-sm text-uppercase" %></td>
           <% end %>
 

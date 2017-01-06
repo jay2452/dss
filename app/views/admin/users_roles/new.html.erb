@@ -5,12 +5,15 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <b>Email : </b>
-        <h3 class="h4">  <%= User.find(params[:user_id]).email %></h3>
-        <b>Current Role  :</b>
-        <h3 class="h4">  <%= User.find(params[:user_id]).roles.first.name %></h3>
+        <h3 class="h4">  <%= User.friendly.find(params[:user_id]).email %></h3>
+        <% if User.friendly.find(params[:user_id]).roles.present? %>
+          <b>Current Role  :</b>
+          <h3 class="h4">  <%= User.friendly.find(params[:user_id]).roles.first.name %></h3>
+        <% end %>
+
         <%= form_for([:admin, @users_role], html: { class: "form" }) do |f| %>
 
-          <%= f.number_field :user_id, value: params[:user_id], hidden: true %>
+          <%= f.text_field :user_id, value: params[:user_id], hidden: true %>
           <div class="form-group">
             <label>Select Role:</label>  <br>
             <%= f.select :role_id, @roles.all.collect { |p| [ p.name, p.id ] },{include_blank: false} ,{class: "form-control"}  %> <br>
