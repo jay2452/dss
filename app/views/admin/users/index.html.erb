@@ -41,14 +41,10 @@
           <% if current_user.has_role? :superAdmin %>
               <td><%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %></td>
           <% end %>
-          <!-- <td><%= link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %></td> -->
           <% if !user.deleted_at %>
             <td><%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %></td>
           <% else %>
-            <td>
-              <!-- <span class="" disabled>disabled</span> -->
-              <%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %>
-            </td>
+            <td><%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %></td>
           <% end %>
 
 
@@ -88,32 +84,32 @@
 
               <div class="form-group">
                 <%= label_tag "Name" %>
-                <%= f.text_field :username, class: "form-control", autofocus: true, placeholder: "Enter the user name" %>
+                <%= f.text_field :username, class: "form-control", autofocus: true, placeholder: "Enter the user name", required: true %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Email" %>
-                <%= f.email_field :email, class: "form-control", placeholder: "Email (abc@example.com)" %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Email (abc@example.com)", required: true %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Password" %>
-                <%= f.password_field :password, class: "form-control", placeholder: "Password (minimum 8 characters)" %>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password (minimum 8 characters)", required: true %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Mobile" %>
-                <%= f.text_field :mobile, class: "form-control", placeholder: "Eg. 9876543210 and should be of 10 digits", maxlength: "10" %>
+                <%= f.text_field :mobile, id: "phone" ,class: "form-control", placeholder: "Eg. 9876543210 and should be of 10 digits", maxlength: 10, required: true, onkeypress: "phoneno()" %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Designation" %>
-                <%= f.text_field :designation, class: "form-control", placeholder: "Enter Designation" %>
+                <%= f.text_field :designation, class: "form-control", placeholder: "Enter Designation", required: true %>
               </div>
 
               <div class="form-group">
                 <%= label_tag "Role" %>
-                <%= select_tag :role_id, options_from_collection_for_select(@roles, "id", "name"), class: "form-control" %>
+                <%= select_tag :role_id, options_from_collection_for_select(@roles, "id", "name"), class: "form-control", required: true %>
               </div>
 
               <div class="form-group">
@@ -135,4 +131,19 @@
 
 <script type="text/javascript">
   validateUser('create_user');
+</script>
+
+<script>
+     function phoneno(){
+      $('#phone').keypress(function(e) {
+          var a = [];
+          var k = e.which;
+
+          for (i = 48; i < 58; i++)
+              a.push(i);
+
+          if (!(a.indexOf(k)>=0))
+              e.preventDefault();
+      });
+  }
 </script>

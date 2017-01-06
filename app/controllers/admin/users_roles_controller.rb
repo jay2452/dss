@@ -20,8 +20,18 @@ module Admin
       user.roles.each do |role|
         user.delete_role role.name
       end
-
+      
       @users_role = UsersRole.new(users_roles_params)
+      # => if the role is changed from view user to upload user , then the user must be removed from all the projects
+      if @users_role.role.name == "uploadUser" # => then remove user from all projects
+        user_groups = UserGroup.where("user_id = ? AND group_id IN (?)", u_id, user.groups.ids)
+        user_groups.each do |ug|
+          Log.create! description: "<b>#{current_user.email} </b> deleted user <b>#{@user_group.user.email} </b> from project <b>#{@user_group.group} </b> at
+                                                                    #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
+          ug.destroy
+
+        end
+      end
 
       if @users_role.save
         redirect_to admin_users_path, notice: "Role changed !!"

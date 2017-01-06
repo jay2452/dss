@@ -4,11 +4,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :doc_search
+  before_filter :set_cache_buster
   require 'rest-client'
   require "mosto.rb"
 
 
   private
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
   def doc_search
     @q = Document.search(params[:q])# || Document.all.order(created_at: :desc)
