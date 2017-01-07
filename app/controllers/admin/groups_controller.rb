@@ -41,6 +41,7 @@ module Admin
     end
 
     def disable_group
+      # => if the group/project is disabled the users of the Project will not be able to view aany previous documents also belonging to that project
       @group.update(disabled: true)
       Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                           role_id: current_user.roles.ids.first

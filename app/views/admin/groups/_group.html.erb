@@ -3,13 +3,12 @@
     <small class="text-uppercase">
       <%= link_to 'Show', admin_group_path(group), class: "btn btn-info btn-sm" %>
       <%= link_to 'Edit', edit_admin_group_path(group), class: "btn btn-warning btn-sm" %>
-      <%# link_to 'Delete', admin_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
       <% if group.disabled  %>
         <%= link_to 'Enable', enable_group_admin_group_path(group), class: "btn btn-primary btn-sm" %>
       <% else %>
-        <%= link_to 'Disable', disable_group_admin_group_path(group), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        <%= link_to 'Disable', disable_group_admin_group_path(group), data: { confirm: 'Are you sure?', toggle: "tooltip" }, class: "btn btn-danger btn-sm",
+              title: "if the project is disabled the users of the Project will not be able to view aany previous documents also belonging to that project" %>
       <% end %>
-
     </small>
   </h4>
   <h3 class="h4">

@@ -2,7 +2,7 @@ class DocumentGroupsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @user_groups = current_user.groups#.where("group_id != ?", Group.first.id) # => - Group.first # => first group will contan the list of all users
+    @user_groups = current_user.groups.where("disabled = ?", false)#.where("group_id != ?", Group.first.id) # => - Group.first # => first group will contan the list of all users
     # @user_groups_1 = current_user.groups
     arr = []
     #   fetch all the id of documents from groups in which the user belongs to.

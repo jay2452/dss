@@ -1,10 +1,5 @@
 <li class="list-group-item clearfix">
   <h4 class="pull-right">
-    <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
-    <% if current_user.has_role? :superAdmin %>
-      <small class="text-uppercase"><%= link_to 'Permanently Delete', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
-    <% end %>
-
     <% if check_status?(document) #checkk if the document is already sent %>
         <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
         <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
@@ -16,7 +11,10 @@
           <span class="glyphicon glyphicon-send"></span> Send
         </a>
     <% end %>
-
+    <small class="text-uppercase"><%= link_to 'Edit', edit_admin_document_path(document), class: "btn btn-warning btn-sm" %></small>
+    <% if current_user.has_role? :superAdmin %>
+      <small class="text-uppercase"><%= link_to 'Permanently Delete', admin_document_path(document), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></small>
+    <% end %>
     <small class="text-uppercase"><%= link_to 'Remove', remove_document_admin_document_path(document), data: { confirm: 'Are you sure?, this will move the file to recycle bin' }, class: "btn btn-danger btn-sm" %></small>
   </h4>
 

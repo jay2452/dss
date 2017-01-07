@@ -34,7 +34,6 @@ module Admin
       end
 
       @users_role.user_id = user.id
-
       if @users_role.save
         redirect_to admin_users_path, notice: "Role changed !!"
       else
