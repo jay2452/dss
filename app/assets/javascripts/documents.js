@@ -14,10 +14,10 @@ function validateDocument(docID) {
       },
       "document[group_id]": {
         required: true,
-      },
-      "document[file]": {
-        required: true,
       }
+      // "document[file]": {
+      //   required: true,
+      // }
     },
     messages: {
       "document[name]": {
@@ -25,10 +25,10 @@ function validateDocument(docID) {
       },
       "document[group_id]": {
         required: "Please select a Project"
-      },
-      "document[file]": {
-        required: "Please upload a file"
-      }
+      }//,
+      // "document[file]": {
+      //   required: "Please upload a file"
+      // }
     },
     submitHandler: function (form) {
       form.submit();

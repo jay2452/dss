@@ -72,15 +72,18 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   def new
     @document = Document.new
+    @groups = Group.all.where("disabled = ?", false)
   end
 
   # GET /documents/1/edit
   def edit
+    @groups = Group.all.where("disabled = ?", false)
   end
 
   # POST /documents
   # POST /documents.json
   def create
+    @groups = Group.all.where("disabled = ?", false)
     @document = Document.new(document_params)
     @document.user_id = current_user.id
 

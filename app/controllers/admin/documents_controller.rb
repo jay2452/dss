@@ -29,6 +29,7 @@ module Admin
     # POST /documents
     # POST /documents.json
     def create
+      @groups = Group.all.where("disabled = ?", false)
       @document = Document.new(document_params)
       @document.user_id = current_user.id
 

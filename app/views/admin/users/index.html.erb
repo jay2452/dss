@@ -9,6 +9,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>Name</th>
           <th>Email</th>
           <th>Projects</th>
           <th>Role</th>
@@ -19,7 +20,8 @@
       <tbody>
         <% @users.each do |user| %>
         <tr>
-          <td><%= link_to user.email, admin_user_path(user) %></td>
+          <td><%= link_to user.username, admin_user_path(user) %></td>
+          <td><%= user.email %></td>
           <td>
             <% user.groups.each do |group| %>
                 <%= group.name %> &nbsp;
@@ -46,10 +48,7 @@
           <% else %>
             <td><%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %></td>
           <% end %>
-
-
         </tr>
-
         <% end %>
       </tbody>
     </table>

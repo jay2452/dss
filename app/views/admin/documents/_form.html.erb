@@ -18,8 +18,6 @@
   <div class="form-group">
     <%= f.label :project_id %> <br>
     <small>(Select a project for the document for which it belongs to)</small>
-    <%# f.number_field :document_category_id %>
-
     <%= f.select :group_id, @groups.collect { |p| [ p.name, p.id ] }, {include_blank: false},{class: "form-control"} %>
   </div>
 
@@ -32,11 +30,11 @@
     </div>
 
    	<%= f.label :file %><br>
-    <%= f.file_field :file %>
+    <%= f.file_field :file, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.submit "Upload", class: "btn btn-success btn-sm text-uppercase" %>
+    <%= f.submit "Save", class: "btn btn-success btn-sm text-uppercase" %>
   </div>
 <% end %>
 
