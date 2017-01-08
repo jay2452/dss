@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  # after_create :add_general_role
   rolify
   extend FriendlyId
   friendly_id :email, use: :slugged
@@ -7,8 +6,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # validates :, presence: true
 
   has_many :documents, dependent: :destroy
   has_many :user_groups, dependent: :destroy
@@ -23,14 +20,6 @@ class User < ActiveRecord::Base
     UsersRole.delete_role self,role_symbol,target
   end
 
-    # def add_general_role
-    #
-    #   if self.has_role? 'general'
-    #     # => do nothing
-    #   else
-    #     self.add_role "general"
-    #   end
-    # end
     def soft_delete
       update_attribute(:deleted_at, Time.current)
     end

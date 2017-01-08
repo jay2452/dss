@@ -68,6 +68,25 @@ module Admin
       end
     end
 
+    def reset_password
+      @user = User.friendly.find(params[:id])
+      require "securerandom"
+      pass = SecureRandom.urlsafe_base64(10)
+      @user.password = pass
+      if @user.save
+        Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
+        UserNotifierMailer.account_update_notification(@user, pass).deliver # => send updated mail for account updation
+
+        if @user.mobile
+          send_sms(@user.mobile, "User account is updated on GPIL e-portal, please check your email for further info.")
+        end
+        redirect_to admin_users_path, notice: "Password reset successfully"
+      else
+        redirect_to admin_users_path, alert: "Error !!, reset failed"
+      end
+
+    end
+
     def disable_user
       @user = User.friendly.find(params[:id])
       @user.soft_delete
