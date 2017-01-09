@@ -38,23 +38,23 @@
 
                 <td><%= link_to 'Show', document, class: "btn btn-info btn-sm text-uppercase", data: {disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Opening"} %></td>
                 <% if (document.user == current_user) && (document.document_groups.empty?) %>
-                  <!-- <td><%# link_to 'Edit', edit_document_path(document) %></td> -->
                   <td><%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?', disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Deleting" }, class: "btn btn-danger btn-sm text-uppercase" %></td>
+                  <td>
+                    <% if check_status?(document) #checkk if the document is already sent %>
+                        <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
+                        <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
+                          <span class="glyphicon glyphicon-send"></span> Sent
+                        </a>
+
+                    <% else %>
+                        <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-success btn-sm text-uppercase">
+                          <span class="glyphicon glyphicon-send"></span> Send
+                        </a>
+                    <% end %>
+
+                  </td>
                 <% end %>
-                <td>
-                  <% if check_status?(document) #checkk if the document is already sent %>
-                      <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
-                      <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
-                        <span class="glyphicon glyphicon-send"></span> Sent
-                      </a>
 
-                  <% else %>
-                      <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-success btn-sm text-uppercase">
-                        <span class="glyphicon glyphicon-send"></span> Send
-                      </a>
-                  <% end %>
-
-                </td>
               <% end %>
 
             </tr>
