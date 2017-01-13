@@ -98,10 +98,7 @@ class DocumentsController < ApplicationController
         # DocumentsNotifierMailer.new_doc_notification(@document).deliver
         format.html { redirect_to @document, notice: 'Document successfully uploaded.' }
         format.json { render :show, status: :created, location: @document }
-        # send a sms to the users
-        # pass = ENV['MOSTO_PASS']
-        # puts "--------------------------------\n-#{pass} +++++++++++"
-        # send_sms_to params[:number]
+
 
       else
         format.html { render :new }

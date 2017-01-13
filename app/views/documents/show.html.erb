@@ -61,7 +61,7 @@
   <div class="col-md-8">
     <% if @document.file? && (@document.file.content_type == 'application/pdf') %>
       <div>
-        <embed oncontextmenu="return false" type="application/pdf" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12">
+        <embed oncontextmenu="return false" type="application/pdf" src="<%= @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%; z-index:1;" class="col-md-12">
 <!--
         <iframe id="fraDisabled" src="<%# @document.file.url %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
             <p>Your browser does not support iframes.</p>
