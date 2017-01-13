@@ -28,14 +28,14 @@ $(document).ready(function() {
     return $(window).scroll();
   }
 
-  // document.addEventListener('contextmenu', event => event.preventDefault());
-  $(document).bind('keydown', function(e) {
-    if(e.ctrlKey && (e.which == 83)) {
-      e.preventDefault();
-      alert(' Ctrl+S Is Not Allowed');
-      return false;
-    }
-  });
+
+  // $(document).bind('keydown', function(e) {
+  //   if(e.ctrlKey && (e.which == 83)) {
+  //     e.preventDefault();
+  //     alert(' Ctrl+S Is Not Allowed');
+  //     return false;
+  //   }
+  // });
 
 
 });

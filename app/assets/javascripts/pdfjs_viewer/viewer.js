@@ -23,6 +23,14 @@
            RenderingStates, UNKNOWN_SCALE, DEFAULT_SCALE_VALUE,
            IGNORE_CURRENT_POSITION_ON_ZOOM: true */
 
+           // Initializing PDFJS global object (if still undefined)
+           if (typeof PDFJS === 'undefined') {
+             (typeof window !== 'undefined' ? window : this).PDFJS = {};
+           }
+
+           PDFJS.version = '1.1.114';
+           PDFJS.build = '3fd44fd';
+
 'use strict';
 
 var DEFAULT_URL = window.resourceURL;
@@ -33,6 +41,8 @@ var SCALE_SELECT_CONTAINER_PADDING = 8;
 var SCALE_SELECT_PADDING = 22;
 var PAGE_NUMBER_LOADING_INDICATOR = 'visiblePageIsLoading';
 var DISABLE_AUTO_FETCH_LOADING_BAR_TIMEOUT = 5000;
+
+
 
 PDFJS.imageResourcesPath = '/pdfjs/web/images/';
   // PDFJS.workerSrc = '../build/pdf.worker.js';
@@ -64,7 +74,6 @@ document.addEventListener("keydown", function(e) {
   if (e.ctrlKey) {
     e.preventDefault();
     alert('This function is not allowed !');
-    return false;
   }
 }, false);
 

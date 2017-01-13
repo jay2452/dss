@@ -32,9 +32,10 @@
   <div class="col-md-8">
     <% if @document.file? && (@document.file.content_type == 'application/pdf') %>
     <div oncontextmenu="return false">
-      <iframe id="fraDisabled" src="<%= pdfjs.reduced_path(file: @document.file.url) %>#toolbar=0&navpanes=0" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
+      <iframe src="<%= pdfjs.reduced_path(file: @document.file.url) %>" style="height: 85vh; padding: 0%;" class="col-md-12" frameborder="0">
           <p>Your browser does not support iframes.</p>
 
+          <!--#toolbar=0&navpanes=0  -->
       </iframe>
     </div>
     <% else %>
