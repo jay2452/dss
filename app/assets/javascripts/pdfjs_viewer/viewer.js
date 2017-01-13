@@ -68,14 +68,14 @@ function removeNullCharacters(str) {
 }
 
 // disable crtl + s
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-document.addEventListener("keydown", function(e) {
-  if (e.ctrlKey) {
-    e.preventDefault();
-    alert('This function is not allowed !');
-  }
-}, false);
+// document.addEventListener('contextmenu', event => event.preventDefault());
+//
+// document.addEventListener("keydown", function(e) {
+//   if (e.ctrlKey) {
+//     e.preventDefault();
+//     alert('This function is not allowed !');
+//   }
+// }, false);
 
 
 

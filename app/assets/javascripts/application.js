@@ -29,13 +29,5 @@ $(document).ready(function() {
   }
 
 
-  // $(document).bind('keydown', function(e) {
-  //   if(e.ctrlKey && (e.which == 83)) {
-  //     e.preventDefault();
-  //     alert(' Ctrl+S Is Not Allowed');
-  //     return false;
-  //   }
-  // });
-
 
 });
