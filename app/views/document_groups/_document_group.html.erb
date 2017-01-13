@@ -11,6 +11,17 @@
     </div>
 
     <div class="col-sm-1">
+
+      <h6 align="right">
+        <!-- <a href="<%= pdfjs.reduced_path(file: document_group.document.file.url) %>" target="_blank"
+                    class="btn btn-success btn-sm text-uppercase" onclick="takeCount(document_group.document.slug, current_user.id)">
+          open
+        </a> -->
+        <!-- <button type="button" name="button" class="btn btn-primary text-uppercase btn-sm" onclick="takeCount(<%= document_group.document.slug %>,<%= current_user.id %>)">
+          Open
+        </button> -->
+      </h6>
+
       <h6 align="right">
         <% if (doc_status(document_group.document, current_user) != 0) %>
           Viewed
@@ -21,3 +32,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function takeCount(doc, usr) {
+    // $.ajax({
+    //
+    // });
+
+    alert(doc, usr);
+  }
+</script>
