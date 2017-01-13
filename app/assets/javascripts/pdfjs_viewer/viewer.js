@@ -68,7 +68,7 @@ function removeNullCharacters(str) {
 }
 
 // disable crtl + s
-// document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault());
 //
 // document.addEventListener("keydown", function(e) {
 //   if (e.ctrlKey) {
