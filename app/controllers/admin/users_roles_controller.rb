@@ -43,7 +43,7 @@ module Admin
         # => create a log and send email and sms to the user
         Log.create! description: "<b>#{current_user.email} </b> added user <b>#{user.email} </b> to role <b>#{Role.find(@users_role.role_id).name} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-      p  UserNotifierMailer.added_to_role(user, Role.find(@users_role.role_id).name).deliver
+        UserNotifierMailer.added_to_role(user, Role.find(@users_role.role_id).name).deliver
         if user.mobile
           send_sms(user.mobile, "You have been added to role #{Role.find(@users_role.role_id).name}")
         end

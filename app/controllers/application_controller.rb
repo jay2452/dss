@@ -45,7 +45,13 @@ class ApplicationController < ActionController::Base
 
   def send_sms(mob, message_to_send)
     url = "http://sms.gpileportal.co.in/submitsms.jsp?user=#{ENV['DOVE_SMS_GPIL_USER']}&key=#{ENV['DOVE_SMS_GPIL_KEY']}&mobile=+91#{mob}&message=#{message_to_send}&senderid=EPGPIL&accusage=1"
-    RestClient.get(url)
+    begin
+      RestClient.get(url)
+    rescue Exception => e
+      puts "+++++++============="
+        p e
+      puts "+++++++============="
+    end
   end
 
 end
