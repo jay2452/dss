@@ -31,4 +31,16 @@ class UserNotifierMailer < ApplicationMailer
     @project = project
   end
 
+  def removed_from_role user, role
+    @user = user
+    @role = role
+    mail to: @user.email, subject: "Removed from Role"
+  end
+
+  def added_to_role user, role
+    @user = user
+    @role = role
+    mail to: @user.email, subject: "Added to Role"
+  end
+
 end
