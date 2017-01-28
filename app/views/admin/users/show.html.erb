@@ -8,18 +8,16 @@
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
               <li class="sidebar-brand">
-                  <a href="<%= root_path %>">
-                      Home
-                  </a>
+                <a href="<%= root_path %>"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;
+                    Home
+                </a>
               </li>
-              <li><a href="#"><%= @user.email %> </a></li>
-              <li>
-                  <a href="<%= admin_users_path %>">Users</a>
-              </li>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; <%= @user.email %> </a></li>
+              <li><a href="<%= admin_users_path %>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp; Users</a></li>
               <li></li>
-              <li>
+              <!-- <li>
                 <%= link_to "Back", admin_users_path %>
-              </li>
+              </li> -->
 
           </ul>
       </div>
@@ -35,7 +33,7 @@
                       <!-- User information <br> -->
                       <div class="col-md-6">
                         <div class="well">
-                          <h4 class="h3"><span class="glyphicon glyphicon-user"></span>&nbsp;<%= @user.username %></h4> <hr>
+                          <h4 class="h3"><span class="glyphicon glyphicon-user"></span>&nbsp; <%= @user.username %></h4> <hr>
                             <span class="fa fa-envelope" aria-hidden="true"></span>&nbsp; <b>Email </b><span class="pull-right"><%= @user.email %> </span> <br>
                             <span class="glyphicon glyphicon-tags"></span> &nbsp;<b>Designation </b> <span class="pull-right"><%= @user.designation %></span> <br>
                             <span class="glyphicon glyphicon-earphone"></span>&nbsp;<b> Mobile  </b>  <span class="pull-right"><%= @user.mobile %></span>
