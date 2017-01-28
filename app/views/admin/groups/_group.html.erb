@@ -1,21 +1,57 @@
-<li class="list-group-item clearfix">
-  <h4 class="pull-right">
-    <small class="text-uppercase">
-      <%= link_to 'Show', admin_group_path(group), class: "btn btn-info btn-sm" %>
-      <%= link_to 'Edit', edit_admin_group_path(group), class: "btn btn-warning btn-sm" %>
-      <% if group.disabled == true %>
-        <%= link_to 'Enable', enable_group_admin_group_path(group), class: "btn btn-primary btn-sm" %>
-      <% else %>
-        <%= link_to 'Disable', disable_group_admin_group_path(group), data: { confirm: 'Are you sure?', toggle: "tooltip" }, class: "btn btn-danger btn-sm",
-              title: "if the project is disabled the users of the Project will not be able to view any previous documents also belonging to that project" %>
-      <% end %>
-    </small>
-  </h4>
-  <h3 class="h4">
-    <%= group.name %> <br>
-    <small>
-      Description : <%= group.purpose %> <br>
-      Users : <%= group.users.count %>
-    </small>
-  </h3>
-</li>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <div class="row">
+        <div class="col-sm-4">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= @i %>">
+            <%= group.name %>
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <h3 class="h5" align="center"> Total Documents : <%= group.documents.where("deleted = ?", false).count %></h3>
+
+        </div>
+        <div class="col-sm-4">
+          <div class="pull-right h5">
+            <% if group.disabled %>
+              Disabled
+            <% else %>
+              Active
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </h4>
+  </div>
+
+  <div class="panel-collapse collapse" id="collapse<%= @i %>">
+
+    <div class="panel-body">
+      <div class="container-fluid">
+        <h3 class="h4">
+          <%= group.name %> <br>
+          <small>
+            Description : <%= group.purpose %> <br>
+            Users : <%= group.users.count %>
+          </small>
+        </h3>
+
+        <small class="text-uppercase">
+          <%= link_to 'Show', admin_group_path(group), class: "btn btn-info btn-sm" %>
+          <%= link_to 'Edit', edit_admin_group_path(group), class: "btn btn-warning btn-sm" %>
+          <% if group.disabled == true %>
+            <%= link_to 'Enable', enable_group_admin_group_path(group), class: "btn btn-primary btn-sm" %>
+          <% else %>
+            <%= link_to 'Disable', disable_group_admin_group_path(group), data: { confirm: 'Are you sure?', toggle: "tooltip" }, class: "btn btn-danger btn-sm",
+                  title: "if the project is disabled the users of the Project will not be able to view any previous documents also belonging to that project" %>
+          <% end %>
+        </small>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<% @i += 1 %>

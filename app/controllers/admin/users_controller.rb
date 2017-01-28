@@ -6,7 +6,7 @@ module Admin
     # load_and_authorize_resource
 
     def index
-      @users = User.all - User.with_role(:admin) - User.with_role(:superAdmin)
+      @users = User.all.order(:username) - User.with_role(:admin) - User.with_role(:superAdmin)
       @user = User.new
       @roles = Role.all - Role.where("name = ?", "admin") - Role.where("name = ?", "superAdmin")
 
@@ -26,6 +26,8 @@ module Admin
     def create
       @user = User.new(user_params)
       role = Role.find(params[:role_id])
+
+      @user.username = @user.username.capitalize
 
       if @user.save
         @user.add_role role.name

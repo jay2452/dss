@@ -1,69 +1,120 @@
 <div class="container-fluid">
   <% provide :title, "Users List" %>
-  <h3>List of all users</h3>
 
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-success btn-sm text-uppercase" data-toggle="modal" data-target="#myModal">Add User</button>
 
   <% if !@users.empty? %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Projects</th>
-          <th>Role</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <% @users.each do |user| %>
-        <tr>
-          <td><%= link_to user.username, admin_user_path(user) %></td>
-          <td><%= user.email %></td>
-          <td>
-            <% user.groups.each do |group| %>
-                <%= group.name %> &nbsp;
-            <% end %>
-          </td>
-          <% fetch_roles(user.id).each do |role| %> <%# to fetch the roles of each user and it is defined in the usershelper.rb %>
-            <td><%= role %></td>
-          <% end %>
-
-          <%# if the user is disabled , the change password and change role should also be disabled %>
-          <% if user.deleted_at %>
-            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase disabled" %></td>
-            <td><%= link_to "reset password", reset_password_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm text-uppercase disabled" %></td>
-          <% else %>
-            <td><%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase" %></td>
-            <td><%= link_to "reset password", reset_password_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm text-uppercase" %></td>
-          <% end %>
-
-          <% if current_user.has_role? :superAdmin %>
-              <td><%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %></td>
-          <% end %>
-          <% if !user.deleted_at %>
-            <td><%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %></td>
-          <% else %>
-            <td><%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %></td>
-          <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-  <% else %>
-      <div class="container">
-        <div class="Jumbotron">
-          <h2 class="h3">No Users</h2>
+  <div id="wrapper" style="margin-top: -1.3%;">
+    <div id="sidebar-wrapper" data-turbolinks="false">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                  <a href="<%= root_path %>"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;
+                      Home
+                  </a>
+                </li>
+                <li><a href="<%= admin_users_path %>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp; Users</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp; Add User</a></li>
+                <!-- <li><a href="#">Active Users</a></li>
+                <li><a href="#">Disabled Users</a></li> -->
+                <!-- <li><%= link_to "Back", :back %></li> -->
+            </ul>
         </div>
-      </div>
 
-  <% end %>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="h4" align="center">Users List</h3>
+                          <div class="panel-group" id="accordion">
+                            <% i = 1%>
+                            <% @users.each do |user| %>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <div class="row">
+                                      <div class="col-sm-4">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>">
+                                          <%= user.username %>
+                                        </a>
+                                      </div>
+                                      <div class="col-sm-4" style="text-align:center;">
+                                        <%= user.designation %>
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <div class="pull-right h5">
+                                          <% if user.deleted_at %>
+                                            Disabled
+                                          <% else %>
+                                              Active
+                                          <% end %>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </h4>
+
+                                </div>
+                                <div class="panel-collapse collapse" id="collapse<%= i %>">
+                                  <div class="panel-body">
+                                    <div class="container-fluid">
+                                      Name : <%= user.username %> <br>
+                                      Role : <%= user.roles.last.name %> <br>
+                                      Projects :
+                                        <% user.groups.each do |group| %>
+                                            <%= group.name %> &nbsp;
+                                        <% end %>
+                                        <br>
+                                        <%= link_to "Show Full Profile", admin_user_path(user) %>
+                                        <div class="pull-right">
+                                          <% if user.deleted_at %>
+                                            <%= link_to "Change role", '#', class: "btn btn-primary btn-sm text-uppercase disabled" %>
+                                            <%= link_to "reset password", '#', method: :post, class: "btn btn-warning btn-sm text-uppercase disabled" %>
+                                          <% else %>
+                                            <%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase" %>
+                                            <%= link_to "reset password", reset_password_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm text-uppercase" %>
+                                          <% end %>
+
+                                          <% if current_user.has_role? :superAdmin %>
+                                              <%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %>
+                                          <% end %>
+                                          <%# if the user is disabled , change password and change role should also be disabled %>
+                                          <% if !user.deleted_at %>
+                                            <%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %>
+                                          <% else %>
+                                            <%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %>
+                                          <% end %>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <% i += 1%>
+                            <% end %>
+                          </div>
 
 
-</div>
+                    </div>
+                </div>
+
+
+              </div>
+          </div>
+   </div>
+
+    <% else %>
+        <div class="container">
+          <div class="Jumbotron">
+            <h2 class="h3">No Users</h2>
+          </div>
+        </div>
+
+    <% end %>
+
+  </div>
+
+
+
+
 
 
 

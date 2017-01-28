@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_user!, except: :upgrade
+
   def index
     @users = User.all.order(created_at: :desc)  - User.with_role(:admin) - User.with_role(:superAdmin)
 

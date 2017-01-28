@@ -28,6 +28,9 @@ $(document).ready(function() {
     return $(window).scroll();
   }
 
-
+  $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+  });
 
 });
