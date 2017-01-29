@@ -14,7 +14,17 @@
                     </a>
                 </li>
                 <li>
-                    <a> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> &nbsp; <%= @document.name %></a>
+                    <a>
+                      <% if @document.file_content_type == 'application/pdf' %>
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                      <% else %>
+                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                      <% end %> &nbsp;
+                       <%= @document.name %>
+                     </a>
+                </li>
+                <li>
+                  <a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; <%= sprintf( "%0.02f", @document.file.size.to_f / 1.megabyte) %> MB</a>
                 </li>
                 <li>
                     <a href="#"> <span class="fa fa-folder-open-o"></span> &nbsp;<%= @document.group.name %></a>

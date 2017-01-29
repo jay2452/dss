@@ -16,10 +16,10 @@
                      <a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp; <%= @group.name %></a>
                  </li>
                  <li>
-                     <a href="#"> <i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Docs</a>
+                     <a onclick="show_uploaded_docs()"> <i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Docs</a>
                  </li>
                  <li>
-                     <a href="#"><i class="fa fa-users" aria-hidden="true"></i> &nbsp; Users Accociated</a>
+                     <a onclick="show_users_associated()"><i class="fa fa-users" aria-hidden="true"></i> &nbsp; Users Associated</a>
                  </li>
                  <li>
                      <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp; Add User</a>
@@ -48,7 +48,7 @@
 
 
                        <div class="row">
-                         <div class="col-md-6">
+                         <div id="docs_uploaded_project">
 
                            <section>
                              <header>
@@ -73,7 +73,7 @@
 
                          </div>
 
-                         <div class="col-md-6">
+                         <div id="show_users_associated">
 
                            <section>
                              <header>
@@ -120,3 +120,20 @@
 </div>
 
 <%= render :partial => "/groups/add_user_group" %>
+
+
+<script type="text/javascript">
+  $("#docs_uploaded_project").hide();
+  $("#show_users_associated").hide();
+
+  function show_uploaded_docs() {
+    $("#docs_uploaded_project").show();
+    $("#show_users_associated").hide();
+  }
+
+  function show_users_associated() {
+    $("#show_users_associated").show();
+    $("#docs_uploaded_project").hide();
+  }
+
+</script>
