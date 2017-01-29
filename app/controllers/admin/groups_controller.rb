@@ -26,6 +26,7 @@ module Admin
 
     # GET /groups/1/edit
     def edit
+      # @users = @group.users - User.find_by_sql("select * from users where deleted_at IS NOT NULL")
     end
 
     # => add user group is in groups_controller not in admin but in common folder
