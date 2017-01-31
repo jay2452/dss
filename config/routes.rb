@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
     authenticated :user, lambda {|u| u.has_role? :viewUser} do
       resources :document_groups, only: [:index]
+      get 'document_groups/project', as: 'doc_project'
       root 'document_groups#index', as: :authenticated_viewUser
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs'
     end

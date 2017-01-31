@@ -18,4 +18,16 @@ class DocumentGroupsController < ApplicationController
     @document_groups = DocumentGroup.where("document_id IN (?)", arr).paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
   end
 
+  def project
+    # @doc_group = DocumentGroup.find params[:id]
+    @group = Group.find(params[:project])
+    doc_arr = @group.documents.where("deleted = ?", false).ids # => store the ids of documents in doc_arr and use it in DocumentGroup table
+    # => Document group table store the details of the documents which are sent
+    # => to retrieve the ssent document in a project, use DocumentGroup table
+
+    @document_groups = DocumentGroup.where("document_id IN (?)", doc_arr).order(created_at: :desc)
+    # => it can contain many duplicate rows , but that rows indicate, the number of times the document being sent
+    # => note: the created_at columns will be different 
+  end
+
 end
