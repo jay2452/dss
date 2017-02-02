@@ -1,38 +1,42 @@
 <div class="panel panel-default">
-  <div class="panel-body" id="status-<%= doc_status(document_group.document, current_user)  %>">
-    <div class="col-sm-11">
-      <h3 class="h4"><%= link_to document_group.document.name, document_path(document_group.document) %> </h3>
-      Uploaded : <small><%= time_ago_in_words(document_group.created_at) %> ago <br>
-      </small> Uploaded by: <small><%= document_group.document.user.email %></small> <br>
-      <small>
-        Project Name :
-        <%= document_group.group.name %> <br>
-      </small>
-    </div>
+  <div class="panel-heading" id="status-<%= doc_status(document_group.document, current_user)  %>">
+    <h4 class="panel-title">
+      <div class="row">
+        <div class="col-sm-4">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= $counter_viewUser_recent_docs %>">
+            <%= document_group.document.name %>
+          </a>
+        </div>
+        <div class="col-sm-4"> </div>
+        <div class="col-sm-4">
+          <div class="pull-right h6">
+            <% if (doc_status(document_group.document, current_user) != 0) %>
+              Viewed
+            <% else %>
+              Not Viewed
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </h4>
+  </div>
 
-    <div class="col-sm-1">
-
-      <h6 align="right">
-        <!-- <a href="<%# pdfjs.reduced_path(file: document_group.document.file.url) %>" target="_blank"
-                    class="btn btn-success btn-sm text-uppercase" onclick="takeCount(document_group.document.slug, current_user.id)">
-          open
-        </a> -->
-        <!-- <button type="button" name="button" class="btn btn-primary text-uppercase btn-sm" onclick="takeCount(<%# document_group.document.slug %>,<%# current_user.id %>)">
-          Open
-        </button> -->
-      </h6>
-
-      <h6 align="right">
-        <% if (doc_status(document_group.document, current_user) != 0) %>
-          Viewed
-        <% else %>
-          Not Viewed
-        <% end %>
-      </h6>
+  <div class="panel-collapse collapse" id="collapse<%= $counter_viewUser_recent_docs %>">
+    <div class="panel-body">
+      <div class="container-fluid">
+        <h3 class="h4"><%= link_to "Open", document_path(document_group.document) %> </h3>
+        Uploaded : <small><%= document_group.document.created_at.strftime("%d-%m-%Y | %H:%M") %> <br>
+        </small> Uploaded by: <small><%= document_group.document.user.email %></small> <br>
+        <small>
+          Project Name :
+          <%= document_group.group.name %> <br>
+        </small>
+      </div>
     </div>
   </div>
-</div>
 
+</div>
+<% $counter_viewUser_recent_docs += 1 %>
 <script type="text/javascript">
   function takeCount(doc, usr) {
     alert(doc, usr);
