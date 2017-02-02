@@ -1,4 +1,5 @@
 $('#documents').append('<%= escape_javascript render(@documents) %>');
+  // $('.pagination').replaceWith('<%= escape_javascript will_paginate(@documents) %>');
 <% if @documents.next_page %>
   $('.pagination').replaceWith('<%= escape_javascript will_paginate(@documents) %>');
   // $('.pagination').hide();
