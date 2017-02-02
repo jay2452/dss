@@ -12,8 +12,12 @@
           <!-- <h3 class="h5">xyz</h3> -->
         </div>
         <div class="col-sm-4">
-          <div class="pull-right">
-
+          <div class="pull-right h6">
+            <% if check_status?(document) #checkk if the document is already sent %>
+              Sent
+              <% else %>
+                Not Sent
+            <% end %>
           </div>
         </div>
       </div>
