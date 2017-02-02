@@ -26,7 +26,11 @@
                     <a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; <%= sprintf( "%0.02f", @document.file.size.to_f / 1.megabyte) %> MB</a>
                   </li>
                   <li>
-                      <a href="#"> <span class="fa fa-folder-open-o"></span> &nbsp;<%= @document.group.name %></a>
+                      <% if current_user.has_role? :viewUser %>
+                        <a href="<%= doc_project_path(project: @document.group.id) %>"> <i class="fa fa-folder-open-o" aria-hidden="true"></i> &nbsp; <%=  @document.group.name %> </a>
+                      <% else %>
+                        <a href="#"> <span class="fa fa-folder-open-o"></span> &nbsp; <%= @document.group.name %></a>
+                      <% end %>
                   </li>
                   <li>
                       <a><span class="fa fa-user"></span>&nbsp; <%= @document.user.email %></a>
