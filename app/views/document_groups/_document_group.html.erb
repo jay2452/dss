@@ -13,11 +13,11 @@
     <div class="col-sm-1">
 
       <h6 align="right">
-        <!-- <a href="<%= pdfjs.reduced_path(file: document_group.document.file.url) %>" target="_blank"
+        <!-- <a href="<%# pdfjs.reduced_path(file: document_group.document.file.url) %>" target="_blank"
                     class="btn btn-success btn-sm text-uppercase" onclick="takeCount(document_group.document.slug, current_user.id)">
           open
         </a> -->
-        <!-- <button type="button" name="button" class="btn btn-primary text-uppercase btn-sm" onclick="takeCount(<%= document_group.document.slug %>,<%= current_user.id %>)">
+        <!-- <button type="button" name="button" class="btn btn-primary text-uppercase btn-sm" onclick="takeCount(<%# document_group.document.slug %>,<%# current_user.id %>)">
           Open
         </button> -->
       </h6>
@@ -35,10 +35,6 @@
 
 <script type="text/javascript">
   function takeCount(doc, usr) {
-    // $.ajax({
-    //
-    // });
-
     alert(doc, usr);
   }
 </script>
