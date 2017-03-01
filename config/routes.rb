@@ -49,6 +49,11 @@ Rails.application.routes.draw do
       root 'welcome#index', as: :authenticated_uploadUser
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_uploaduser'
     end
+
+    authenticated :user, lambda {|u| u.has_role? :approveUser} do
+      root 'welcome#index', as: :authenticated_approveUser
+      mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_approveUser'
+    end
   end
   #
 
