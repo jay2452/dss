@@ -2,19 +2,12 @@
     <%# goto admin adsh board %>
     <% provide :title, "Welcome - Admin" %>
 
-  <!-- <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li><a href="#">Section 1</a></li>
-      </ul>
-    </div>
-
-  </nav> -->
-
   <%= render :partial => "admin_dash_board" %>
 
 <% elsif current_user.has_role? :uploadUser %>
-
   <%= render template: "documents/index" %>
+<% elsif current_user.has_role? :approveUser   %>
+
+  <%= render :partial => "approve_user_page" %>
 
 <% end %>

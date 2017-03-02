@@ -15,4 +15,26 @@ class WelcomeController < ApplicationController
   def upgrade
 
   end
+
+  def doc_approval
+    if(current_user.has_role? :approveUser)
+      @documents = Document.where("deleted = ?", false).all.order(created_at: :desc)
+
+      @unapproved_documents = Document.where("approved = ? and deleted = ?", false, false)
+    end
+
+  end
+
+  def approve
+    idArray = []
+     params.each do |key, value|
+       idArray << key.to_i if value.to_i==1
+     end
+     toBeApprovedDocuments = Document.where("id IN (?)", idArray)
+     toBeApprovedDocuments.each do |document|
+       document.approved = true
+       document.save
+     end
+     redirect_to root_path
+  end
 end
