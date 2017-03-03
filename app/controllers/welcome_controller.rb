@@ -37,4 +37,19 @@ class WelcomeController < ApplicationController
      end
      redirect_to root_path
   end
+  
+  def approve_from_doc_view
+    puts "+++++++++++++++++++++++++++"
+      p params
+    puts "+++++++++++++++++++++++++++"
+    doc_id = params[:id].to_i if params[:id]
+    
+    if doc_id > 0
+      unapproved_document = Document.find(doc_id) 
+      unapproved_document.approved = true
+      unapproved_document.save
+    end
+    
+    redirect_to root_path
+  end
 end

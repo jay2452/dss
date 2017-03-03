@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_approveUser'
 
       post 'welcome/approve'
+      get 'welcome/approve_from_doc_view'
     end
   end
   #

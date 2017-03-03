@@ -39,22 +39,30 @@
                     </div>
 
                     <div class="col-md-8">
-                      <h5 class="h3" align="center">Pending Approvals</h5>
-                      <div class="row">
-                        <%= form_tag controller: "welcome", action: "approve", method: "post" do  %>
-                          <% @unapproved_documents.each do |document| %>
-                            <div class="well">
-                              <%= link_to document.name, document_path(document), target: "_blank" %>
-
-                              <span class="pull-right"><%= check_box_tag :"#{document.id}", class: "checkbox" %></span> <br>
-
-                            </div>
-
+                      <% if !@unapproved_documents.empty?  %>
+                        <h5 class="h3" align="center">Pending Approvals</h5>
+                        <div class="row">
+                          <%= form_tag controller: "welcome", action: "approve", method: "post" do  %>
+                            <% @unapproved_documents.each do |document| %>
+                              <div class="well form-group">
+                                <%= link_to document.name, document_path(document), target: "_blank" %>
+  
+                                <span class="pull-right"><%= check_box_tag :"#{document.id}", class: "checkbox" %></span> <br>
+  
+                              </div>
+  
+                            <% end %>
+                              <div class="form-group text-center">
+                                <%= submit_tag "Approve", class: "btn btn-primary btn-sm text-uppercase" %>  
+                              </div>
                           <% end %>
-
-                            <%= submit_tag "Approve", class: "btn btn-primary btn-sm text-uppercase" %>
-                        <% end %>
-                      </div>
+                        </div>
+                      <% else %>
+                        <div class="jumbotron text-center">
+                          <h3 class="h2">NO pending documents to approve !! </h3>
+                        </div>
+                        
+                      <% end %>
 
                     </div>
 
