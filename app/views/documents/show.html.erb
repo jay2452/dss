@@ -58,6 +58,16 @@
                     <% end %>
                   <% end %>
 
+                  <% if current_user.has_role? :approveUser %>
+                    <li>
+                      <a href=""><span class="fa fa-user"></span>&nbsp; Approve</a>
+                    </li>
+
+                    <li>
+                      <a><span class="fa fa-user"></span>&nbsp; Back</a>
+                    </li>
+                  <% end %>
+
                   <div class="footer-place">
                     <li><a href="http://www.innovadorslab.com" target="_blank">Powered By: <b>Innovadors Lab Pvt. Ltd.</b></a></li>
                   </div>

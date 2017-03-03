@@ -34,17 +34,22 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-lg-12">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                       <h5 class="h3" align="center">Pending Approvals</h5>
                       <div class="row">
                         <%= form_tag controller: "welcome", action: "approve", method: "post" do  %>
                           <% @unapproved_documents.each do |document| %>
-                            <%= link_to document.name, document_path(document), target: "_blank" %>
-                            <%= check_box_tag :"#{document.id}" %> <br>
+                            <div class="well">
+                              <%= link_to document.name, document_path(document), target: "_blank" %>
+
+                              <span class="pull-right"><%= check_box_tag :"#{document.id}", class: "checkbox" %></span> <br>
+
+                            </div>
+
                           <% end %>
 
                             <%= submit_tag "Approve", class: "btn btn-primary btn-sm text-uppercase" %>
@@ -53,7 +58,7 @@
 
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
 
                     </div>
                   </div>
