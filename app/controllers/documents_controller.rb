@@ -96,10 +96,8 @@ class DocumentsController < ApplicationController
         Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                       role_id: current_user.roles.ids.first
         # DocumentsNotifierMailer.new_doc_notification(@document).deliver
-        format.html { redirect_to @document, notice: 'Document successfully uploaded.' }
+        format.html { redirect_to @document, notice: 'Document successfully uploaded and sent to be approved.' }
         format.json { render :show, status: :created, location: @document }
-
-
       else
         format.html { render :new }
         format.json { render json: @document.errors, status: :unprocessable_entity }

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     get 'logs/viewUser'
     get 'logs/uploadUser'
     get 'logs/adminUser'
+    get 'logs/approveUser'
     resources :documents do
       member do
         get 'remove_document'

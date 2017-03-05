@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022043620) do
+ActiveRecord::Schema.define(version: 20170305110915) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20161022043620) do
     t.string   "slug"
     t.integer  "group_id"
     t.boolean  "deleted",              default: false
+    t.integer  "approved_by_user",     default: -1
     t.index ["group_id"], name: "index_documents_on_group_id"
     t.index ["slug"], name: "index_documents_on_slug"
   end
@@ -81,8 +82,8 @@ ActiveRecord::Schema.define(version: 20161022043620) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
-    t.string   "resource_type"
     t.integer  "resource_id"
+    t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"

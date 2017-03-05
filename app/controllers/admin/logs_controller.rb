@@ -55,6 +55,19 @@ module Admin
         end
       end
     end
+
+    def approveUser
+      logs = Role.find_by_name(:approveUser).logs
+      @approveUserLogs = logs.paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
+      respond_to do |format|
+        format.html
+        format.js
+        format.pdf do
+          pdf = LogPdf.new(logs, "APPROVE USER",view_context)
+          send_data pdf.render, filename: "approve_user_logs.pdf", type: "application/pdf", disposition: :inline
+        end
+       end
+     end
   end
 
 end

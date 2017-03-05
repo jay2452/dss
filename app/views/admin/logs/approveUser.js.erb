@@ -1,0 +1,7 @@
+$('#uploadUser-Logs').append('<%= escape_javascript render(@approveUserLogs) %>');
+<% if @approveUserLogs.next_page %>
+  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@approveUserLogs) %>');
+  // $('.pagination').hide();
+<% else %>
+  $('#gif-loader').hide();
+<% end %>

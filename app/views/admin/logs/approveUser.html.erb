@@ -1,4 +1,4 @@
-<% provide :title, "Admin - Log Book" %>
+<% provide :title, "Approve User - Log Book" %>
 
 <div class="container-fluid">
 
@@ -13,14 +13,12 @@
                 Home
             </a>
           </li>
-            <li class="active"><a href="/admin/logs/index"><i class="fa fa-file-text" aria-hidden="true"></i> &nbsp; All Logs</a></li>
-            <li><a href="/admin/logs/viewUser"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View User logs</a></li>
-            <li><a href="/admin/logs/uploadUser"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload User Logs</a></li>
-            <li><a href="/admin/logs/approveUser"><i class="fa fa-check-square-o" aria-hidden="true"></i> &nbsp; Approve User Logs</a></li>
-            <li><a href="/admin/logs/adminUser"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Admin Logs</a></li>
-            <li>
-              <a href="/admin/logs/adminUser.pdf" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> &nbsp; Export Pdf</a>
-            </li>
+          <li class="active"><a href="/admin/logs/index"><i class="fa fa-file-text" aria-hidden="true"></i> &nbsp; All Logs</a></li>
+          <li><a href="/admin/logs/viewUser"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View User logs</a></li>
+          <li><a href="/admin/logs/uploadUser"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload User Logs</a></li>
+          <li><a href="/admin/logs/approveUser"><i class="fa fa-check-square-o" aria-hidden="true"></i> &nbsp; Approve User Logs</a></li>
+          <li><a href="/admin/logs/adminUser"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Admin Logs</a></li>
+            <li><a href="/admin/logs/approveUser.pdf" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> &nbsp; Export Pdf</a></li>
             <!-- <li><%= link_to "Back", :back %></li> -->
             <div class="footer-place">
               <li><a href="http://www.innovadorslab.com" target="_blank">Powered By: <b>Innovadors Lab Pvt. Ltd.</b></a></li>
@@ -34,15 +32,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="h4" align="center">Admin Logs</h3>
-                    <div id="admin-Logs">
+                    <h3 class="h4" align="center">Approve User Logs</h3>
+                    <div id="uploadUser-Logs">
                       <section>
                         <ol class="list-group">
-                          <%= render @adminLogs %>
+                          <%= render @approveUserLogs %>
                         </ol>
                       </section>
                     </div>
-                    <%= will_paginate @adminLogs %>
+                    <%= will_paginate @approveUserLogs %>
 
                 </div>
             </div>
@@ -50,5 +48,5 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
+
 </div>
