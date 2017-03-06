@@ -13,6 +13,8 @@ class Document < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :document_category
+  
+  belongs_to :approver, :foreign_key => "approved_by_user", :class_name => "User"
 
   validates :name, presence: true
   # validates :document_category_id, presence: true
