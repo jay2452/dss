@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
     @documents = Document.where("deleted = ?", false).all.order(created_at: :desc)
     @doc_groups = DocumentGroup.all.order(created_at: :desc)
   end
-  
+
   def search
   end
 
@@ -29,6 +29,7 @@ class WelcomeController < ApplicationController
      toBeApprovedDocuments = Document.where("id IN (?)", idArray)
      toBeApprovedDocuments.each do |document|
        document.approved = true
+       document.approved_by_user = current_user.id
        document.save
        Log.create! description: "<b>#{current_user.email} </b> approved <b>#{document.name} </b> at #{document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                      role_id: current_user.roles.ids.first
