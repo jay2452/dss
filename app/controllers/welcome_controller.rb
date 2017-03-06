@@ -29,6 +29,7 @@ class WelcomeController < ApplicationController
      toBeApprovedDocuments = Document.where("id IN (?)", idArray)
      toBeApprovedDocuments.each do |document|
        document.approved = true
+       document.approved_by_user = current_user.id
        document.save
        Log.create! description: "<b>#{current_user.email} </b> approved <b>#{document.name} </b> at #{document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                      role_id: current_user.roles.ids.first
@@ -42,6 +43,7 @@ class WelcomeController < ApplicationController
     if doc_id > 0
       unapproved_document = Document.find(doc_id)
       unapproved_document.approved = true
+      unapproved_document.approved_by_user = current_user.id
       unapproved_document.save
       Log.create! description: "<b>#{current_user.email} </b> approved <b>#{unapproved_document.name} </b> at #{unapproved_document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                     role_id: current_user.roles.ids.first
