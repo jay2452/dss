@@ -13,10 +13,13 @@
         </div>
         <div class="col-sm-4">
           <div class="pull-right h6">
-            <% if check_status?(document) #checkk if the document is already sent %>
+            <%# checkk if the document is already sent and approved %>
+            <% if (check_status?(document) == true) && (document.approved == true) %>
               Sent
-              <% else %>
-                Not Sent
+            <% elsif (check_status?(document) == false) && (document.approved == true)  %>
+              Not Sent
+            <% elsif document.approved == false %>
+              Pending to be approved
             <% end %>
           </div>
         </div>
@@ -28,13 +31,13 @@
     <div class="panel-body">
       <div class="container-fluid">
         <h4 class="pull-right">
-          <% if check_status?(document) #checkk if the document is already sent %>
+          <% if check_status?(document) && (document.approved == true)#checkk if the document is already sent %>
               <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
               <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
                 <span class="glyphicon glyphicon-send"></span> Sent
               </a>
 
-          <% else %>
+          <% elsif check_status?(document) == false && (document.approved == true) %>
               <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-success btn-sm text-uppercase">
                 <span class="glyphicon glyphicon-send"></span> Send
               </a>

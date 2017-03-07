@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
       post 'welcome/approve'
       get 'welcome/approve_from_doc_view'
+      get 'welcome/approved_documents'
     end
   end
   #

@@ -70,7 +70,7 @@ module Admin
     # POST /groups.json
     def create
       @group = Group.new(group_params)
-      @group.user_id = current_user.id
+      @group.user_id = current_user.id #store the information of the user eho created this group/project
 
       respond_to do |format|
         if @group.save

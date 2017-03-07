@@ -47,6 +47,11 @@ module Admin
           send_sms(@user.mobile, "User account created on GPIL e-portal, please check your email for further info.")
         end
 
+        # if @user.has_role? :approveUser
+        #   redirect_to :back, alert: 'User added , Please assign the approve user to a project !'
+        # else
+        #   redirect_to :back, notice: 'User successfully added'
+        # end
         redirect_to :back, notice: 'User successfully added'
       end
     end

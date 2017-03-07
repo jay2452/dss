@@ -21,20 +21,30 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def approved_documents
+    @approved_documents = Document.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
+  end
+
   def approve
     idArray = []
      params.each do |key, value|
        idArray << key.to_i if value.to_i==1
      end
-     toBeApprovedDocuments = Document.where("id IN (?)", idArray)
-     toBeApprovedDocuments.each do |document|
-       document.approved = true
-       document.approved_by_user = current_user.id
-       document.save
-       Log.create! description: "<b>#{current_user.email} </b> approved <b>#{document.name} </b> at #{document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
-                                     role_id: current_user.roles.ids.first
+
+     if !idArray.empty?
+       toBeApprovedDocuments = Document.where("id IN (?)", idArray)
+       toBeApprovedDocuments.each do |document|
+         document.approved = true
+         document.approved_by_user = current_user.id
+         document.save
+         Log.create! description: "<b>#{current_user.email} </b> approved <b>#{document.name} </b> at #{document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
+                                       role_id: current_user.roles.ids.first
+       end
+       redirect_to root_path, notice: "Document approved !"
+     else
+       redirect_to root_path, alert: "Select atleast any document to approve !"
      end
-     redirect_to root_path, notice: "Document approved !"
+
   end
 
   def approve_from_doc_view
