@@ -18,7 +18,15 @@ class WelcomeController < ApplicationController
     if(current_user.has_role? :approveUser)
       @documents = Document.where("deleted = ?", false).all.order(created_at: :desc)
       @unapproved_documents = Document.where("approved = ? and deleted = ?", false, false).order(created_at: :desc)
+
+      @projects = current_user.groups.where("disabled = ?", false)
     end
+  end
+
+  def approver_group
+    @group = Group.friendly.find(params[:id])
+    @approved_documents = @group.documents.where("approved = ? and deleted = ?", true, false)
+    @unapproved_documents = @group.documents.where("approved = ? and deleted = ?", false, false)
   end
 
   def approved_documents

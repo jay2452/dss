@@ -67,8 +67,7 @@
                           <% end %>
                         </div>
 
-
-                          <% if !(@user.has_role? :viewUser) %>
+                          <% if (@user.has_role? :uploadUser) %>
                             <div class="well">
                               <h4 class="h3"> <span class="glyphicon glyphicon-file"></span>&nbsp; Documents uploaded</h4> <hr>
                                 <% @user.documents.each do |document| %>

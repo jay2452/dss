@@ -58,14 +58,13 @@
                     <% end %>
                   <% end %>
 
-                  <% if current_user.has_role? :approveUser %>
+                  <% if current_user.has_role? :approveUser && (!@document.approved?) %>
                     <li>
                       <a href="<%= welcome_approve_from_doc_view_path(id: @document.id)  %>"><i class="fa fa-check" aria-hidden="true"></i>&nbsp; Approve</a>
                     </li>
 
                     <li>
                       <a href="<%= root_path %>"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp; Back</a>
-
                     </li>
                   <% end %>
 

@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   validates :mobile, length: { is: 10 }, uniqueness: true
 
+  has_many :documents_approved, foreign_key: "approved_by_user", class_name: "Document"
+
 #   Since remove_role method will also remove the role from Role table so use a custom function .
   def delete_role(role_symbol,target=nil) # => this function will only remove role of that particular user not the role data from Roles table .
     UsersRole.delete_role self,role_symbol,target

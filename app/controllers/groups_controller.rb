@@ -21,6 +21,10 @@ class GroupsController < ApplicationController
       u_id = params["user"].to_i
 
       @ug = UserGroup.create! user_id: u_id, group_id: g_id
+      if User.find(u_id).has_role? :approveUser
+        @ug.is_approver = true
+        @ug.save
+      end
       Log.create! description: "<b>#{current_user.email} </b> added user <b>#{User.find(u_id).email} </b> to
                         group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
@@ -42,6 +46,8 @@ class GroupsController < ApplicationController
     # GET /groups/1/edit
     def edit
     end
+
+  
 
     # POST /groups
     # POST /groups.json

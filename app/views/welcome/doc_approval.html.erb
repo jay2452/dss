@@ -21,6 +21,9 @@
               <li>
                   <a href="<%= welcome_approved_documents_path %>"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Approved Documents</a>
               </li>
+              <% @projects.each do |project| %>
+                <li><a href="<%= approver_path(project.slug) %>" data-toggle="tooltip" title="Associated Project : <%= project.name %>"><i class="fa fa-folder" aria-hidden="true"></i> &nbsp; <%= project.name %></a></li>
+              <% end %>
 
               <div class="footer-place">
                 <li><a href="http://www.innovadorslab.com" target="_blank">Powered By: <b>Innovadors Lab Pvt. Ltd.</b></a></li>

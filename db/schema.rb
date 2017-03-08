@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305110915) do
+ActiveRecord::Schema.define(version: 20170307163917) do
 
   create_table "document_categories", force: :cascade do |t|
     t.string   "name"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20170305110915) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
-    t.string   "resource_type"
     t.integer  "resource_id"
+    t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
@@ -104,8 +104,9 @@ ActiveRecord::Schema.define(version: 20170305110915) do
   create_table "user_groups", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "is_approver", default: false
   end
 
   create_table "users", force: :cascade do |t|
