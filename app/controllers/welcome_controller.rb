@@ -25,12 +25,19 @@ class WelcomeController < ApplicationController
 
   def approver_group
     @group = Group.friendly.find(params[:id])
-    @approved_documents = @group.documents.where("approved = ? and deleted = ?", true, false)
-    @unapproved_documents = @group.documents.where("approved = ? and deleted = ?", false, false)
+    # @approved_documents = @group.documents.where("approved = ? and deleted = ?", true, false)
+    # @unapproved_documents = @group.documents.where("approved = ? and deleted = ?", false, false)
   end
 
   def approved_documents
-    @approved_documents = Document.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
+    status = params[:approved]
+    group_id = params[:group].to_i
+    group = Group.find(group_id)
+
+    @approved_documents = group.documents.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
+    @unapproved_documents = group.documents.where("approved = ? and deleted = ?", false, false).order(updated_at: :desc)
+
+   
   end
 
   def approve

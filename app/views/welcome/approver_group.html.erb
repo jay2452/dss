@@ -14,10 +14,10 @@
 
 
               <li>
-                  <span><%= link_to "<i class='fa fa-files-o' aria-hidden='true'></i> &nbsp; Unapproved Documents".html_safe, '#', remote: true %></span>
+                  <span><%= link_to "<i class='fa fa-files-o' aria-hidden='true'></i> &nbsp; Unapproved Documents".html_safe, welcome_approved_documents_path(group: @group.id, approved: false), remote: true %></span>
               </li>
               <li>
-                  <a href=""><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Approved Documents</a>
+                  <span><%= link_to "<i class='fa fa-files-o' aria-hidden='true'></i> &nbsp; Approved Documents".html_safe, welcome_approved_documents_path(group: @group.id, approved: true), remote: true %></span>
               </li>
 
 
