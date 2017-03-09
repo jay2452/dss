@@ -28,11 +28,11 @@
                     <div class="col-md-2"></div>
 
                     <div class="col-md-8">
-                      <% if !@approved_documents.empty?  %>
+                      <% if !@documents.empty?  %>
                         <h5 class="h3" align="center">Approved Documents</h5>
                         <div class="row">
 
-                            <% @approved_documents.each do |document| %>
+                            <% @documents.each do |document| %>
                               <div class="well form-group">
                                 <%= link_to document.name, document_path(document) %>
                               </div>

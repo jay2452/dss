@@ -34,10 +34,16 @@ class WelcomeController < ApplicationController
     group_id = params[:group].to_i
     group = Group.find(group_id)
 
-    @approved_documents = group.documents.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
-    @unapproved_documents = group.documents.where("approved = ? and deleted = ?", false, false).order(updated_at: :desc)
+    if status == 'true'
+      # => send the list of appproved documents
+      @documents = group.documents.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
+    elsif status == 'false' # => end the list of un approved documents
+      @documents = group.documents.where("approved = ? and deleted = ?", false, false).order(updated_at: :desc)
+    end
 
-   
+
+
+
   end
 
   def approve
