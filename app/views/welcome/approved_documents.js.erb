@@ -1,2 +1,1 @@
-$('#render-document').append('<%= escape_javascript render(@documents) %>');
-  // $('.pagination').replaceWith('<%= escape_javascript will_paginate(@documents) %>');
+$('#render-document').html('<%= escape_javascript render template: "welcome/approved_documents.html.erb" %>');

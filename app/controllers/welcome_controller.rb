@@ -60,7 +60,18 @@ class WelcomeController < ApplicationController
          document.save
          Log.create! description: "<b>#{current_user.email} </b> approved <b>#{document.name} </b> at #{document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                        role_id: current_user.roles.ids.first
-       end
+
+        user = document.user
+        # => send notification to the upload user about the approval of document
+        if user.mobile?
+          send_sms(user.mobile, "Document - #{document.name} -approved by- #{User.find(document.approved_by_user).email}")
+        end
+
+        DocumentsNotifierMailer.notify_uploader(document, document.user.email).deliver
+      end
+
+
+
        redirect_to root_path, notice: "Document approved !"
      else
        redirect_to root_path, alert: "Select atleast any document to approve !"

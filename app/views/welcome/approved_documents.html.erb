@@ -1,33 +1,13 @@
 <% provide :title, "Approved Documents" %>
 
-<div class="container">
-  <div id="wrapper" style="margin-top: -1.3%;">
-
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-                <a href="<%= root_path %>"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;
-                    Home
-                </a>
-              </li>
+<div>
+  <div style="margin-top: -1.3%;">
 
 
-              <div class="footer-place">
-                <li><a href="http://www.innovadorslab.com" target="_blank">Powered By: <b>Innovadors Lab Pvt. Ltd.</b></a></li>
-              </div>
-          </ul>
-      </div>
-      <!-- /#sidebar-wrapper -->
-
-      <!-- Page Content -->
-      <div id="page-content-wrapper">
+      <div>
           <div class="container-fluid">
               <div class="row">
-                  <div class="col-lg-12">
-                    <div class="col-md-2"></div>
 
-                    <div class="col-md-8">
                       <% if !@documents.empty?  %>
                         <h5 class="h3" align="center">Approved Documents</h5>
                         <div class="row">
@@ -46,16 +26,10 @@
                         </div>
 
                       <% end %>
-
-                    </div>
-
-                    <div class="col-md-2"></div>
-                  </div>
               </div>
           </div>
       </div>
-      <!-- /#page-content-wrapper -->
 
   </div>
-  <!-- /#wrapper -->
+
 </div>

@@ -95,7 +95,27 @@ class DocumentsController < ApplicationController
         # DocumentGroup.create! document_id: @document.id, group_id: doc_group.to_i
         Log.create! description: "<b>#{current_user.email} </b> uploaded <b>#{@document.name} </b> at #{@document.created_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                       role_id: current_user.roles.ids.first
-        # DocumentsNotifierMailer.new_doc_notification(@document).deliver
+
+        # => after uploading the document , notify the approve user to approve the document, then after that the approve user will be able to
+        # => send the document to the group members
+
+        #find who are the approvers for that document
+
+        user_groups = @document.group.user_groups.where("is_approver = ?", true)
+        users = []
+        user_groups.each do |ug|
+          users << ug.user
+        end
+
+        users.each do |approver|
+          # => send sms to user mobile numbers
+          if approver.mobile?
+            send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
+          end
+
+          DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+        end
+
         format.html { redirect_to @document, notice: 'Document successfully uploaded and sent to be approved.' }
         format.json { render :show, status: :created, location: @document }
       else

@@ -37,8 +37,20 @@ module Admin
         if @document.save
           Log.create! description: "#{current_user.email} uploaded #{@document.name} at #{@document.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-          # group = Group.find(params[:document][:group_id])
-          # DocumentsNotifierMailer.new_doc_notification(@document).deliver
+          user_groups = @document.group.user_groups.where("is_approver = ?", true)
+          users = []
+          user_groups.each do |ug|
+            users << ug.user
+          end
+
+          users.each do |approver|
+            # => send sms to user mobile numbers
+            if approver.mobile?
+              send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
+            end
+
+            DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+          end
 
           format.html { redirect_to admin_document_path(@document), notice: 'Document was successfully created.' }
           format.json { render :show, status: :created, location: @document }

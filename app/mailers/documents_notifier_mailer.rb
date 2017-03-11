@@ -9,4 +9,14 @@ class DocumentsNotifierMailer < ApplicationMailer
     @document = doc
     mail to: user, subject: "New Document uploaded"
   end
+
+  def notify_approver doc, user
+    @document = doc
+    mail to: user, subject: "New Document uploaded"
+  end
+
+  def notify_uploader doc, user
+    @document = doc
+    mail to: user, subject: "Document approved !"
+  end
 end
