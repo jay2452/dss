@@ -1,15 +1,20 @@
-<% provide :title, "Approved Documents" %>
+<%# provide :title, "Approved Documents" %>
 
 <div>
   <div style="margin-top: -1.3%;">
-
-
       <div>
           <div class="container-fluid">
               <div class="row">
 
-                      <% if !@documents.empty?  %>
-                        <h5 class="h3" align="center">Approved Documents</h5>
+                     <% if !@documents.empty?  %>
+                        <h5 class="h3" align="center">
+                          <% if params[:approved] == 'true' %>
+                              Approved Documents
+                          <% elsif params[:approved] == 'false' %>
+                              Unapproved Documents
+                          <% end %>
+
+                        </h5>
                         <div class="row">
 
                             <% @documents.each do |document| %>

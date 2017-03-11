@@ -16,10 +16,13 @@ class WelcomeController < ApplicationController
 
   def doc_approval
     if(current_user.has_role? :approveUser)
-      @documents = Document.where("deleted = ?", false).all.order(created_at: :desc)
-      @unapproved_documents = Document.where("approved = ? and deleted = ?", false, false).order(created_at: :desc)
-
       @projects = current_user.groups.where("disabled = ?", false)
+      # => retrieve the list of documents in those projects/groups
+      project_ids = @projects.ids
+
+
+      @documents = Document.where("deleted = ? and group_id IN (?)", false, project_ids).all.order(created_at: :desc)
+      @unapproved_documents = Document.where("approved = ? and deleted = ? and group_id IN (?)", false, false, project_ids).order(created_at: :desc)
     end
   end
 
@@ -37,15 +40,11 @@ class WelcomeController < ApplicationController
     if status == 'true'
       # => send the list of appproved documents
       @documents = group.documents.where("deleted = ? and approved = ?", false, true).order(updated_at: :desc)
-    elsif status == 'false' # => end the list of un approved documents
+    elsif status == 'false' # => send the list of un approved documents
       @documents = group.documents.where("approved = ? and deleted = ?", false, false).order(updated_at: :desc)
     end
-
-
-
-
   end
-  
+
 
   def approve
     idArray = []
@@ -90,7 +89,16 @@ class WelcomeController < ApplicationController
       unapproved_document.save
       Log.create! description: "<b>#{current_user.email} </b> approved <b>#{unapproved_document.name} </b> at #{unapproved_document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                     role_id: current_user.roles.ids.first
+
+      user = document.user
+      # => send notification to the upload user about the approval of document
+      if user.mobile?
+        send_sms(user.mobile, "Document - #{document.name} -approved by- #{User.find(document.approved_by_user).email}")
+      end
+
+      DocumentsNotifierMailer.notify_uploader(unapproved_document, unapproved_document.user.email).deliver
     end
+
     redirect_to root_path, notice: "Document Approved !"
   end
 end
