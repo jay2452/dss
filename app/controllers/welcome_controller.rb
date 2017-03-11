@@ -45,6 +45,7 @@ class WelcomeController < ApplicationController
 
 
   end
+  
 
   def approve
     idArray = []
