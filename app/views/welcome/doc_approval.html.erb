@@ -18,9 +18,7 @@
               <!-- <li>
                   <a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Unapproved Documents</a>
               </li> -->
-              <!-- <li>
-                  <a href="<%# welcome_approved_documents_path %>"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Approved Documents</a>
-              </li> -->
+
               <% @projects.each do |project| %>
                 <li><a href="<%= approver_path(project.slug) %>" data-toggle="tooltip" title="Associated Project : <%= project.name %>"><i class="fa fa-folder" aria-hidden="true"></i> &nbsp; <%= project.name %></a></li>
               <% end %>
@@ -37,18 +35,47 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-lg-12">
-                    <div class="col-md-2"></div>
+                    <div class="col-md-1"></div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                       <% if !@unapproved_documents.empty?  %>
                         <h5 class="h3" align="center">Pending Approvals</h5>
                         <div class="row">
                           <%= form_tag controller: "welcome", action: "approve", method: "post" do  %>
+                            <% counter = 1 %>
                             <% @unapproved_documents.each do |document| %>
-                              <div class="well form-group">
-                                <%= link_to document.name, document_path(document) %>
-                                <span class="pull-right"><%= check_box_tag :"#{document.id}" %></span> <br>
+                              <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= counter %>"><%= document.name %></a>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                          <div class="pull-right"><%= check_box_tag :"#{document.id}" %></div>
+                                        </div>
+                                      </div>
+                                    </h4>
+                                  </div>
+
+                                  <div id="collapse<%= counter %>" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                      <div class="form-group">
+                                        Document Name : <%= link_to document.name, document_path(document) %> <br>
+                                        Project : <%= document.group.name %> <br>
+                                        Uploaded BY : <%= document.user.email %> <br>
+                                        Upload time : <%= document.created_at.strftime("%d-%m-%Y | %H:%M") %>
+                                        <br>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
                               </div>
+
+                              <% counter += 1 %>
 
                             <% end %>
                               <div class="form-group text-center">
@@ -65,7 +92,7 @@
 
                     </div>
 
-                    <div class="col-md-2"></div>
+                    <div class="col-md-1"></div>
                   </div>
               </div>
           </div>

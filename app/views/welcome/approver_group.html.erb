@@ -12,6 +12,9 @@
                 </a>
               </li>
               <li>
+                <a><i class="fa fa-folder-open" aria-hidden="true"></i> &nbsp;  <%= @group.name %></a>
+              </li>
+              <li>
                   <span><%= link_to "<i class='fa fa-files-o' aria-hidden='true'></i> &nbsp; Unapproved Documents".html_safe, welcome_approved_documents_path(group: @group.id, approved: false), remote: true %></span>
               </li>
               <li>

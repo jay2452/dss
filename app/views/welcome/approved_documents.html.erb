@@ -6,31 +6,55 @@
           <div class="container-fluid">
               <div class="row">
 
-                     <% if !@documents.empty?  %>
-                        <h5 class="h3" align="center">
-                          <% if params[:approved] == 'true' %>
-                              Approved Documents
-                          <% elsif params[:approved] == 'false' %>
-                              Unapproved Documents
-                          <% end %>
-
-                        </h5>
-                        <div class="row">
-
-                            <% @documents.each do |document| %>
-                              <div class="well form-group">
-                                <%= link_to document.name, document_path(document) %>
-                              </div>
-
-                            <% end %>
-
-                        </div>
-                      <% else %>
-                        <div class="jumbotron text-center">
-                          <h3 class="h2">NO approved documents </h3>
-                        </div>
-
+                 <% if !@documents.empty?  %>
+                    <h5 class="h3" align="center">
+                      <% if params[:approved] == 'true' %>
+                          Approved Documents
+                      <% elsif params[:approved] == 'false' %>
+                          Unapproved Documents
                       <% end %>
+
+                    </h5>
+                    <div class="row">
+
+                      <div class="panel-group" id="accordion">
+                        <% counter = 1 %>
+                        <% @documents.each do |document| %>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= counter %>"><%= document.name %></a>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                  </div>
+
+                                </div>
+                              </h4>
+                            </div>
+
+                            <div id="collapse<%= counter %>" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                Document Name : <%= link_to document.name, document_path(document) %> <br>
+                                Project Name : <%= document.group.name %> <br>
+                                Uploaded By : <%= document.user.email %> <br>
+                                Upload time : <%= document.created_at.strftime("%d-%m-%Y | %H:%M") %>
+                              </div>
+                            </div>
+                          </div>
+                          <% counter += 1 %>
+                        <% end %>
+                      </div>
+
+                    </div>
+                  <% else %>
+                    <div class="jumbotron text-center">
+                      <h3 class="h2">NO documents !!</h3>
+                    </div>
+
+                  <% end %>
               </div>
           </div>
       </div>
