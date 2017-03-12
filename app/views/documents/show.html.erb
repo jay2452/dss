@@ -58,7 +58,7 @@
                     <% end %>
                   <% end %>
 
-                  <% if current_user.has_role? :approveUser && (!@document.approved?) %>
+                  <% if (current_user.has_role? :approveUser) && (@document.approved? == false) %>
                     <li>
                       <a href="<%= welcome_approve_from_doc_view_path(id: @document.id)  %>"><i class="fa fa-check" aria-hidden="true"></i>&nbsp; Approve</a>
                     </li>

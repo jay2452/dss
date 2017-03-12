@@ -90,10 +90,10 @@ class WelcomeController < ApplicationController
       Log.create! description: "<b>#{current_user.email} </b> approved <b>#{unapproved_document.name} </b> at #{unapproved_document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                     role_id: current_user.roles.ids.first
 
-      user = document.user
+      user = unapproved_document.user
       # => send notification to the upload user about the approval of document
       if user.mobile?
-        send_sms(user.mobile, "Document - #{document.name} -approved by- #{User.find(document.approved_by_user).email}")
+        send_sms(user.mobile, "Document - #{unapproved_document.name} -approved by- #{User.find(unapproved_document.approved_by_user).email}")
       end
 
       DocumentsNotifierMailer.notify_uploader(unapproved_document, unapproved_document.user.email).deliver
