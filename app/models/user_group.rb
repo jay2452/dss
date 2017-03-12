@@ -1,4 +1,5 @@
 class UserGroup < ActiveRecord::Base
+  is_impressionable
   belongs_to :user
   belongs_to :group
 

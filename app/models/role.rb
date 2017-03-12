@@ -11,4 +11,5 @@ class Role < ActiveRecord::Base
             :allow_nil => true
 
   scopify
+  is_impressionable
 end

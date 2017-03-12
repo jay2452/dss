@@ -1,6 +1,7 @@
 class Document < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+  is_impressionable
 
   has_many :user_document_statuses, dependent: :destroy
 
