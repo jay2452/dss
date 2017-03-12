@@ -80,6 +80,21 @@
                                 <% end %>
                             </div>
                           <% end %>
+
+                          <% if @user.has_role? :approveUser %>
+                            <div class="well">
+                              <h4 class="h3"> <span class="glyphicon glyphicon-file"></span>&nbsp; Approved Documents</h4> <hr>
+                              <% @approved_documents.each do |document|  %>
+                                <% if document.file_content_type == 'application/pdf' %>
+                                  <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                <% elsif (document.file_content_type == 'image/jpeg') || (document.file_content_type == 'image/jpg') || (document.file_content_type == 'image/png') %>
+                                  <span class="fa fa-file-image-o" aria-hidden="true"></span>
+                                <% end %>
+                                   &nbsp; <%= link_to document.name, admin_document_path(document) %> <br>
+                              <% end %>
+                            </div>
+                          <% end %>
+
                       </div>
 
                     </div>

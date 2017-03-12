@@ -21,6 +21,8 @@ module Admin
         @user = User.friendly.find(params[:id])
         @roles = Role.all
         @groups = Group.all
+
+        @approved_documents = @user.documents_approved.where("approved = ? and deleted = ?", true, false).order(updated_at: :desc)
     end
 
     def create
