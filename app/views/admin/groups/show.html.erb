@@ -69,6 +69,7 @@
                                    </h4>
                                    <h3 class="h4">
                                      <%= document.name %> <br>
+                                     <small>Uploaded By : <%= document.user.email %></small>
                                    </h3>
                                  </li>
                                <% end %>
@@ -87,14 +88,14 @@
                              <ol class="list-group">
                                <% @group.users.each do |user| %>
                                  <li class="list-group-item clearfix">
-                                   <h4 class="pull-right">
+                                   <h4 class="h5 pull-right">
                                      <small class="text-uppercase">
                                        <%= link_to "Show", admin_user_path(user), class: "btn btn-info btn-sm" %>
                                        <%= link_to "Remove", remove_user_admin_group_path(u_id: user.slug), data: {confirm: "Are you sure"} ,class: "btn btn-danger btn-sm" %>
                                      </small>
                                    </h4>
-                                   <h3 class="h4">
-                                     <%= user.email %>
+                                   <h3 class="h5">
+                                     <%= user.email %> <br> <small>Role : <%= user.roles.last.name %></small>
                                    </h3>
                                  </li>
                                <% end %>

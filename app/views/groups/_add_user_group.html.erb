@@ -18,7 +18,28 @@
                     Project : <%= text_field_tag "group", @group.name, readonly: true, class: "form-control" %>
                   </div>
                   <div class="form-group">
-                      User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {class: "form-control"} %>
+                      <!-- User : <%# select_tag "user", options_from_collection_for_select(@users, "id", "email"), {id: "custom-select", class: "form-control selectpicker"} %> -->
+
+                      <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Select Users <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <% @users.each do |user| %>
+                              <li style="padding: 1%; width: 400px;">
+                                <input type="radio" id="ID<%= user.id %>" name="user" value="<%= user.id %>">
+                                <div class="row">
+                                  <div class="col-sm-6">
+                                    <label for="ID<%= user.id %>"><%= user.email %></label>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <span class="pull-right"><%= user.roles.last.name %></span>
+                                  </div>
+                                </div>
+
+                              </li>
+                            <% end %>
+                            <!-- Other items -->
+                          </ul>
+                      </div>
                   </div>
                   <div class="form-group" align="center">
                     <%= submit_tag "Add user", class: "btn btn-success btn-sm text-uppercase" %>
@@ -34,3 +55,8 @@
     </div>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  $('#custom-select').selectpicker();
+</script>
