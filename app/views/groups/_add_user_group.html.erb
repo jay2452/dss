@@ -18,9 +18,9 @@
                     Project : <%= text_field_tag "group", @group.name, readonly: true, class: "form-control" %>
                   </div>
                   <div class="form-group">
-                      <!-- User : <%# select_tag "user", options_from_collection_for_select(@users, "id", "email"), {id: "custom-select", class: "form-control selectpicker"} %> -->
+                      <!-- User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {id: "custom-select", class: "form-control selectpicker"} %> -->
 
-                      <div class="btn-group">
+                      <div class="btn-group ">
                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Select Users <span class="caret"></span></button>
                           <ul class="dropdown-menu">
                             <% @users.each do |user| %>
@@ -37,7 +37,6 @@
 
                               </li>
                             <% end %>
-                            <!-- Other items -->
                           </ul>
                       </div>
                   </div>

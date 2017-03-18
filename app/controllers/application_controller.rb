@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   require 'rest-client'
   require "mosto.rb"
 
-  impressionist :unique => [:impressionable_type, :impressionable_id, :session_hash]
+  impressionist # => :unique => [:impressionable_type, :impressionable_id, :session_hash]
 
   private
 
