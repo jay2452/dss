@@ -35,13 +35,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_role?
-
     if current_user && ((current_user.has_role? :superAdmin) || (current_user.has_role? :admin))
       puts "#{current_user.email} has role :: superAdmin"
     else
       redirect_to root_path, notice: "you are not authorised !!"
     end
-
   end
 
   def send_sms(mob, message_to_send)
