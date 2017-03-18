@@ -84,8 +84,10 @@ module Admin
       @user.password = pass
       if @user.save
         Log.create! description: "<b>#{current_user.email} </b> updated user <b>#{@user.email} </b> password </b> at #{@user.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
-        UserNotifierMailer.account_update_notification(@user, pass).deliver # => send updated mail for account updation
+        # UserNotifierMailer.account_update_notification(@user, pass).delay.deliver
 
+        # => use delayed job to send mail
+        UserNotifierMailer.delay(queue: "Reset Password Mail").account_update_notification(@user, pass) # => send updated mail for account updation
         if @user.mobile
           send_sms(@user.mobile, "User account is updated on GPIL e-portal, please check your email for further info.")
         end
