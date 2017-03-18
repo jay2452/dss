@@ -49,7 +49,8 @@ module Admin
               send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
             end
 
-            DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+            # DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+            DocumentsNotifierMailer.delay(queue: "notify approver").notify_approver(@document, approver.email)
           end
 
           format.html { redirect_to admin_document_path(@document), notice: 'Document was successfully created.' }

@@ -42,7 +42,8 @@ module Admin
 
         # => code to send email or notify the user/member
         pwd = params[:user][:password]
-        UserNotifierMailer.account_create_notification(@user, pwd).deliver
+        UserNotifierMailer.delay(queue: "create user notification").account_create_notification(@user, pwd)
+        # UserNotifierMailer.(@user, pwd).deliver
 
         # => code to send sms to the created user
         if @user.mobile

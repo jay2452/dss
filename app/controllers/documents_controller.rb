@@ -25,7 +25,8 @@ class DocumentsController < ApplicationController
           # => donot send email
           puts "User is disabled"
         else
-          DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
+          DocumentsNotifierMailer.delay(queue: "send document").new_doc_notification(@document, user)
+          # DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
           if User.find_by_email(user).mobile
             # => send sms to user mobile numbers
             send_sms(User.find_by_email(user).mobile, "New Document - #{@document.name} -received in project folder - #{@document.group.name}")
@@ -113,7 +114,8 @@ class DocumentsController < ApplicationController
             send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
           end
 
-          DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+          # DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
+          DocumentsNotifierMailer.delay(queue: "send document to approver").notify_approver(@document, approver.email)
         end
 
         format.html { redirect_to @document, notice: 'Document successfully uploaded and sent to be approved.' }

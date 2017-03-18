@@ -28,7 +28,9 @@ class GroupsController < ApplicationController
       Log.create! description: "<b>#{current_user.email} </b> added user <b>#{User.find(u_id).email} </b> to
                         group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-      UserNotifierMailer.added_to_project(User.find(u_id), Group.find(g_id)).deliver
+      # UserNotifierMailer.added_to_project(User.find(u_id), Group.find(g_id)).deliver
+
+      UserNotifierMailer.delay(queue: "user added to project").added_to_project(User.find(u_id), Group.find(g_id))
       # => send sms after adding user to the project
       if User.find(u_id).mobile
         send_sms(User.find(u_id).mobile, "You have been added to project - #{Group.find(g_id).name}")
