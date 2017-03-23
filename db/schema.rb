@@ -123,8 +123,8 @@ ActiveRecord::Schema.define(version: 20170318102020) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
-    t.integer  "resource_id"
     t.string   "resource_type"
+    t.integer  "resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
