@@ -24,7 +24,7 @@
   <div class="panel-collapse collapse" id="collapse<%= $counter_viewUser_recent_docs %>">
     <div class="panel-body">
       <div class="container-fluid">
-        <h3 class="h4"><%= link_to "Open", document_path(document_group.document) %> </h3>
+        <h3 class="h4"><%= link_to "Open", document_path(document_group.document), class: "btn btn-success btn-sm pull-right text-uppercase" %> </h3>
         Uploaded : <small><%= document_group.document.created_at.strftime("%d-%m-%Y | %H:%M") %> <br>
         </small> Uploaded by: <small><%= document_group.document.user.email %></small> <br>
         <small>
