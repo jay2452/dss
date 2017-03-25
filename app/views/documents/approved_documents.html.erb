@@ -1,0 +1,97 @@
+<% provide :title, "Approved Documents" %>
+
+<div class="container-fluid">
+
+<div id="wrapper" style="margin-top:-1.3%;">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="<%= root_path %>"><i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;
+                Home
+            </a>
+          </li>
+
+          <!-- <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Documents</a></li> -->
+          <!-- <li><a data-toggle="tooltip" title="User Role : Upload User"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload User</a></li> -->
+          <div class="footer-place">
+            <li><a href="http://www.innovadorslab.com" target="_blank">Powered By: <b>Innovadors Lab Pvt. Ltd.</b></a></li>
+          </div>
+      </ul>
+  </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-lg-12">
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                           <% if !@documents.empty?  %>
+                              <h5 class="h3" align="center">
+                                    Approved Documents
+                              </h5>
+                              <div class="row">
+
+                                <div class="panel-group" id="accordion">
+                                  <% counter = 1 %>
+                                  <% @documents.each do |document| %>
+                                    <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= counter %>"><%= document.name %></a>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+
+                                            <div class="col-md-4">
+                                              <small><span class="pull-right"><%= document.group.name %></span></small>
+                                            </div>
+
+                                          </div>
+                                        </h4>
+                                      </div>
+
+                                      <div id="collapse<%= counter %>" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                          Document Name : <%= link_to document.name, document_path(document) %> <br>
+                                          Project Name : <%= document.group.name %> <br>
+                                          Uploaded By : <%= document.user.email %> <br>
+                                          Upload time : <%= document.created_at.strftime("%d-%m-%Y | %H:%M") %> <br>
+                                          Approved At : <%= document.approved_at.strftime("%d-%m-%Y | %H:%M") if document.approved_at? %>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <% counter += 1 %>
+                                  <% end %>
+                                </div>
+
+                              </div>
+                            <% else %>
+                              <div class="jumbotron text-center">
+                                <h3 class="h2">NO documents !!</h3>
+                              </div>
+
+                            <% end %>
+                        </div>
+                    </div>
+
+
+
+                  </div>
+              </div>
+            </div>
+        </div>
+<!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+</div>
