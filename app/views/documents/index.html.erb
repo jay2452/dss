@@ -20,6 +20,10 @@
                       <span class="glyphicon glyphicon-cloud-upload"></span> &nbsp; Upload Document
                     </a>
                   </li>
+                  
+                  <li>
+                    <a href="#">Approved Documents</a>
+                  </li>
                 <% end %>
                 <!-- <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Documents</a></li> -->
                 <!-- <li><a data-toggle="tooltip" title="User Role : Upload User"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload User</a></li> -->
@@ -74,9 +78,8 @@
                                 </div>
                                 <div id="collapse<%= i %>" class="panel-collapse collapse">
                                   <div class="container-fluid">
-                                    uploaded by : <%= document.user.username %> <br>
-                                    <%= document.user.email %> <br>
-                                      <div class="pull-right">
+                                    <br>
+                                     <div class="pull-right">
                                         <%= link_to 'Show', document, class: "btn btn-info btn-sm text-uppercase", data: {disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Opening"} %> &nbsp;
 
                                         <% if (document.user == current_user) && (document.document_groups.empty?) %>
@@ -96,6 +99,10 @@
                                             <% end %>
                                         <% end %>
                                       </div>
+                                      
+                                    Uploaded by : <%= document.user.username %> <br>
+                                    <%= document.user.email %> <br>
+                                     
 
                                     <br> <br>
                                   </div>
