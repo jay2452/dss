@@ -40,7 +40,10 @@
                                 Document Name : <%= link_to document.name, document_path(document) %> <br>
                                 Project Name : <%= document.group.name %> <br>
                                 Uploaded By : <%= document.user.email %> <br>
-                                Upload time : <%= document.created_at.strftime("%d-%m-%Y | %H:%M") %>
+                                Upload time : <%= document.created_at.strftime("%d-%m-%Y | %H:%M") %> <br>
+                                <% if document.approved_at? %>
+                                  Approved At : <%= document.approved_at.strftime("%d-%m-%Y | %H:%M") %>
+                                <% end %>
                               </div>
                             </div>
                           </div>
