@@ -46,7 +46,7 @@ module Admin
           users.each do |approver|
             # => send sms to user mobile numbers
             if approver.mobile?
-              send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
+              send_sms(approver.mobile, "#{approver.roles.last.name}, New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
             end
 
             # DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver

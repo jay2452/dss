@@ -20,9 +20,11 @@
                       <span class="glyphicon glyphicon-cloud-upload"></span> &nbsp; Upload Document
                     </a>
                   </li>
-                  
+
                   <li>
-                    <a href="#">Approved Documents</a>
+                    <a href="<%= approved_documents_documents_path %>">
+                      <i class="fa fa-check" aria-hidden="true"></i> &nbsp; 
+                      Approved Documents</a>
                   </li>
                 <% end %>
                 <!-- <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Documents</a></li> -->
@@ -36,92 +38,92 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-lg-12">
 
-                      <div class="pull-right">
-                        <small><h4 class="h5">Note: after sending the document, it cannot be deleted .</h4></small>
-                      </div>
-                      <h3 class="h4" align='left'>Recent Uploaded Documents</h3>
-                      <div class="clearfix"></div>
-                      <div class="panel-group" id="accordion">
-                        <% i = 1 %>
-                        <% if @documents.all.count != 0  %>
-                          <% @documents.each do |document| %>
+                    <div class="pull-right">
+                      <small><h4 class="h5">Note: after sending the document, it cannot be deleted .</h4></small>
+                    </div>
+                    <h3 class="h4" align='left'>Recent Uploaded Documents</h3>
+                    <div class="clearfix"></div>
+                    <div class="panel-group" id="accordion">
+                      <% i = 1 %>
+                      <% if @documents.all.count != 0  %>
+                        <% @documents.each do |document| %>
 
-                            <% if document.group.disabled == false %>
-                              <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title h3">
-                                    <div class="row">
-                                      <div class="col-sm-4">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>"><%= document.name %></a>
-                                      </div>
-                                      <div class="col-sm-4 text-center">
-                                        <%= document.group.name if document.name %>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <div class="pull-right h6">
-                                          <% if (check_status?(document) == true) && (document.approved == true) %>
-                                            Sent
-                                          <% elsif (check_status?(document) == false) && (document.approved == true)  %>
-                                            Not Sent
-                                          <% elsif document.approved == false %>
-                                            Pending to be approved
-                                          <% end %>
-                                        </div>
-                                      </div>
-
+                          <% if document.group.disabled == false %>
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title h3">
+                                  <div class="row">
+                                    <div class="col-sm-4">
+                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>"><%= document.name %></a>
                                     </div>
-                                  </h4>
-                                </div>
-                                <div id="collapse<%= i %>" class="panel-collapse collapse">
-                                  <div class="container-fluid">
-                                    <br>
-                                     <div class="pull-right">
-                                        <%= link_to 'Show', document, class: "btn btn-info btn-sm text-uppercase", data: {disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Opening"} %> &nbsp;
-
-                                        <% if (document.user == current_user) && (document.document_groups.empty?) %>
-                                          <%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?', disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Deleting" }, class: "btn btn-danger btn-sm text-uppercase" %>
-                                            &nbsp;
-                                            <%# NOTE: #checkk if the document is already sent and it is approved %>
-                                            <% if check_status?(document) && (document.approved == true) %>
-                                                <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
-                                                <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
-                                                  <span class="glyphicon glyphicon-send"></span> Sent
-                                                </a>
-
-                                            <% elsif (check_status?(document) == false) && (document.approved == true) %>
-                                                <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-success btn-sm text-uppercase">
-                                                  <span class="glyphicon glyphicon-send"></span> Send
-                                                </a>
-                                            <% end %>
+                                    <div class="col-sm-4 text-center">
+                                      <%= document.group.name if document.name %>
+                                    </div>
+                                    <div class="col-sm-4">
+                                      <div class="pull-right h6">
+                                        <% if (check_status?(document) == true) && (document.approved == true) %>
+                                          Sent
+                                        <% elsif (check_status?(document) == false) && (document.approved == true)  %>
+                                          Not Sent
+                                        <% elsif document.approved == false %>
+                                          Pending to be approved
                                         <% end %>
                                       </div>
-                                      
-                                    Uploaded by : <%= document.user.username %> <br>
-                                    <%= document.user.email %> <br>
-                                     
+                                    </div>
 
-                                    <br> <br>
                                   </div>
+                                </h4>
+                              </div>
+                              <div id="collapse<%= i %>" class="panel-collapse collapse">
+                                <div class="container-fluid">
+                                  <br>
+                                   <div class="pull-right">
+                                      <%= link_to 'Show', document, class: "btn btn-info btn-sm text-uppercase", data: {disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Opening"} %> &nbsp;
+
+                                      <% if (document.user == current_user) && (document.document_groups.empty?) %>
+                                        <%= link_to 'Delete', document_path(document), method: :delete, data: { confirm: 'Are you sure?', disable_with: "<i class = 'fa fa-spinner fa-spin'></i> Deleting" }, class: "btn btn-danger btn-sm text-uppercase" %>
+                                          &nbsp;
+                                          <%# NOTE: #checkk if the document is already sent and it is approved %>
+                                          <% if check_status?(document) && (document.approved == true) %>
+                                              <%# link_to "Sent", send_doc_document_path(document), class: "btn btn-default btn-sm" %>
+                                              <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-default btn-sm text-uppercase">
+                                                <span class="glyphicon glyphicon-send"></span> Sent
+                                              </a>
+
+                                          <% elsif (check_status?(document) == false) && (document.approved == true) %>
+                                              <a href="<%= send_doc_document_path(document) %>" data-disable-with="<i class = 'fa fa-spinner fa-spin'></i> Sending" class="btn btn-success btn-sm text-uppercase">
+                                                <span class="glyphicon glyphicon-send"></span> Send
+                                              </a>
+                                          <% end %>
+                                      <% end %>
+                                    </div>
+
+                                  Uploaded by : <%= document.user.username %> <br>
+                                  <%= document.user.email %> <br>
+
+
+                                  <br> <br>
                                 </div>
                               </div>
-                              <% i+= 1 %>
-                            <% end %>
+                            </div>
+                            <% i+= 1 %>
                           <% end %>
-                        <% else %>
-                          <div class="jumbotron">
-                            <h3 align="center text-uppercase"><b>No Documents</b></h3>
-                          </div>
                         <% end %>
-
-                      </div>
+                      <% else %>
+                        <div class="jumbotron">
+                          <h3 align="center text-uppercase"><b>No Documents</b></h3>
+                        </div>
+                      <% end %>
 
                     </div>
-                </div>
-            </div>
+
+                  </div>
+              </div>
+          </div>
         </div>
         <!-- /#page-content-wrapper -->
 

@@ -21,15 +21,16 @@ class DocumentsController < ApplicationController
 
       Group.find(@document.group_id).users.pluck(:email).each do |user|
         # => check if the user is disabled or not
-        if User.find_by_email(user).deleted_at?
+        user_obj = User.find_by_email(user)
+        if user_obj.deleted_at?
           # => donot send email
           puts "User is disabled"
         else
           DocumentsNotifierMailer.delay(queue: "send document").new_doc_notification(@document, user)
           # DocumentsNotifierMailer.new_doc_notification(@document, user).deliver
-          if User.find_by_email(user).mobile
+          if user_obj.mobile
             # => send sms to user mobile numbers
-            send_sms(User.find_by_email(user).mobile, "New Document - #{@document.name} -received in project folder - #{@document.group.name}")
+            send_sms(user_obj.mobile, "#{user_obj.roles.last.name}, New Document - #{@document.name} -received in project folder - #{@document.group.name}")
           end
         end
       end
@@ -111,7 +112,7 @@ class DocumentsController < ApplicationController
         users.each do |approver|
           # => send sms to user mobile numbers
           if approver.mobile?
-            send_sms(approver.mobile, "New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
+            send_sms(approver.mobile, "#{approver.roles.last.name}, New Document - #{@document.name} -uploaded in project folder - #{@document.group.name}, please see the document !!")
           end
 
           # DocumentsNotifierMailer.notify_approver(@document, approver.email).deliver
@@ -158,6 +159,16 @@ class DocumentsController < ApplicationController
       end
     end
   end
+
+  # => approved documents list for tha upload user only
+  def approved_documents
+    if current_user.has_role? :uploadUser
+      @documents = Document.where("approved = ? and deleted = ?", true, false).order(approved_at: :desc)
+    else
+      redirect_to root_path
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

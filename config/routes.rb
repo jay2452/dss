@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     collection do
       match 'search' => 'welcome#search', via: [:get, :post], as: :search
       get 'add_doc_to_group'
+      get 'approved_documents'
     end
     member do
       get 'send_doc'
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
     authenticated :user, lambda {|u| u.has_role? :uploadUser} do
       root 'welcome#index', as: :authenticated_uploadUser
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_uploaduser'
+
     end
 
     authenticated :user, lambda {|u| u.has_role? :approveUser} do

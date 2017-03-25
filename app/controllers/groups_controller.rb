@@ -19,21 +19,22 @@ class GroupsController < ApplicationController
 
       g_id = Group.find_by_name(params["group"]).id
       u_id = params["user"].to_i
+      user = User.find(u_id)
 
       @ug = UserGroup.create! user_id: u_id, group_id: g_id
-      if User.find(u_id).has_role? :approveUser
+      if user.has_role? :approveUser
         @ug.is_approver = true
         @ug.save
       end
-      Log.create! description: "<b>#{current_user.email} </b> added user <b>#{User.find(u_id).email} </b> to
+      Log.create! description: "<b>#{current_user.email} </b> added user <b>#{user.email} </b> to
                         group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-      # UserNotifierMailer.added_to_project(User.find(u_id), Group.find(g_id)).deliver
+      # UserNotifierMailer.added_to_project(user, Group.find(g_id)).deliver
 
-      UserNotifierMailer.delay(queue: "user added to project").added_to_project(User.find(u_id), Group.find(g_id))
+      UserNotifierMailer.delay(queue: "user added to project").added_to_project(user, Group.find(g_id))
       # => send sms after adding user to the project
-      if User.find(u_id).mobile
-        send_sms(User.find(u_id).mobile, "You have been added to project - #{Group.find(g_id).name}")
+      if user.mobile
+        send_sms(user.mobile, "#{user.roles.last.name}, You have been added to project - #{Group.find(g_id).name}")
       end
 
 

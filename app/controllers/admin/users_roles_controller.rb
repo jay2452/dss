@@ -26,7 +26,7 @@ module Admin
 
           UserNotifierMailer.delay(queue: "removed from role").removed_from_role(user, role.name)
         if user.mobile
-          send_sms(user.mobile, "You have been removed from role #{role.name}")
+          send_sms(user.mobile, "#{user.roles.last.name}, You have been removed from role #{role.name}")
         end
       end
 
@@ -49,7 +49,7 @@ module Admin
 
         UserNotifierMailer.delay(queue: "added to role").added_to_role(user, Role.find(@users_role.role_id).name)
         if user.mobile
-          send_sms(user.mobile, "You have been added to role #{Role.find(@users_role.role_id).name}")
+          send_sms(user.mobile, "#{user.roles.last.name}, You have been added to role #{Role.find(@users_role.role_id).name}")
         end
         redirect_to admin_users_path, notice: "Role changed !!"
       else

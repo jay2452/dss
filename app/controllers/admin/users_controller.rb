@@ -47,7 +47,7 @@ module Admin
 
         # => code to send sms to the created user
         if @user.mobile
-          send_sms(@user.mobile, "User account created on GPIL e-portal, please check your email for further info.")
+          send_sms(@user.mobile, "#{@user.roles.last.name}, User account created on GPIL e-portal, please check your email for further info.")
         end
 
         # if @user.has_role? :approveUser
@@ -90,7 +90,7 @@ module Admin
         # => use delayed job to send mail
         UserNotifierMailer.delay(queue: "Reset Password Mail").account_update_notification(@user, pass) # => send updated mail for account updation
         if @user.mobile
-          send_sms(@user.mobile, "User account is updated on GPIL e-portal, please check your email for further info.")
+          send_sms(@user.mobile, "#{@user.roles.last.name}, User account is updated on GPIL e-portal, please check your email for further info.")
         end
         redirect_to admin_users_path, notice: "Password reset successfully"
       else
