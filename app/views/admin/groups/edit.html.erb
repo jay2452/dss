@@ -11,7 +11,7 @@
                     Home
                 </a>
               </li>
-              <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> &nbsp; <%= @group.name %></a></li>
+              <li><a href="<%= admin_group_path(@group) %>"><i class="fa fa-folder" aria-hidden="true"></i> &nbsp; <%= @group.name %></a></li>
               <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i> &nbsp; Associated Users (<%= @group.users.count %>)</a></li>
               <li><a href="#"><span class="fa fa-files-o" aria-hidden="true"></span> &nbsp; Documents (<%= @group.documents.where("deleted = ?", false).count %>)</a></li>
               <li><a href="<%= new_admin_group_path %>"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp; Add Project</a></li>

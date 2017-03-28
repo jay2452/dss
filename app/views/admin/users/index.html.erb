@@ -60,6 +60,27 @@
                                 <div class="panel-collapse collapse" id="collapse<%= i %>">
                                   <div class="panel-body">
                                     <div class="container-fluid">
+
+                                      <div class="pull-right">
+                                        <% if user.deleted_at %>
+                                          <%= link_to "Change role", '#', class: "btn btn-primary btn-sm text-uppercase disabled" %>
+                                          <%= link_to "reset password", '#', method: :post, class: "btn btn-warning btn-sm text-uppercase disabled" %>
+                                        <% else %>
+                                          <%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase" %>
+                                          <%= link_to "reset password", reset_password_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm text-uppercase" %>
+                                        <% end %>
+
+                                        <% if current_user.has_role? :superAdmin %>
+                                            <%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %>
+                                        <% end %>
+                                        <%# if the user is disabled , change password and change role should also be disabled %>
+                                        <% if !user.deleted_at %>
+                                          <%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %>
+                                        <% else %>
+                                          <%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %>
+                                        <% end %>
+                                      </div>
+
                                       Name : <%= user.username %> <br>
                                       Role : <%= user.roles.last.name %> <br>
                                       Projects :
@@ -68,25 +89,7 @@
                                         <% end %>
                                         <br>
                                         <%= link_to "Show Full Profile", admin_user_path(user) %>
-                                        <div class="pull-right">
-                                          <% if user.deleted_at %>
-                                            <%= link_to "Change role", '#', class: "btn btn-primary btn-sm text-uppercase disabled" %>
-                                            <%= link_to "reset password", '#', method: :post, class: "btn btn-warning btn-sm text-uppercase disabled" %>
-                                          <% else %>
-                                            <%= link_to "Change role", new_admin_users_role_path(user_id: user.slug), class: "btn btn-primary btn-sm text-uppercase" %>
-                                            <%= link_to "reset password", reset_password_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm text-uppercase" %>
-                                          <% end %>
 
-                                          <% if current_user.has_role? :superAdmin %>
-                                              <%= link_to "Add role", new_admin_users_role_path(user_id: user.id), class: "btn btn-primary btn-sm text-uppercase" %>
-                                          <% end %>
-                                          <%# if the user is disabled , change password and change role should also be disabled %>
-                                          <% if !user.deleted_at %>
-                                            <%= link_to "Disable", disable_user_admin_user_path(user), data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm text-uppercase" %>
-                                          <% else %>
-                                            <%= link_to "Enable", enable_user_admin_user_path(user), class: "btn btn-info btn-sm text-uppercase" %>
-                                          <% end %>
-                                        </div>
                                     </div>
                                   </div>
                                 </div>
