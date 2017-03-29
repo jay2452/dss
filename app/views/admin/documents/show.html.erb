@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a data-toggle="popover" title="Document Name : <%= @document.name %>">
                       <% if @document.file_content_type == 'application/pdf' %>
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                       <% else %>
@@ -24,17 +24,33 @@
                      </a>
                 </li>
                 <li>
-                  <a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; <%= sprintf( "%0.02f", @document.file.size.to_f / 1.megabyte) %> MB</a>
+                  <a href="#" data-toggle="popover" title="Document Size : <%= sprintf( "%0.02f", @document.file.size.to_f / 1.megabyte) %> MB">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; <%= sprintf( "%0.02f", @document.file.size.to_f / 1.megabyte) %> MB
+                  </a>
                 </li>
                 <li>
-                    <a href="#"> <span class="fa fa-folder-open-o"></span> &nbsp;<%= @document.group.name %></a>
+                    <a href="<%= admin_group_path(@document.group) %>" data-toggle="popover" title="Project Name : <%= @document.group.name %>">
+                      <span class="fa fa-folder-open-o"></span> &nbsp;<%= @document.group.name %>
+                    </a>
                 </li>
                 <li>
-                    <a href="<%= admin_user_path(@document.user) %>"><span class="fa fa-user"></span>&nbsp; <%= @document.user.email %></a>
+                    <a href="<%= admin_user_path(@document.user) %>" data-toggle="popover" title="Document handled by : <%= @document.user.email %>">
+                      <span class="fa fa-user"></span>&nbsp; <%= @document.user.email %>
+                    </a>
                 </li>
+
                 <li>
-                    <a> <span class="glyphicon glyphicon-time"></span> &nbsp; <%=  @document.created_at.strftime("%d-%m-%Y | %H:%M") %> </a>
+                  <a href="#" data-toggle="modal" data-target="#owner-change">
+                      <i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp; Change OwnerShip
+                  </a>
                 </li>
+
+                <li>
+                    <a data-toggle="popover" title="Upload time : <%= @document.created_at.strftime("%d-%m-%Y | %H:%M") %>">
+                       <span class="glyphicon glyphicon-time"></span> &nbsp; <%=  @document.created_at.strftime("%d-%m-%Y | %H:%M") %>
+                    </a>
+                </li>
+
                 <li>
                     <a href="<%= edit_admin_document_path(@document) %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;Edit</a>
                 </li>
@@ -82,3 +98,50 @@
     <!-- /#wrapper -->
 
 </div>
+
+
+
+<!-- model for change document onership -->
+<div id="owner-change" class="modal draggable fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Change Owner of Document</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <%= form_tag(change_ownership_admin_document_path) do %>
+
+            <div class="form-group text-center">
+              Document Name : <%= @document.name %>
+            </div>
+
+            <div class="form-group text-center">
+              Select User :
+              <%= select_tag "user", options_from_collection_for_select(@uploadUsers, "id", "email"), class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= submit_tag :Change, class: "btn btn-success btn-sm" %>
+              <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal">Close</button>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $('.modal.draggable>.modal-dialog').draggable({
+    cursor: 'move',
+    handle: '.modal-header'
+  });
+  $('.modal.draggable>.modal-dialog>.modal-content>.modal-header').css('cursor', 'move');
+</script>

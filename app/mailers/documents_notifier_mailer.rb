@@ -19,4 +19,16 @@ class DocumentsNotifierMailer < ApplicationMailer
     @document = doc
     mail to: user, subject: "Document approved !"
   end
+
+
+  def notify_new_owner doc, user
+    @document = doc
+    mail to: user, subject: "Document Assigned!"
+  end
+
+  def notify_previous_owner doc, user
+    @document = doc
+    mail to: user, subject: "Ownership to document changed"
+  end
+
 end

@@ -1,6 +1,6 @@
 module Admin
   class DocumentsController < ApplicationController
-    before_action :set_document, only: [:show, :edit, :update, :destroy, :remove_document, :restore_document]
+    before_action :set_document, only: [:show, :edit, :update, :destroy, :remove_document, :restore_document, :change_ownership]
     before_action :authenticate_user!
     # before_action :check_role?
     load_and_authorize_resource
@@ -8,11 +8,13 @@ module Admin
     # GET /documents.json
     def index
       @documents = Document.where("deleted = ?", false).paginate(:page => params[:page], :per_page => 10).order(created_at: :desc)
+
     end
 
     # GET /documents/1
     # GET /documents/1.json
     def show
+      @uploadUsers = User.with_role(:uploadUser).where("users.is_active = ?", true)
     end
 
     # GET /documents/new
@@ -77,10 +79,37 @@ module Admin
       end
     end
 
+    def change_ownership
+      previous_user = @document.user
+
+      u_id = params[:user].to_i
+      @document.user_id = u_id
+      if @document.save
+        Log.create! description: "<b>#{current_user.email}</b> transfered the ownership of document : <b>#{@document.name}</b> from #{previous_user.email} to <b>#{@document.user.email}</b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
+
+        # => notify the users
+        if previous_user.mobile? && previous_user.is_active?
+          send_sms(previous_user.mobile, "#{previous_user.roles.last.name}, Your Document - #{@document.name} -has been assigned to a new user. You are now not asigned with that document")
+        end
+        if previous_user.is_active?
+          DocumentsNotifierMailer.delay(queue: "notify change ownerships").notify_previous_owner(@document, previous_user.email)
+        end
+
+        if @document.user.mobile?
+          send_sms(@document.user.mobile, "#{@document.user.roles.last.name}, You have been asigned to a new Document - #{@document.name} - please check the document .")
+        end
+        DocumentsNotifierMailer.delay(queue: "notify change ownerships").notify_new_owner(@document, @document.user.email)
+
+        redirect_to :back, notice: "Ownership of document changed !!"
+      else
+        redirect_to :back, alert: "Can't be changed"
+      end
+    end
+
     # DELETE /documents/1
     # DELETE /documents/1.json
     def destroy
-      Log.create! description: "#{current_user.email} deleted : #{@document.name} at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
+      Log.create! description: "<b>#{current_user.email}</b> deleted : <b>#{@document.name}</b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }

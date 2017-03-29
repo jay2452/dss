@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       member do
         get 'remove_document'
         get 'restore_document'
+        post 'change_ownership'
       end
       collection do
         get :recycle_bin
