@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   before_filter :set_cache_buster
   require 'rest-client'
   require "mosto.rb"
-  impressionist # => :unique => [:impressionable_type, :impressionable_id, :session_hash]
-  
+  impressionist :unique => [:impressionable_type, :impressionable_id, :session_hash]
+
+
 
   private
 

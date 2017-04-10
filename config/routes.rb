@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'welcome/search'
   get 'welcome/upgrade'
-  resources :groups
+  post 'welcome/show_role'
+  resources :groups, except: [:index]
 
   post 'groups/add_user_to_group'
 
@@ -47,7 +48,7 @@ Rails.application.routes.draw do
     end
 
     authenticated :user, lambda {|u| u.has_role? :uploadUser} do
-      root 'welcome#index', as: :authenticated_uploadUser
+      root 'documents#index', as: :authenticated_uploadUser
       mount PdfjsViewer::Rails::Engine => "/pdf_documents", as: 'pdfjs_uploaduser'
 
     end
@@ -109,6 +110,7 @@ Rails.application.routes.draw do
     # get 'users/remove_user_role' => 'users#remove_user_role', as: :delete_user_role
     resources :users_roles, only: [:index, :create, :destroy, :new] do
       # post :change_role
+
     end
 
     resources :document_categories, only: [:index, :create, :destroy]

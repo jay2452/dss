@@ -6,6 +6,7 @@
 
 <% elsif current_user.has_role? :uploadUser %>
   <%= render template: "documents/index" %>
+
 <%# elsif current_user.has_role? :approveUser   %>
 
   <%# render :partial => "approve_user_page" %>

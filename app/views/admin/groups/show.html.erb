@@ -13,8 +13,17 @@
                  </a>
                </li>
                  <li>
-                     <a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp; <%= @group.name %></a>
+                     <a data-toggle="tooltip" title="Project Name : <%= @group.name %>">
+                       <span class="glyphicon glyphicon-folder-open"></span>&nbsp; <%= @group.name %>
+                     </a>
                  </li>
+
+                 <li>
+                     <a data-toggle="tooltip" title="Upload User : <%= @group.upload_user.username if @group.upload_user %>">
+                       <span class="glyphicon glyphicon-user"></span>&nbsp; <%= @group.upload_user.username if @group.upload_user %>
+                     </a>
+                 </li>
+
                  <li>
                      <a onclick="show_uploaded_docs()"> <i class="fa fa-files-o" aria-hidden="true"></i> &nbsp; Uploaded Docs</a>
                  </li>

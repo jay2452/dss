@@ -41,7 +41,7 @@ gem 'bootstrap-sass'
 gem 'paperclip'
 gem 'will_paginate'
 gem "font-awesome-rails"
-gem 'chosen-rails'
+# gem 'chosen-rails'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 # gem 'google-webfonts-rails'
 gem 'friendly_id'
@@ -54,3 +54,4 @@ gem 'rest-client'
 gem 'browser'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem "selectize-rails"

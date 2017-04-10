@@ -15,10 +15,17 @@
     <%= f.label :name %><br>
     <%= f.text_field :name, placeholder: "Project Name", class: "form-control", autofocus: true %>
   </div>
+  
   <div class="form-group">
     <%= f.label :purpose %><br>
     <%= f.text_area :purpose, placeholder: "Enter Project Description", class: "form-control input-lg"  %>
   </div>
+
+  <div class="form-group">
+    <%= f.label :upload_user_id %><br>
+    <%= f.select :upload_user_id, @uploadUsers.collect { |p| [ p.email, p.id ] }, {include_blank: false}, {id: "upload_user_selectize"} %>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Save Project" , class: "btn btn-success btn-sm text-uppercase" %>
   </div>
@@ -27,4 +34,5 @@
 
 <script type="text/javascript">
   validateProject('create_project')
+  $('#upload_user_selectize').selectize();
 </script>

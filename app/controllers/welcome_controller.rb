@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!, except: :upgrade
+  before_action :authenticate_user!, except: [:upgrade, :show_role]
 
   def index
     @users = User.all.order(created_at: :desc)  - User.with_role(:admin) - User.with_role(:superAdmin)
@@ -30,6 +30,13 @@ class WelcomeController < ApplicationController
     @group = Group.friendly.find(params[:id])
     # @approved_documents = @group.documents.where("approved = ? and deleted = ?", true, false)
     # @unapproved_documents = @group.documents.where("approved = ? and deleted = ?", false, false)
+  end
+
+  def show_role
+    u_id = params[:user_id]
+    x = User.find_by_email(u_id).roles.last
+    # return x.to_json
+    render json: x.to_json
   end
 
   def approved_documents

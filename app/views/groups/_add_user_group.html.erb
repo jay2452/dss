@@ -13,12 +13,14 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <div id="add_user_group">
-                <%= form_tag groups_add_user_to_group_path do %>
+                <%= form_tag groups_add_user_to_group_path, id: "group-user-form" do %>
                   <div class="form-group">
                     Project : <%= text_field_tag "group", @group.name, readonly: true, class: "form-control" %>
                   </div>
                   <div class="form-group">
-                      <!-- User : <%= select_tag "user", options_from_collection_for_select(@users, "id", "email"), {id: "custom-select", class: "form-control selectpicker"} %> -->
+                      <!-- User : <%# select_tag "user", options_from_collection_for_select(@users, "id", "email"), {id: "custom-select", multiple: true, class: "chosen-select"} %> -->
+
+                      <!-- User : <%# select_tag "user", options_for_select(@users.map{ |user| [user.email, user.id] }), {id: 'custom-select', multiple: true} %> -->
 
                       <div class="btn-group ">
                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Select Users <span class="caret"></span></button>
@@ -57,5 +59,59 @@
 
 
 <script type="text/javascript">
-  $('#custom-select').selectpicker();
+  // $('#custom-select').selectpicker();
+  var role = null;
+
+
+
+  //
+  //
+  //
+  // $('#custom-select').selectize({
+  //   persist: false,
+  //   valueField: 'id',
+  //   labelField: 'email',
+  //   searchField: 'email',
+  //   create: false,
+  //   options: [],
+  //   render: {
+  //     option: function (item, escape) {
+  //
+  //       function getRoleName(email) {
+  //
+  //         $.ajax({
+  //           type: "POST",
+  //             cache: false,
+  //             url: "/welcome/show_role",
+  //             data: {
+  //               user_id: email
+  //             },    // multiple data sent using ajax
+  //             success: function (html) {
+  //                 console.log(html);
+  //                 role = html.name;
+  //                 console.log(role);
+  //                 return role;
+  //             }
+  //         });
+  //       }
+  //
+  //       var user_role = getRoleName(item.email);
+  //
+  //       console.log(user_role);
+  //
+  //       return '<div>' +
+  //                 '<span class="title">' +
+  //                   '<span class="email">' + item.email + '</span>' +
+  //                   '<br/><span class="role">' + escape(item.user_role) + '</span>' +
+  //                 '</span>' +
+  //               '</div>'
+  //     }
+  //   }
+  // });
+  //
+
+  //
+  // var abc = getRoleName("jay2452@live.com");
+  // console.log(abc);
+
 </script>

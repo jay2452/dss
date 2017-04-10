@@ -12,30 +12,35 @@ class GroupsController < ApplicationController
     # GET /groups/1.json
     def show
       @users = User.all
-      @documents = @group.documents.order(created_at: :desc)
+      @documents = @group.documents.where("documents.user_id = ?", current_user.id).order(created_at: :desc)
     end
 
     def add_user_to_group
 
       g_id = Group.find_by_name(params["group"]).id
-      u_id = params["user"].to_i
-      user = User.find(u_id)
+      u_ids = params["user"]
+      users = User.where("id IN (?)", u_ids)
 
-      @ug = UserGroup.create! user_id: u_id, group_id: g_id
-      if user.has_role? :approveUser
-        @ug.is_approver = true
-        @ug.save
+      users.each do |user|
+        @ug = UserGroup.create! user_id: user.id, group_id: g_id
+        if user.has_role? :approveUser
+          @ug.is_approver = true
+          @ug.save
+        end
+        Log.create! description: "<b>#{current_user.email} </b> added user <b>#{user.email} </b> to group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
+
+        # UserNotifierMailer.added_to_project(user, Group.find(g_id)).deliver
+
+        UserNotifierMailer.delay(queue: "user added to project").added_to_project(user, Group.find(g_id))
+        # => send sms after adding user to the project
+        if user.mobile
+          send_sms(user.mobile, "#{user.roles.last.name}, You have been added to project - #{Group.find(g_id).name}")
+        end
+
       end
-      Log.create! description: "<b>#{current_user.email} </b> added user <b>#{user.email} </b> to
-                        group <b>#{Group.find(g_id).name} </b> at #{@ug.created_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
-
-      # UserNotifierMailer.added_to_project(user, Group.find(g_id)).deliver
-
-      UserNotifierMailer.delay(queue: "user added to project").added_to_project(user, Group.find(g_id))
-      # => send sms after adding user to the project
-      if user.mobile
-        send_sms(user.mobile, "#{user.roles.last.name}, You have been added to project - #{Group.find(g_id).name}")
-      end
+      #
+      # puts "+++++++++++++++++++"
+      # p params
 
 
       redirect_to :back, notice: "User Added to project"

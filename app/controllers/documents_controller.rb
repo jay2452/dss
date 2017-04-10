@@ -7,8 +7,13 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all.order(group_id: :desc)     # where("approved = ?", true)
+    # @documents = Document.all.order(group_id: :desc)     # where("approved = ?", true)
     @doc_groups = DocumentGroup.all.order(created_at: :desc)
+    @user_groups = current_user.groups.where("disabled = ?", false)
+
+    # => show all the documents uploaded by current user
+
+    @documents = current_user.documents.where("deleted = ?", false)
   end
 
   def send_doc
@@ -74,7 +79,8 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   def new
     @document = Document.new
-    @groups = Group.all.where("disabled = ?", false)
+    # @groups = Group.all.where("disabled = ? and upload_user_id = ?", false, current_user.id)
+    @groups = current_user.groups.where("disabled = ?", false)
   end
 
   # GET /documents/1/edit

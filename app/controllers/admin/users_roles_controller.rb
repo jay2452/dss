@@ -13,6 +13,9 @@ module Admin
       @roles = Role.where.not("name = ? OR name = ?", "admin", "superAdmin")
     end
 
+
+      
+
     def create
        u_id = params[:users_role][:user_id]
 

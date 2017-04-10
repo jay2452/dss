@@ -12,8 +12,9 @@ class Group < ActiveRecord::Base
 
   belongs_to :user
 
+  belongs_to :upload_user, :foreign_key => "upload_user_id", :class_name => "User"
 
   validates :name, presence: true, uniqueness: true
   validates :user_id, presence: true
-
+  
 end

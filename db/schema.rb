@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329085642) do
+ActiveRecord::Schema.define(version: 20170405174948) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -79,12 +79,14 @@ ActiveRecord::Schema.define(version: 20170329085642) do
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.text     "purpose"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
     t.string   "slug"
-    t.boolean  "disabled",   default: false
+    t.boolean  "disabled",       default: false
+    t.integer  "upload_user_id", default: -1
     t.index ["slug"], name: "index_groups_on_slug", unique: true
+    t.index ["upload_user_id"], name: "index_groups_on_upload_user_id"
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 

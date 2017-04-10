@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require selectize
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
@@ -33,6 +34,14 @@ $(document).ready(function() {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
   });
+
+
+    // $('.chosen-select').chosen({
+    //   allow_single_deselect: true,
+    //   no_results_text: 'No results matched',
+    //   width: '100%;'
+    // });
+
 
 });
 

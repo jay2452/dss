@@ -42,8 +42,9 @@
                             <span class="glyphicon glyphicon-earphone"></span>&nbsp;<b> Mobile  </b>  <span class="pull-right"><%= @user.mobile %></span>
                         </div>
 
-                        <%# upload user can no be associated with any project %>
-                        <% if !@user.has_role? :uploadUser %>
+                        <%# upload user can not be associated with any project %>
+                        <%# a upload user is also now associated to a project %>
+                        <% if true %>
                           <div class="well">
                             <h4 class="h3"> <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Projects Associated  <!-- (<%# link_to "Add", new_admin_user_group_path %>) --></h4> <hr>
                               <% @user.groups.each do |group| %>
