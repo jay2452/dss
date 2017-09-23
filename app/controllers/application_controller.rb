@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :doc_search
-  before_filter :set_cache_buster
+  before_action :set_cache_buster
   require 'rest-client'
   require "mosto.rb"
   impressionist :unique => [:impressionable_type, :impressionable_id, :session_hash]
