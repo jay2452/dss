@@ -14,7 +14,7 @@ module Admin
       if @document_category.save
         Log.create! description: "<b>#{current_user.email} </b> created document category <b>#{@document_category.name} </b>
                                                             at #{@document_category.created_at}"
-        redirect_to :back, notice: "category was successfully created"
+        redirect_back fallback_location: root_path, notice: "category was successfully created"
       end
     end
 
@@ -24,7 +24,7 @@ module Admin
                                                           at #{@document_category.created_at}"
       @document_category.destroy
 
-      redirect_to :back, notice: "category was successfully destroyed"
+      redirect_back fallback_location: root_path, notice: "category was successfully destroyed"
     end
 
 

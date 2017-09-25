@@ -100,9 +100,9 @@ module Admin
         end
         DocumentsNotifierMailer.delay(queue: "notify change ownerships").notify_new_owner(@document, @document.user.email)
 
-        redirect_to :back, notice: "Ownership of document changed !!"
+        redirect_back fallback_location: root_path, notice: "Ownership of document changed !!"
       else
-        redirect_to :back, alert: "Can't be changed"
+        redirect_back fallback_location: root_path, alert: "Can't be changed"
       end
     end
 
@@ -112,7 +112,7 @@ module Admin
       Log.create! description: "<b>#{current_user.email}</b> deleted : <b>#{@document.name}</b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|
-        format.html { redirect_to :back, notice: 'Document was successfully destroyed.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Document was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
@@ -124,7 +124,7 @@ module Admin
 
       Log.create! description: "<b>#{current_user.email} </b> removed document <b> #{@document.name} </b> at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-      redirect_to :back, notice: "Document moved to recycle bin successfully !!"
+      redirect_back fallback_location: root_path, notice: "Document moved to recycle bin successfully !!"
     end
 
     def recycle_bin
@@ -137,7 +137,7 @@ module Admin
       @document.save!
       Log.create! description: "<b>#{current_user.email} </b> restored document <b> #{@document.name} </b> at #{@document.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
 
-      redirect_to :back, notice: "Document restored from recycle bin successfully !!"
+      redirect_back fallback_location: root_path, notice: "Document restored from recycle bin successfully !!"
 
     end
 

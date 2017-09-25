@@ -39,9 +39,9 @@ class DocumentsController < ApplicationController
           end
         end
       end
-      redirect_to :back, notice: "Successfully sent"
+      redirect_back fallback_location: root_path, notice: "Successfully sent"
     else
-      redirect_to :back, alert: "Not Sent"
+      redirect_back fallback_location: root_path, alert: "Not Sent"
     end
   end
 
@@ -160,7 +160,7 @@ class DocumentsController < ApplicationController
                                 role_id: current_user.roles.ids.first
       @document.destroy
       respond_to do |format|
-        format.html { redirect_to :back, notice: 'Document successfully destroyed.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Document successfully destroyed.' }
         format.json { head :no_content }
       end
     end

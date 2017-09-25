@@ -55,7 +55,7 @@ module Admin
         # else
         #   redirect_to :back, notice: 'User successfully added'
         # end
-        redirect_to :back, notice: 'User successfully added'
+        redirect_back fallback_location: root_path, notice: 'User successfully added'
       end
     end
 
@@ -103,7 +103,7 @@ module Admin
       @user = User.friendly.find(params[:id])
       @user.soft_delete
       Log.create! description: "<b>#{current_user.email} </b> disabled user <b>#{@user.email}</b> at#{@user.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
-      redirect_to :back, notice: "User removed from the system"
+      redirect_back fallback_location: root_path, notice: "User removed from the system"
     end
 
     def enable_user
@@ -111,9 +111,9 @@ module Admin
       @user.deleted_at = nil
       if @user.save
         Log.create! description: "<b>#{current_user.email} </b> enabled user <b>#{@user.email}</b> at#{@user.updated_at.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
-        redirect_to :back, notice: "User account enabled !"
+        redirect_back fallback_location: root_path, notice: "User account enabled !"
       else
-        redirect_to :back, alert: "Error, please try agian"
+        rredirect_back fallback_location: root_path, alert: "Error, please try agian"
       end
     end
 
@@ -121,7 +121,7 @@ module Admin
       @user = User.friendly.find(params[:id])
       Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{@user.email} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}", role_id: current_user.roles.ids.first
       @user.destroy
-      redirect_to :back, notice: 'user was successfully removed'
+      redirect_back fallback_location: root_path, notice: 'user was successfully removed'
     end
 
 
@@ -129,7 +129,7 @@ module Admin
       @user = User.find(params[:user_id])
       @user.add_role "#{Role.find(params[:role_id]).name}"
       Log.create!(description: "<b>#{current_user.email}</b> assigned role <b>#{Role.find(params[:role_id]).name} </b> to <b>#{@user.email} </b at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}>", role_id: current_user.roles.ids.first)
-      redirect_to :back
+      redirect_back fallback_location: root_path
     end
 
     private

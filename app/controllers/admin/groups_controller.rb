@@ -39,7 +39,7 @@ module Admin
       ug.destroy
       Log.create! description: "<b>#{current_user.email} </b> removed user <b>#{user.email} </b> from project <b>#{group.name} </b> at #{Time.zone.now.strftime '%d-%m-%Y %H:%M:%S'}",
                                   role_id: current_user.roles.ids.first
-      redirect_to :back, notice: 'User successfully removed from project'
+      redirect_back fallback_location: root_path, notice: 'User successfully removed from project'
     end
 
     def disable_group
@@ -48,9 +48,9 @@ module Admin
       if @group.save
         Log.create! description: "<b>#{current_user.email} </b> disabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                             role_id: current_user.roles.ids.first
-        redirect_to :back, notice: "Project successfully disabled"
+        redirect_back fallback_location: root_path, notice: "Project successfully disabled"
       else
-        redirect_to :back, alert: "Error !!, project disable failed"
+        redirect_back fallback_location: root_path, alert: "Error !!, project disable failed"
       end
 
 
@@ -61,9 +61,9 @@ module Admin
       if @group.save
         Log.create! description: "<b>#{current_user.email} </b> enabled project <b>#{@group.name} </b> at #{@group.updated_at.strftime '%d-%m-%Y %H:%M:%S'}",
                                             role_id: current_user.roles.ids.first
-        redirect_to :back, notice: "Project successfully enabled !"
+        redirect_back fallback_location: root_path, notice: "Project successfully enabled !"
       else
-        redirect_to :back, alert: "Error, could not be enabled !"
+        redirect_back fallback_location: root_path, alert: "Error, could not be enabled !"
       end
     end
 

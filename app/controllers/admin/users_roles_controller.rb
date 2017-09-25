@@ -14,7 +14,7 @@ module Admin
     end
 
 
-      
+
 
     def create
        u_id = params[:users_role][:user_id]
@@ -56,7 +56,7 @@ module Admin
         end
         redirect_to admin_users_path, notice: "Role changed !!"
       else
-        redirect_to :back, notice: "Role cannot be added"
+        redirect_back fallback_location: root_path, notice: "Role cannot be added"
       end
 
     end
@@ -66,7 +66,7 @@ module Admin
 
       @user.delete_role "#{params[:role_name]}"
 
-      redirect_to :back, notice: "Role Removed"
+      redirect_back fallback_location: root_path, notice: "Role Removed"
     end
 
 

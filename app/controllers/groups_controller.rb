@@ -43,7 +43,7 @@ class GroupsController < ApplicationController
       # p params
 
 
-      redirect_to :back, notice: "User Added to project"
+      redirect_back fallback_location: root_path, notice: "User Added to project"
     end
 
     # GET /groups/new
