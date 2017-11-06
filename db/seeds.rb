@@ -12,7 +12,9 @@ Role.destroy_all
 Role.create! name: "admin"
 Role.create! name: "viewUser"
 Role.create! name: "uploadUser"
+Role.create! name: "approveUser"
 Role.create! name: "superAdmin"
+
 
 
 User.destroy_all
