@@ -19,6 +19,9 @@ production:
 test:
   adapter: mysql2
   pool: 5
-  database: <%= ENV['GPIL_MYSQL_TEST_DB'] %>
-  username: <%= ENV['GPIL_MYSQL_TEST_USER'] %>
-  password: <%= ENV['GPIL_MYSQL_TEST_PASS'] %>
+  database: gpil_test
+  username: root
+  password: root
+  # database: <%= ENV['GPIL_MYSQL_TEST_DB'] %>
+  # username: <%= ENV['GPIL_MYSQL_TEST_USER'] %>
+  # password: <%= ENV['GPIL_MYSQL_TEST_PASS'] %>
