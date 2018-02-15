@@ -7,8 +7,8 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-set :stage, :production
-server '139.59.14.91', user: 'kumar', roles: %w{web app db}
+# set :stage, :production
+server '159.89.170.226', user: 'gpil_prod', roles: %w{web app db}
 set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
 
 # role-based syntax
