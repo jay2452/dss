@@ -15,3 +15,11 @@ production:
   database: <%= ENV['GPIL_MYSQL_PRODUCTION_DB'] %>
   username: <%= ENV['GPIL_MYSQL_PRODUCTION_USER'] %>
   password: <%= ENV['GPIL_MYSQL_PRODUCTION_PASS'] %>
+
+
+test:
+  adapter: mysql2
+  pool: 5
+  database: <%= ENV['GPIL_MYSQL_TEST_DB'] %>
+  username: <%= ENV['GPIL_MYSQL_TEST_USER'] %>
+  password: <%= ENV['GPIL_MYSQL_TEST_PASS'] %>
