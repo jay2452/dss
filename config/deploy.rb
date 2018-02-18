@@ -47,9 +47,4 @@ namespace :deploy do
   end
 end
 
-after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
-  task :restart do
-    invoke 'delayed_job:restart'
-  end
-end
+# after 'deploy:publishing', 'delayed_job:start'

@@ -44,7 +44,8 @@ class ApplicationController < ActionController::Base
   end
 
   def send_sms(mob, message_to_send)
-    url = "http://sms.gpileportal.co.in/submitsms.jsp?user=#{ENV['DOVE_SMS_GPIL_USER']}&key=#{ENV['DOVE_SMS_GPIL_KEY']}&mobile=+91#{mob}&message=#{message_to_send}&senderid=EPGPIL&accusage=1"
+    # url = "http://sms.gpileportal.co.in/submitsms.jsp?user=#{ENV['DOVE_SMS_GPIL_USER']}&key=#{ENV['DOVE_SMS_GPIL_KEY']}&mobile=+91#{mob}&message=#{message_to_send}&senderid=EPGPIL&accusage=1"
+    url = "http://www.sikkimhealthrecruitment.org.sikkimhealthrecruitment.org/submitsms.jsp?user=#{ENV['DOVE_SMS_GPIL_USER']}&key=#{ENV['DOVE_SMS_GPIL_KEY']}&mobile=+91#{mob}&message=#{message_to_send}&senderid=EPGPIL&accusage=1"
     begin
       RestClient.delay(queue: "send text sms to : #{mob}").get(url)
     rescue Exception => e
