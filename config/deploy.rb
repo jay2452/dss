@@ -10,6 +10,9 @@ set :repo_url, "https://github.com/jay2452/dss.git"
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/gpil_prod/gpil_dss"
 
+set :delayed_job_server_role, :worker
+set :delayed_job_args, "-n 2"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -37,3 +40,16 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+namespace :deploy do
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+  end
+end
+
+after 'deploy:publishing', 'deploy:restart'
+namespace :deploy do
+  task :restart do
+    invoke 'delayed_job:restart'
+  end
+end
